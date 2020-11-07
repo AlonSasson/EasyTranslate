@@ -29,8 +29,8 @@ void printRectContours(Mat &img, std::vector<Rect> contours)
 
 int main()
 {
-    Mat font = imread("font3.png");
-    Mat temp = imread("font3.png");
+    Mat font = imread("font1.jpg");
+    Mat temp = imread("font1.jpg");
     std::vector<std::vector<cv::Point>> contours;
     std::vector<Vec4i> hierarchy;
 
@@ -50,6 +50,10 @@ int main()
 
     findContours(font, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
 
+    for (int i = 0; i < hierarchy.size(); i++)
+    {
+        std::cout << hierarchy[i] << std::endl;
+    }
 
 
 
@@ -59,9 +63,13 @@ int main()
     for (size_t i = 0; i < contours.size(); i++)  // check wiche countor we need
     { 
         rect = boundingRect(contours[i]);  // make shape to rect
-        if (hierarchy[i][3] == 0)  // check if it not a insaide rect
+        if (hierarchy[i][3] != -1)  // check if it not a insaide rect
         {
             rectsCharVecotr.push_back(rect);
+        }
+        else
+        {
+            rectangle(temp, Point(rect.x, rect.y), Point(rect.x + rect.width, rect.y + rect.height), Scalar(0, 0, 255));
         }
     }
 
@@ -97,12 +105,13 @@ int main()
 
 void mergeOverlappingRects(std::vector<Rect>& rects)
 {
-    unsigned int i = 0;
-    unsigned int j = 0;
-    unsigned int k = 0;
+    int i = 0;
+    int j = 0;
+    int k = 0;
     auto it = rects.begin();
+    
 
-    while (i < rects.size() - 1)
+    while (i < (rects.size() - 1) && rects.size())
     {
         j = i + 1;
         while (j < rects.size())
