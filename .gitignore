@@ -6,6 +6,9 @@
 # Prerequisites
 *.d
 
+#image
+*.png
+*.jpg
 # Object files
 *.o
 *.ko
