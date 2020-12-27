@@ -2,6 +2,7 @@ import cv2
 import numpy
 import imutils
 import functools
+import TextReplacement
 from datetime import datetime
 
 X = 0
@@ -94,16 +95,22 @@ def enlarge_small_locs(locations):
     for i in range(len(locations)):
         if loc_area(locations[i]) < AVG_LOC_SIZE / 2:  # if the location is smaller than average
             # make them a bit bigger
-            locations[i] = [locations[i][X] - int(AVG_LOC_WIDTH / 5), locations[i][Y] - int(AVG_LOC_HEIGHT / 5),
-                            locations[i][WIDTH] + int(AVG_LOC_WIDTH / 5) * 2,
-                            locations[i][HEIGHT] + int(AVG_LOC_HEIGHT / 5) * 2]
-            if locations[i][X] < 0:  # if we are out of the frame in the x axis
-                locations[i][X] = 0
-                locations[i][WIDTH] -= int(AVG_LOC_WIDTH / 5)
-            if locations[i][Y] < 0:  # if we are out of the frame in the y axis
-                locations[i][Y] = 0
-                locations[i][HEIGHT] -= int(AVG_LOC_WIDTH / 5)
+            locations[i] = enlarge_loc(locations[i], int(AVG_LOC_WIDTH / 5), int(AVG_LOC_HEIGHT / 5))
     return locations
+
+
+def enlarge_loc(loc, width, height):
+    loc = [loc[X] - width,
+           loc[Y] - height,
+           loc[WIDTH] + width * 2,
+           loc[HEIGHT] + height * 2]
+    if loc[X] < 0:  # if we are out of the frame in the x axis
+        loc[X] = 0
+        loc[WIDTH] -= width
+    if loc[Y] < 0:  # if we are out of the frame in the y axis
+        loc[Y] = 0
+        loc[HEIGHT] -= height
+    return loc
 
 
 def cmp_locs(loc1, loc2):
@@ -255,6 +262,8 @@ def get_text_locations(image):
     locations = merge_close_locs(locations, 5)
     locations = merge_small_locs(locations)
     locations = sorted(locations, key=functools.cmp_to_key(cmp_locs))  # sort again after merging
+    for i in range(len(locations)):
+        locations[i] = enlarge_loc(locations[i], 0, 0)
     return image, thresh, locations
 
 
@@ -286,12 +295,12 @@ def get_word_with_char_locations(word_img, char_locs, char_templates):
 def main():
     char_templates = get_character_dict()  # get a dictionary of all the character templates
     start = datetime.now()
-    image = cv2.imread(r'font2.jpg')  # Read the file
+    image = cv2.imread(r'test2.jpg')  # Read the file
     if image is None:
         return
     image, thresh, locations = get_text_locations(image)  # get the word locations in the image
+    text = ''
     for word_loc in locations:
-        word_output = ''
         (x, y, width, height) = word_loc
         word_img = image[y:y + height, x:x + width]  # get an image of just the word
         word_img, char_locs = get_image_contours(word_img)  # get the character locations from that image
@@ -301,7 +310,9 @@ def main():
                           (x + width, y + height), (0, 0, 255), 2)
             cv2.putText(image, word_output, (x, y + height + 10),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.65, (0, 0, 255), 2)
-            print(word_output)
+            text += word_output + ' '
+    image = TextReplacement.blur_locations(image, locations)
+    image = TextReplacement.place_text_in_locs(image, locations, text)
     end = datetime.now()
     print(end - start)
     cv2.imshow("Image", thresh)
