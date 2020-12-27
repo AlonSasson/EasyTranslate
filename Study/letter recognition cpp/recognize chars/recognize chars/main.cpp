@@ -46,10 +46,9 @@ int main()
         imshow(fontFiles[i], font); // show the regolar font
         moveWindow(fontFiles[i], 0, 0);
 
-		
+		// found contours in image
         cv::cvtColor(font, font, cv::COLOR_RGB2GRAY);
         cv::threshold(font, font, 128, 255, THRESH_BINARY);
-
         findContours(font, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);                  
 
         Rect rect;
@@ -74,7 +73,7 @@ int main()
 
         mergeOverlappingRects(rectsCharVecotr);
 
-        //printRectContours(temp, rectsCharVecotr);
+        printRectContours(temp, rectsCharVecotr);
 
 
         imshow("Contours", temp);
