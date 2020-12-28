@@ -19,18 +19,33 @@ def process_video(video_path, out_path, frame_function):
 
     # loading video
     cap = cv2.VideoCapture(video_path)
+
+    #getting width & height of video
+    frame_width = int(cap.get(3))
+    frame_height = int(cap.get(4))
+    fps = int(cap.get(5))
+
     # creating output video
     fourcc = cv2.VideoWriter_fourcc(*'MJPG')
-    out = cv2.VideoWriter(out_path, fourcc, 20.0, (640, 480), False)
-
+    out = cv2.VideoWriter(out_path, fourcc, fps, (frame_width,frame_height))
+    print(fps)
+    frame_to_write = 0
+    i = fps
     while (True):
         ret, frame = cap.read()
+
         if not ret:
             break
+        if i % fps == 0:
+            frame_to_write = frame_function(frame)
+            frame_to_write = cv2.resize(frame_to_write, (frame_width,frame_height))
 
-        frame = frame_function(frame)
-        out.write(frame)
+
+        out.write(frame_to_write)
+        i += 1
 
     cap.release()
     out.release()
+    cv2.destroyAllWindows()
+
 

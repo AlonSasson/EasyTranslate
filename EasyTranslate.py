@@ -27,22 +27,24 @@ def translate_image(image):
     text, right_left = Translate.googletrans_translate(text, 'iw')
     image = TextReplacement.blur_locations(image, locations)
     image = TextReplacement.place_text_in_locs(image, locations, text, right_left)
+
+    return image
     #cv2.imshow("Image", thresh)
     #cv2.imshow("Image2", image)
     #cv2.waitKey(0)
 
 
 def translate_video(video_path):
-    out_path = video_path.split(".", -1)
-    out_path = out_path[0] + '_translated.avi'
+    out_path = "out_video.avi"
+
     VideoProcessing.process_video(video_path, out_path, translate_image)
-    VideoProcessing.copy_video_sound(video_path, out_path, out_path)
+    VideoProcessing.copy_video_sound(video_path, "out_video_and_sounds.mp4", out_path)
 
 
 def main():
     #image = cv2.imread(r'test2.jpg')  # Read the file
     #translate_image(image)
-    translate_video('project_present.mp4')
+    translate_video('project_present.avi')
 
 
 if __name__ == "__main__":
