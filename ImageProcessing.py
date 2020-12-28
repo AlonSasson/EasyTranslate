@@ -306,3 +306,17 @@ def get_word_with_char_locations(word_img, char_locs, char_templates):
             scores.append(score)
         word_output += list(char_templates.keys())[numpy.argmax(scores)]  # get the character with the highest score
     return word_output
+
+
+def blur_locations(image, locations):
+    """ blurs all of the locations in a list in an image
+    :param image: the image in which we blur locations
+    :param locations: a list of locations
+    :return: the image with the blurred locations
+    """
+    for loc in locations:
+        (x, y, w, h) = loc
+        roi = image[y:y+h, x:x+w]  # separate the roi
+        blur = cv2.GaussianBlur(roi, (51, 51), 0)  # apply a gaussian blur filter
+        image[y:y+h, x:x+w] = blur  # insert the blurred roi back into the image
+    return image

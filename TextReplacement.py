@@ -6,20 +6,6 @@ import math
 from PIL import ImageFont, ImageDraw, Image
 
 
-def blur_locations(image, locations):
-    """ blurs all of the locations in a list in an image
-    :param image: the image in which we blur locations
-    :param locations: a list of locations
-    :return: the image with the blurred locations
-    """
-    for loc in locations:
-        (x, y, w, h) = loc
-        roi = image[y:y+h, x:x+w]  # separate the roi
-        blur = cv2.GaussianBlur(roi, (51, 51), 0)  # apply a gaussian blur filter
-        image[y:y+h, x:x+w] = blur  # insert the blurred roi back into the image
-    return image
-
-
 def get_max_font_size(font_name, text, image):
     """
     gets the max font size using font_name and text without exceeding the image's boundries
@@ -85,11 +71,3 @@ def place_text_in_locs(image, locations, text, right_left=False):
         draw.text((x, y + height - font.getsize(words[i])[1]), words[i], font=font, fill=(0, 0, 0))  # draw the text in the correct location
         image = numpy.array(image_pil)
     return image
-
-
-def main():
-    pass
-
-
-if __name__ == "__main__":
-    main()

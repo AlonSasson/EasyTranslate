@@ -5,7 +5,12 @@ import Translate
 import VideoProcessing
 
 
+
 def translate_image(image):
+    """ Translates the text in an image
+    :param image: the image to translate
+    :return: the translated image
+    """
     char_templates = ip.get_character_dict()  # get a dictionary of all the character templates
     if image is None:
         return
@@ -23,28 +28,30 @@ def translate_image(image):
             cv2.putText(image, word_output, (x, y + height + 10),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.65, (0, 0, 255), 2)
             text += word_output + ' '
-    print(text)
-    text, right_left = Translate.googletrans_translate(text, 'iw')
-    image = TextReplacement.blur_locations(image, locations)
+    text = text.lower()
+    text, right_left = Translate.googletrans_translate(text, 'he')
+    image = ip.blur_locations(image, locations)
     image = TextReplacement.place_text_in_locs(image, locations, text, right_left)
-
-    return image
     #cv2.imshow("Image", thresh)
     #cv2.imshow("Image2", image)
     #cv2.waitKey(0)
+    return image
 
 
 def translate_video(video_path):
-    out_path = "out_video.avi"
-
+    """ translates a video
+    :param video_path: the video to translate
+    """
+    out_path = video_path.split(".", -1)
+    out_path = out_path[0] + '_translated.avi'
     VideoProcessing.process_video(video_path, out_path, translate_image)
-    VideoProcessing.copy_video_sound(video_path, "out_video_and_sounds.mp4", out_path)
+    VideoProcessing.copy_video_sound(video_path, out_path, out_path)
 
 
 def main():
     #image = cv2.imread(r'test2.jpg')  # Read the file
     #translate_image(image)
-    translate_video('project_present.avi')
+    translate_video('project_present.mp4')
 
 
 if __name__ == "__main__":

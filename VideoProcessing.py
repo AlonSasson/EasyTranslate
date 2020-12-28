@@ -3,6 +3,11 @@ import moviepy.editor as mp
 
 
 def copy_video_sound(video_sound_path, video_out_path, video_clip_path):
+    """ copies a video's sound onto another video
+    :param video_sound_path: the path to the video with soun
+    :param video_out_path: the output path to save the new video at
+    :param video_clip_path: the path to the video we want to add sound to
+    """
     video_out_path = video_out_path.split('.', -1)[0]  # remove the file type from the path
     #load the video
     my_clip = mp.VideoFileClip(video_clip_path)
@@ -16,6 +21,11 @@ def copy_video_sound(video_sound_path, video_out_path, video_clip_path):
 
 
 def process_video(video_path, out_path, frame_function):
+    """ applies a filter for every frame of a video
+    :param video_path: the video we apply a filter to
+    :param out_path: the output path we save the processed video at
+    :param frame_function: the filter we apply on each frame
+    """
 
     # loading video
     cap = cv2.VideoCapture(video_path)
@@ -28,7 +38,6 @@ def process_video(video_path, out_path, frame_function):
     # creating output video
     fourcc = cv2.VideoWriter_fourcc(*'MJPG')
     out = cv2.VideoWriter(out_path, fourcc, fps, (frame_width,frame_height))
-    print(fps)
     frame_to_write = 0
     i = fps
     while (True):
