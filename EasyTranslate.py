@@ -51,7 +51,7 @@ def translate_video(video_path):
 def main():
     #image = cv2.imread(r'test2.jpg')  # Read the file
     #translate_image(image)
-    translate_video('project_present.mp4')
+    translate_video('project_present.avi')
 
 
 if __name__ == "__main__":
