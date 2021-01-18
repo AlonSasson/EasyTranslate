@@ -2,11 +2,16 @@ import cv2
 import numpy
 import imutils
 import functools
+import tensorflow as tf
+from imutils.object_detection import non_max_suppression
 
 X = 0
 Y = 1
 WIDTH = 2
 HEIGHT = 3
+
+model = tf.keras.models.load_model('my_model')
+net = cv2.dnn.readNet(r'east_model\frozen_east_text_detection.pb')
 
 
 def loc_area(location):
@@ -70,10 +75,10 @@ def merge_small_locs(locations):
     AVG_LOC_HEIGHT = get_average_loc_height(locations)
     while i < len(locations):
         if loc_area(locations[i]) < AVG_LOC_SIZE / 2:  # if the location is smaller than average
-            for j in range(i+1, len(locations)):
+            for j in range(i + 1, len(locations)):
                 # if they are in same col and close enough
                 if (are_locs_in_same_col(locations[i], locations[j])
-                   and locations[i][Y] + locations[i][HEIGHT] + AVG_LOC_HEIGHT / 2 > locations[j][Y]):
+                        and locations[i][Y] + locations[i][HEIGHT] + AVG_LOC_HEIGHT / 2 > locations[j][Y]):
                     locations[i] = union_two_rects(locations[i], locations[j])  # merge the locations
                     locations.remove(locations[j])  # remove the original location
                     break
@@ -170,10 +175,10 @@ def merge_close_locs(locations, threshold):
     i = 0
     while i < len(locations) - 1:
         # if the two rectangles are in the same "line" and are close enough
-        if locations[i][Y] + locations[i][HEIGHT] > locations[i+1][Y] \
-         and locations[i][X] + locations[i][WIDTH] + threshold > locations[i + 1][X]:
+        if locations[i][Y] + locations[i][HEIGHT] > locations[i + 1][Y] \
+                and locations[i][X] + locations[i][WIDTH] + threshold > locations[i + 1][X]:
             locations[i] = union_two_rects(locations[i], locations[i + 1])  # merge them
-            locations.remove(locations[i+1])
+            locations.remove(locations[i + 1])
             i = -1  # reset to see if some rectangle needs more merging
         i += 1
     return locations
@@ -214,7 +219,7 @@ def get_image_contours(image):
     """
     grayscale = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     thresh = cv2.threshold(grayscale, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]  # apply filters
-    ref_cnts, heirarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)  #find the contours
+    ref_cnts, heirarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)  # find the contours
     locations = []
     for (i, cnt) in enumerate(ref_cnts):  # put the contours into a list of locations
         (x, y, w, h) = cv2.boundingRect(cnt)
@@ -246,6 +251,99 @@ def get_character_dict():
     return chars
 
 
+def get_locations_from_net_results(scores, geometry, min_confidence):
+
+    # grab the number of rows and columns from the scores volume, then
+    # initialize our set of bounding box rectangles and corresponding confidence scores
+    (numRows, numCols) = scores.shape[2:4]
+    rects = []
+    confidences = []
+
+    # loop over the number of rows
+    for y in range(0, numRows):
+        # extract the scores (probabilities), followed by the geometrical
+        # data used to derive potential bounding box coordinates that
+        # surround text
+        scoresData = scores[0, 0, y]
+        xData0 = geometry[0, 0, y]
+        xData1 = geometry[0, 1, y]
+        xData2 = geometry[0, 2, y]
+        xData3 = geometry[0, 3, y]
+        anglesData = geometry[0, 4, y]
+
+        # loop over the number of columns
+        for x in range(0, numCols):
+            # if our score does not have sufficient probability, ignore it
+            if scoresData[x] < min_confidence:
+                continue
+
+            # compute the offset factor as our resulting feature maps will
+            # be 4x smaller than the input image
+            (offsetX, offsetY) = (x * 4.0, y * 4.0)
+
+            # extract the rotation angle for the prediction and then
+            # compute the sin and cosine
+            angle = anglesData[x]
+            cos = numpy.cos(angle)
+            sin = numpy.sin(angle)
+
+            # use the geometry volume to derive the width and height of
+            # the bounding box
+            h = xData0[x] + xData2[x]
+            w = xData1[x] + xData3[x]
+
+            # compute both the starting and ending (x, y)-coordinates for
+            # the text prediction bounding box
+            endX = int(offsetX + (cos * xData1[x]) + (sin * xData2[x]))
+            endY = int(offsetY - (sin * xData1[x]) + (cos * xData2[x]))
+            startX = int(endX - w)
+            startY = int(endY - h)
+
+            # add the bounding box coordinates and probability score to
+            # our respective lists
+            rects.append((startX, startY, endX, endY))
+            confidences.append(scoresData[x])
+    return rects, confidences
+
+
+def east_get_text_locations(image, min_confidence):
+    # resize the image and grab the new image dimensions
+    image = cv2.resize(image, (640, 320))
+    (H, W) = image.shape[:2]
+
+    thresh = image
+
+    # define the two output layer names for the EAST detector model that
+    # we are interested -- the first is the output probabilities and the
+    # second can be used to derive the bounding box coordinates of text
+    layer_names = [
+        "feature_fusion/Conv_7/Sigmoid",
+        "feature_fusion/concat_3"]
+
+    # construct a blob from the image and then perform a forward pass of
+    # the model to obtain the two output layer sets
+    blob = cv2.dnn.blobFromImage(thresh, 1.0, (W, H),
+                                 (123.68, 116.78, 103.94), swapRB=True, crop=False)
+    net.setInput(blob)
+    (scores, geometry) = net.forward(layer_names)
+
+    # get the locations from the net output
+    (rects, confidences) = get_locations_from_net_results(scores, geometry, min_confidence)
+
+    # apply non-maxima suppression to suppress weak, overlapping bounding
+    # boxes
+    boxes = non_max_suppression(numpy.array(rects), probs=confidences)
+
+    # loop over the bounding boxes
+    for i, (startX, startY, endX, endY) in enumerate(boxes):
+        boxes[i] = [startX, startY, endX - startX, endY - startY]  # use width and height instead of end points
+        boxes[i] = enlarge_loc(boxes[i], int(boxes[i][WIDTH] / 10), 0)  # enlarge the boxes by a bit to reduce errors
+
+    locations = sorted(boxes, key=functools.cmp_to_key(cmp_locs_left_right))  # sort after merging
+
+    return image, thresh, locations
+
+
 def get_text_locations(image):
     """ gets all the text locations in an image
     :param image - the image from which we get the text locations
@@ -265,7 +363,7 @@ def get_text_locations(image):
     gradX = cv2.morphologyEx(gradX, cv2.MORPH_CLOSE, rect_kernel)
     thresh = cv2.threshold(gradX, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
     thresh = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, sq_kernel)
-    #find the contours in the image
+    # find the contours in the image
     word_cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     word_cnts = imutils.grab_contours(word_cnts)
     locations = []
@@ -283,7 +381,7 @@ def get_text_locations(image):
     return image, thresh, locations
 
 
-def get_word_with_char_locations(word_img, char_locs, char_templates):
+def get_word_template_matching(word_img, char_locs, char_templates):
     """ gets the word from an image using the character locations in it and a template for all character
     :param word_img - an image that contains a word
     :param char_locs - the locations of all characters in the image
@@ -316,7 +414,56 @@ def blur_locations(image, locations):
     """
     for loc in locations:
         (x, y, w, h) = loc
-        roi = image[y:y+h, x:x+w]  # separate the roi
+        roi = image[y:y + h, x:x + w]  # separate the roi
         blur = cv2.GaussianBlur(roi, (51, 51), 0)  # apply a gaussian blur filter
-        image[y:y+h, x:x+w] = blur  # insert the blurred roi back into the image
+        image[y:y + h, x:x + w] = blur  # insert the blurred roi back into the image
     return image
+
+
+def get_label_char(label):
+    """
+    get num(label) and return is matching char (latter or numbers)
+    :param label: 0 - 61
+    :return: str with the char
+    """
+    label_str = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+    return label_str[label]
+
+
+def get_word_ml(word_img, char_locs):
+    """ gets the word from an image using the character locations in it and a template for all character
+    :param word_img - an image that contains a word
+    :param char_locs - the locations of all characters in the image
+    :param model_path - the path of training model to run
+    :return the word that was found in the image
+    """
+    char_images = []
+    word_output = ''
+
+    word_img = cv2.cvtColor(word_img, cv2.COLOR_BGR2GRAY)
+
+    # get part of the image where the char location is at
+    for char_loc in char_locs:
+        (x, y, width, height) = char_loc
+
+        roi = word_img[y:y + height, x:x + width]
+        roi = cv2.resize(roi, (28, 28))
+        char_images.append(roi)
+
+    char_images = numpy.array(char_images)
+
+    # normalizing
+    char_images = char_images.reshape(-1, 28, 28, 1)
+    char_images = char_images / 255.0
+
+    classifications = model.predict(char_images)
+
+    for i, classification in enumerate(classifications):
+        result = numpy.argmax(classification)
+        word_output += get_label_char(result)
+        # if the next character is too far from this current one
+        if i < len(classifications) - 1 and char_locs[i][X] + char_locs[i][WIDTH] * 2 < char_locs[i + 1][X]:
+            word_output += ' '
+
+    return word_output
+
