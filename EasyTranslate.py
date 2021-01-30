@@ -3,7 +3,7 @@ import TextReplacement
 import ImageProcessing as ip
 import Translate
 import VideoProcessing
-
+import time
 
 def translate_image(image):
     """ Translates the text in an image
@@ -18,30 +18,34 @@ def translate_image(image):
     text = []
     for word_loc in locations:
         (x, y, width, height) = word_loc
-        word_img = image[y:y + height, x:x + width]  # get an image of just the word
+        word_img = thresh[y:y + height, x:x + width]  # get an image of just the word
         _, char_locs = ip.get_image_contours(word_img)  # get the character locations from that image
         word_output = ip.get_word_ml(word_img, char_locs)
+        for loc in char_locs:
+            (x1, y1, width1, height1) = loc
+            cv2.rectangle(thresh, (x+x1, y+y1),
+                          (x+x1 + width1, y+y1 + height1), (0, 255, 0), 2)
 
         if word_output != '':
             text.append(word_output + ' ')
 
     for i, word_loc in enumerate(locations):  # create a bounding box with text
         (x, y, width, height) = word_loc
-        cv2.rectangle(image, (x, y),
+        cv2.rectangle(thresh, (x, y),
                       (x + width, y + height), (0, 0, 255), 2)
-        cv2.putText(image, text[i], (x, y + height + 10),
+        cv2.putText(thresh, text[i], (x, y + height + 10),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.65, (0, 0, 255), 2)
 
     text = ''.join(text).lower()
     print(text)
 
-    #text, right_left = Translate.googletrans_translate(text, 'en')
-    #image = ip.blur_locations(image, locations)
-    #image = TextReplacement.place_text_in_locs(image, locations, text, right_left)
+    text, right_left = Translate.googletrans_translate(text, 'en')
+    thresh = ip.blur_locations(thresh, locations)
+    thresh = TextReplacement.place_text_in_locs(thresh, locations, text, right_left)
 
-    #cv2.imshow("Image", thresh)
-    #cv2.imshow("Image2", image)
-    #cv2.waitKey(0)
+    cv2.imshow("Thresh", thresh)
+    cv2.imshow("Image", image)
+    cv2.waitKey(0)
     return image
 
 
@@ -56,9 +60,9 @@ def translate_video(video_path):
 
 
 def main():
-    #image = cv2.imread("test2.jpg")  # Read the file
-    #translate_image(image)
-    translate_video('project_present.mp4')
+    image = cv2.imread("test1.jpg")  # Read the file
+    translate_image(image)
+    #translate_video('project_present.mp4')
 
 
 if __name__ == "__main__":

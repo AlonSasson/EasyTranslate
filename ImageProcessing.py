@@ -71,14 +71,14 @@ def merge_small_locs(locations):
     """
     i = 0
     # get the average loc size and height before merging small locs
-    AVG_LOC_SIZE = get_average_loc_area(locations)
-    AVG_LOC_HEIGHT = get_average_loc_height(locations)
+    avg_loc_size = get_average_loc_area(locations)
+    avg_loc_height = get_average_loc_height(locations)
     while i < len(locations):
-        if loc_area(locations[i]) < AVG_LOC_SIZE / 2:  # if the location is smaller than average
+        if loc_area(locations[i]) < avg_loc_size / 2:  # if the location is smaller than average
             for j in range(i + 1, len(locations)):
                 # if they are in same col and close enough
                 if (are_locs_in_same_col(locations[i], locations[j])
-                        and locations[i][Y] + locations[i][HEIGHT] + AVG_LOC_HEIGHT / 2 > locations[j][Y]):
+                        and locations[i][Y] + locations[i][HEIGHT] + avg_loc_height / 2 > locations[j][Y]):
                     locations[i] = union_two_rects(locations[i], locations[j])  # merge the locations
                     locations.remove(locations[j])  # remove the original location
                     break
@@ -92,13 +92,25 @@ def enlarge_small_locs(locations):
     :return the list of locations after enlarging small locations
     """
     # get the average loc size, height and width before enlarging small locs
-    AVG_LOC_SIZE = get_average_loc_area(locations)
-    AVG_LOC_WIDTH = get_average_loc_height(locations)
-    AVG_LOC_HEIGHT = get_average_loc_height(locations)
+    avg_loc_size = get_average_loc_area(locations)
+    avg_loc_width = get_average_loc_width(locations)
+    avg_loc_height = get_average_loc_height(locations)
     for i in range(len(locations)):
-        if loc_area(locations[i]) < AVG_LOC_SIZE / 2:  # if the location is smaller than average
+        if loc_area(locations[i]) < avg_loc_size / 2:  # if the location is smaller than average
             # make them a bit bigger
-            locations[i] = enlarge_loc(locations[i], int(AVG_LOC_WIDTH / 5), int(AVG_LOC_HEIGHT / 5))
+            locations[i] = enlarge_loc(locations[i], int(avg_loc_width / 5), int(avg_loc_height / 5))
+    return locations
+
+
+def remove_small_locs(locations):
+    """ removes small locations in a list of locations
+    :param locations - a list of locations
+    :return the list of locations after removing small locations
+    """
+    avg_loc_size = get_average_loc_area(locations)
+    for loc in locations:
+        if loc_area(loc) < avg_loc_size / 4:  # if the location is smaller than average
+            locations.remove(loc)
     return locations
 
 
@@ -218,19 +230,33 @@ def get_image_contours(image):
     :return the image after applying thresholding, and the contours in image in a sorted list
     """
     grayscale = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    thresh = cv2.threshold(grayscale, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]  # apply filters
-    ref_cnts, heirarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)  # find the contours
+    thresh = cv2.threshold(grayscale, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]  # apply filters
+    ref_cnts = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[0]  # find the contours
+
     locations = []
     for (i, cnt) in enumerate(ref_cnts):  # put the contours into a list of locations
         (x, y, w, h) = cv2.boundingRect(cnt)
         locations.append([x, y, w, h])
+    largest_loc = max(locations, key=loc_area)  # get the location with the largest area
+    if (largest_loc[HEIGHT] * 1.1 > image.shape[0]
+       and largest_loc[WIDTH] * 1.1 > image.shape[1]):  # if the largest contour is the border of the image
+        thresh = cv2.threshold(grayscale, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]  # apply filters
+        ref_cnts = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[0]  # find the contours
+
+        locations = []
+        for (i, cnt) in enumerate(ref_cnts):  # put the contours into a list of locations
+            (x, y, w, h) = cv2.boundingRect(cnt)
+            locations.append([x, y, w, h])
+
     if not locations:  # if no locations were found
         return thresh, locations
-    locations = enlarge_small_locs(locations)
-    locations = merge_overlapping_locs(locations)
+
+
     locations = sorted(locations, key=functools.cmp_to_key(cmp_locs_left_right))  # sort after merging
-    locations = merge_small_locs(locations)
+    locations = merge_small_locs(locations)  # merge small locations
+    locations = remove_small_locs(locations)  # remove the small locations we werent able to merge
     locations = sorted(locations, key=functools.cmp_to_key(cmp_locs_left_right))  # sort again after merging
+
     return thresh, locations
 
 
@@ -308,10 +334,8 @@ def get_locations_from_net_results(scores, geometry, min_confidence):
 
 def east_get_text_locations(image, min_confidence):
     # resize the image and grab the new image dimensions
-    image = cv2.resize(image, (640, 320))
-    (H, W) = image.shape[:2]
-
-    thresh = image
+    thresh = cv2.resize(image, (640, 320))
+    (H, W) = thresh.shape[:2]
 
     # define the two output layer names for the EAST detector model that
     # we are interested -- the first is the output probabilities and the
@@ -337,7 +361,7 @@ def east_get_text_locations(image, min_confidence):
     # loop over the bounding boxes
     for i, (startX, startY, endX, endY) in enumerate(boxes):
         boxes[i] = [startX, startY, endX - startX, endY - startY]  # use width and height instead of end points
-        boxes[i] = enlarge_loc(boxes[i], int(boxes[i][WIDTH] / 10), 0)  # enlarge the boxes by a bit to reduce errors
+        boxes[i] = enlarge_loc(boxes[i], 0, int(boxes[i][HEIGHT] / 10))  # enlarge the boxes by a bit to reduce errors
 
     locations = sorted(boxes, key=functools.cmp_to_key(cmp_locs_left_right))  # sort after merging
 
@@ -377,7 +401,7 @@ def get_text_locations(image):
     locations = merge_small_locs(locations)
     locations = sorted(locations, key=functools.cmp_to_key(cmp_locs_left_right))  # sort again after merging
     for i in range(len(locations)):
-        locations[i] = enlarge_loc(locations[i], 0, 0)
+        locations[i] = enlarge_loc(locations[i], 0, int(locations[i][HEIGHT] / 5))
     return image, thresh, locations
 
 
@@ -415,19 +439,29 @@ def blur_locations(image, locations):
     for loc in locations:
         (x, y, w, h) = loc
         roi = image[y:y + h, x:x + w]  # separate the roi
-        blur = cv2.GaussianBlur(roi, (51, 51), 0)  # apply a gaussian blur filter
+        blur = cv2.GaussianBlur(roi, (21, 21), 0)  # apply a gaussian blur filter
         image[y:y + h, x:x + w] = blur  # insert the blurred roi back into the image
     return image
 
 
-def get_label_char(label):
+def get_label_char(classification):
+    """
+    get num(label) and return is matching char (latter or numbers)
+    :param classification: 0 - 61
+    :return: str with the char
+    """
+    label_str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+    return label_str[classification]
+
+
+def get_label_classification(label):
     """
     get num(label) and return is matching char (latter or numbers)
     :param label: 0 - 61
     :return: str with the char
     """
-    label_str = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
-    return label_str[label]
+    label_str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+    return label_str.find(label)
 
 
 def get_word_ml(word_img, char_locs):
@@ -439,8 +473,10 @@ def get_word_ml(word_img, char_locs):
     """
     char_images = []
     word_output = ''
+    avg_loc_width = get_average_loc_width(char_locs)
 
     word_img = cv2.cvtColor(word_img, cv2.COLOR_BGR2GRAY)
+    word_img = cv2.threshold(word_img, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]  # apply filters
 
     # get part of the image where the char location is at
     for char_loc in char_locs:
@@ -452,17 +488,22 @@ def get_word_ml(word_img, char_locs):
 
     char_images = numpy.array(char_images)
 
-    # normalizing
+    # reshaping
     char_images = char_images.reshape(-1, 28, 28, 1)
-    char_images = char_images / 255.0
 
     classifications = model.predict(char_images)
 
     for i, classification in enumerate(classifications):
+        if i != 0:  # if its less likely its a capital letter
+            # for each capital letter
+            for class_index in range(get_label_classification('A'), get_label_classification('Z') + 1):
+                classifications[i][class_index] = classifications[i][class_index] / 6  # lower the score
+
         result = numpy.argmax(classification)
         word_output += get_label_char(result)
         # if the next character is too far from this current one
-        if i < len(classifications) - 1 and char_locs[i][X] + char_locs[i][WIDTH] * 2 < char_locs[i + 1][X]:
+        if i < len(classifications) - 1 \
+           and char_locs[i][X] + char_locs[i][WIDTH] + avg_loc_width // 2 < char_locs[i + 1][X]:
             word_output += ' '
 
     return word_output
