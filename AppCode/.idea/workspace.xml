@@ -2,23 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e8f6df46-c8a5-4cc8-b1ae-3697538c745e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../.idea/easytranslate.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../EasyTranslate.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ImageProcessing.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TextReplacement.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Translate.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../VideoProcessing.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../east_model/frozen_east_text_detection.pb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../font2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../my_model/saved_model.pb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../my_model/variables/variables.data-00000-of-00001" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../my_model/variables/variables.index" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../project_present.avi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../video_prossing.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GUI/DarkDemo/DarkDemo/Form1.resx" beforeDir="false" afterPath="$PROJECT_DIR$/../GUI/DarkDemo/DarkDemo/Form1.resx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,25 +68,25 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="669" y="115" key="#EasyTranslate/0.0.1920.1040/-1920.-6.1920.1040@0.0.1920.1040" timestamp="1609173883005" />
-    <state width="936" height="334" key="GridCell.Tab.0.bottom" timestamp="1612041164003">
+    <state width="936" height="331" key="GridCell.Tab.0.bottom" timestamp="1612110967205">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="936" height="334" key="GridCell.Tab.0.bottom/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1612041164003" />
+    <state width="936" height="331" key="GridCell.Tab.0.bottom/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1612110967205" />
     <state width="936" height="307" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.-6.1920.1040@0.0.1920.1040" timestamp="1609178797124" />
-    <state width="936" height="334" key="GridCell.Tab.0.center" timestamp="1612041164003">
+    <state width="936" height="331" key="GridCell.Tab.0.center" timestamp="1612110967205">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="936" height="334" key="GridCell.Tab.0.center/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1612041164003" />
+    <state width="936" height="331" key="GridCell.Tab.0.center/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1612110967205" />
     <state width="936" height="307" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.-6.1920.1040@0.0.1920.1040" timestamp="1609178797124" />
-    <state width="936" height="334" key="GridCell.Tab.0.left" timestamp="1612041164003">
+    <state width="936" height="331" key="GridCell.Tab.0.left" timestamp="1612110967205">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="936" height="334" key="GridCell.Tab.0.left/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1612041164003" />
+    <state width="936" height="331" key="GridCell.Tab.0.left/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1612110967205" />
     <state width="936" height="307" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.-6.1920.1040@0.0.1920.1040" timestamp="1609178797124" />
-    <state width="936" height="334" key="GridCell.Tab.0.right" timestamp="1612041164003">
+    <state width="936" height="331" key="GridCell.Tab.0.right" timestamp="1612110967205">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="936" height="334" key="GridCell.Tab.0.right/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1612041164003" />
+    <state width="936" height="331" key="GridCell.Tab.0.right/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1612110967205" />
     <state width="936" height="307" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.-6.1920.1040@0.0.1920.1040" timestamp="1609178797124" />
     <state width="936" height="348" key="GridCell.Tab.1.bottom" timestamp="1609175812481">
       <screen x="0" y="0" width="1920" height="1040" />
