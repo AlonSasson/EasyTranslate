@@ -39,14 +39,14 @@ def translate_image(image):
     text = ''.join(text).lower()
     print(text)
 
-    text, right_left = Translate.googletrans_translate(text, 'en')
+    text, right_left = Translate.googletrans_translate(text, 'HE')
     thresh = ip.blur_locations(thresh, locations)
     thresh = TextReplacement.place_text_in_locs(thresh, locations, text, right_left)
 
-    cv2.imshow("Thresh", thresh)
-    cv2.imshow("Image", image)
-    cv2.waitKey(0)
-    return image
+    #cv2.imshow("Thresh", thresh)
+   # cv2.imshow("Image", image)
+  #  cv2.waitKey(0)
+    return thresh
 
 
 def translate_video(video_path):
@@ -60,9 +60,9 @@ def translate_video(video_path):
 
 
 def main():
-    image = cv2.imread("test1.jpg")  # Read the file
+    image = cv2.imread("testing/test2.jpg")  # Read the file
     translate_image(image)
-    #translate_video('project_present.mp4')
+    translate_video('testing/project_present.avi')
 
 
 if __name__ == "__main__":
