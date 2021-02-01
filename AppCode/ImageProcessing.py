@@ -278,7 +278,13 @@ def get_character_dict():
 
 
 def get_locations_from_net_results(scores, geometry, min_confidence):
-
+    """
+    gets the locations of possible text areas from the east neural network
+    :param scores: the confidence scores for the located text areas
+    :param geometry: the geometrical data for the text bounding boxes
+    :param min_confidence: the minimum confidence score that will be accepted as a text area
+    :return: a list of locations of the possible text areas, and a list of the confidence score for each location
+    """
     # grab the number of rows and columns from the scores volume, then
     # initialize our set of bounding box rectangles and corresponding confidence scores
     (numRows, numCols) = scores.shape[2:4]
@@ -333,6 +339,11 @@ def get_locations_from_net_results(scores, geometry, min_confidence):
 
 
 def east_get_text_locations(image, min_confidence):
+    """
+    gets the locations of possible text areas in an image with the east neural network
+    :param min_confidence: the minimum confidence score that will be accepted as a text area
+    :return: the original image, the image after resizing, a list of sorted locations of the possible text areas
+    """
     # resize the image and grab the new image dimensions
     thresh = cv2.resize(image, (640, 320))
     (H, W) = thresh.shape[:2]
@@ -363,7 +374,7 @@ def east_get_text_locations(image, min_confidence):
         boxes[i] = [startX, startY, endX - startX, endY - startY]  # use width and height instead of end points
         boxes[i] = enlarge_loc(boxes[i], 0, int(boxes[i][HEIGHT] / 10))  # enlarge the boxes by a bit to reduce errors
 
-    locations = sorted(boxes, key=functools.cmp_to_key(cmp_locs_left_right))  # sort after merging
+    locations = sorted(boxes, key=functools.cmp_to_key(cmp_locs_left_right))  # sort the locations
 
     return image, thresh, locations
 

@@ -1,5 +1,59 @@
 import cv2
 import moviepy.editor as mp
+import sys
+from PyQt5 import QtWidgets, QtCore
+
+
+class SelectWindow(QtWidgets.QMainWindow):
+
+    selected_area = []
+
+    def __init__(self):
+        QtWidgets.QMainWindow.__init__(self)
+
+        self.setWindowOpacity(0.3)  # set the overlay opacity
+        self.setWindowFlags(
+            QtCore.Qt.WindowStaysOnTopHint |  # make the overlay the first window
+            QtCore.Qt.FramelessWindowHint |  # remove window border
+            QtCore.Qt.X11BypassWindowManagerHint
+        )
+
+        screen_geometry = QtWidgets.qApp.desktop().availableGeometry()  # screen resolutions
+        self.setGeometry(0, 0, screen_geometry.width(), screen_geometry.height())  # set overlay resolutions
+
+        self.label = QtWidgets.QLabel(self)  # text settings
+        self.label.setText('Select an area:')
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setGeometry(0, 0, screen_geometry.width() // 2, 50)
+        self.label.move(screen_geometry.width() // 4, 0)
+        self.label.setStyleSheet('color: rgba(0, 0, 0, 255); background-color: rgba(255, 0, 0, 255); font: 18pt;')
+
+        self.rubberBand = QtWidgets.QRubberBand(QtWidgets.QRubberBand.Rectangle, self)  # used for visual area selection
+
+    def mousePressEvent(self, event):
+        self.selected_area.append((event.pos().x(), event.pos().y()))  # get x and y of second position
+        self.rubberBand.setGeometry(QtCore.QRect(event.pos(), QtCore.QSize()))  # start the area selection visualisation
+        self.rubberBand.show()
+
+    def mouseMoveEvent(self, event):
+        # update the selected area visually
+        self.rubberBand.setGeometry(QtCore.QRect(QtCore.QPoint(*self.selected_area[0]), event.pos()).normalized())
+
+    def mouseReleaseEvent(self, event):
+        self.selected_area.append((event.pos().x(), event.pos().y()))  # get x and y of second position
+        QtWidgets.qApp.quit()  # close the overlay
+
+
+def select_area():
+    """
+    Selects an area on the screen
+    :return the area that the user selected (two points)
+    """
+    app = QtWidgets.QApplication(sys.argv)
+    mywindow = SelectWindow()
+    mywindow.show()
+    app.exec_()
+    return mywindow.selected_area
 
 
 def copy_video_sound(video_sound_path, video_out_path, video_clip_path):
