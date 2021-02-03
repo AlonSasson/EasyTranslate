@@ -73,6 +73,7 @@
             this.textBoxPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxPath.Location = new System.Drawing.Point(54, 46);
             this.textBoxPath.Name = "textBoxPath";
+            this.textBoxPath.ReadOnly = true;
             this.textBoxPath.Size = new System.Drawing.Size(442, 24);
             this.textBoxPath.TabIndex = 1;
             // 

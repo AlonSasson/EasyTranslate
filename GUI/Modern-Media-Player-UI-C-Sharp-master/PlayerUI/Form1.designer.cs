@@ -30,6 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panelSideMenu = new System.Windows.Forms.Panel();
+            this.btnHelp = new System.Windows.Forms.Button();
+            this.panelImage = new System.Windows.Forms.Panel();
+            this.btnSavedImages = new System.Windows.Forms.Button();
+            this.btnUploadimage = new System.Windows.Forms.Button();
             this.btnImagesList = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.panelVideos = new System.Windows.Forms.Panel();
@@ -43,14 +47,10 @@
             this.btnHome = new System.Windows.Forms.Button();
             this.panelLogo = new System.Windows.Forms.Panel();
             this.panelChildForm = new System.Windows.Forms.Panel();
-            this.panelImage = new System.Windows.Forms.Panel();
-            this.btnSavedImages = new System.Windows.Forms.Button();
-            this.btnUploadimage = new System.Windows.Forms.Button();
-            this.btnHelp = new System.Windows.Forms.Button();
             this.panelSideMenu.SuspendLayout();
+            this.panelImage.SuspendLayout();
             this.panelVideos.SuspendLayout();
             this.panelScreen.SuspendLayout();
-            this.panelImage.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelSideMenu
@@ -70,8 +70,75 @@
             this.panelSideMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelSideMenu.Location = new System.Drawing.Point(0, 0);
             this.panelSideMenu.Name = "panelSideMenu";
-            this.panelSideMenu.Size = new System.Drawing.Size(250, 627);
+            this.panelSideMenu.Size = new System.Drawing.Size(250, 692);
             this.panelSideMenu.TabIndex = 0;
+            // 
+            // btnHelp
+            // 
+            this.btnHelp.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnHelp.FlatAppearance.BorderSize = 0;
+            this.btnHelp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(21)))), ((int)(((byte)(32)))));
+            this.btnHelp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(22)))), ((int)(((byte)(34)))));
+            this.btnHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHelp.ForeColor = System.Drawing.Color.Silver;
+            this.btnHelp.Image = ((System.Drawing.Image)(resources.GetObject("btnHelp.Image")));
+            this.btnHelp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHelp.Location = new System.Drawing.Point(0, 514);
+            this.btnHelp.Name = "btnHelp";
+            this.btnHelp.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.btnHelp.Size = new System.Drawing.Size(250, 45);
+            this.btnHelp.TabIndex = 14;
+            this.btnHelp.Text = "  Help";
+            this.btnHelp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHelp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnHelp.UseVisualStyleBackColor = true;
+            // 
+            // panelImage
+            // 
+            this.panelImage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
+            this.panelImage.Controls.Add(this.btnSavedImages);
+            this.panelImage.Controls.Add(this.btnUploadimage);
+            this.panelImage.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelImage.Location = new System.Drawing.Point(0, 431);
+            this.panelImage.Name = "panelImage";
+            this.panelImage.Size = new System.Drawing.Size(250, 83);
+            this.panelImage.TabIndex = 13;
+            // 
+            // btnSavedImages
+            // 
+            this.btnSavedImages.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnSavedImages.FlatAppearance.BorderSize = 0;
+            this.btnSavedImages.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(38)))), ((int)(((byte)(46)))));
+            this.btnSavedImages.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(38)))), ((int)(((byte)(46)))));
+            this.btnSavedImages.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSavedImages.ForeColor = System.Drawing.Color.Silver;
+            this.btnSavedImages.Location = new System.Drawing.Point(0, 40);
+            this.btnSavedImages.Name = "btnSavedImages";
+            this.btnSavedImages.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.btnSavedImages.Size = new System.Drawing.Size(250, 40);
+            this.btnSavedImages.TabIndex = 1;
+            this.btnSavedImages.Text = "Saved Images";
+            this.btnSavedImages.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSavedImages.UseVisualStyleBackColor = true;
+            this.btnSavedImages.Click += new System.EventHandler(this.btnSavedImages_Click);
+            // 
+            // btnUploadimage
+            // 
+            this.btnUploadimage.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnUploadimage.FlatAppearance.BorderSize = 0;
+            this.btnUploadimage.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(38)))), ((int)(((byte)(46)))));
+            this.btnUploadimage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(38)))), ((int)(((byte)(46)))));
+            this.btnUploadimage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUploadimage.ForeColor = System.Drawing.Color.Silver;
+            this.btnUploadimage.Location = new System.Drawing.Point(0, 0);
+            this.btnUploadimage.Name = "btnUploadimage";
+            this.btnUploadimage.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.btnUploadimage.Size = new System.Drawing.Size(250, 40);
+            this.btnUploadimage.TabIndex = 0;
+            this.btnUploadimage.Text = "Upload Image";
+            this.btnUploadimage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnUploadimage.UseVisualStyleBackColor = true;
+            this.btnUploadimage.Click += new System.EventHandler(this.btnUploadimage_Click);
             // 
             // btnImagesList
             // 
@@ -104,7 +171,7 @@
             this.btnExit.ForeColor = System.Drawing.Color.Silver;
             this.btnExit.Image = ((System.Drawing.Image)(resources.GetObject("btnExit.Image")));
             this.btnExit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExit.Location = new System.Drawing.Point(0, 582);
+            this.btnExit.Location = new System.Drawing.Point(0, 647);
             this.btnExit.Name = "btnExit";
             this.btnExit.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.btnExit.Size = new System.Drawing.Size(250, 45);
@@ -286,82 +353,15 @@
             this.panelChildForm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelChildForm.Location = new System.Drawing.Point(250, 0);
             this.panelChildForm.Name = "panelChildForm";
-            this.panelChildForm.Size = new System.Drawing.Size(690, 627);
+            this.panelChildForm.Size = new System.Drawing.Size(833, 692);
             this.panelChildForm.TabIndex = 2;
-            // 
-            // panelImage
-            // 
-            this.panelImage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
-            this.panelImage.Controls.Add(this.btnSavedImages);
-            this.panelImage.Controls.Add(this.btnUploadimage);
-            this.panelImage.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelImage.Location = new System.Drawing.Point(0, 431);
-            this.panelImage.Name = "panelImage";
-            this.panelImage.Size = new System.Drawing.Size(250, 83);
-            this.panelImage.TabIndex = 13;
-            // 
-            // btnSavedImages
-            // 
-            this.btnSavedImages.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnSavedImages.FlatAppearance.BorderSize = 0;
-            this.btnSavedImages.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(38)))), ((int)(((byte)(46)))));
-            this.btnSavedImages.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(38)))), ((int)(((byte)(46)))));
-            this.btnSavedImages.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSavedImages.ForeColor = System.Drawing.Color.Silver;
-            this.btnSavedImages.Location = new System.Drawing.Point(0, 40);
-            this.btnSavedImages.Name = "btnSavedImages";
-            this.btnSavedImages.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnSavedImages.Size = new System.Drawing.Size(250, 40);
-            this.btnSavedImages.TabIndex = 1;
-            this.btnSavedImages.Text = "Saved Images";
-            this.btnSavedImages.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSavedImages.UseVisualStyleBackColor = true;
-            this.btnSavedImages.Click += new System.EventHandler(this.btnSavedImages_Click);
-            // 
-            // btnUploadimage
-            // 
-            this.btnUploadimage.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnUploadimage.FlatAppearance.BorderSize = 0;
-            this.btnUploadimage.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(38)))), ((int)(((byte)(46)))));
-            this.btnUploadimage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(38)))), ((int)(((byte)(46)))));
-            this.btnUploadimage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUploadimage.ForeColor = System.Drawing.Color.Silver;
-            this.btnUploadimage.Location = new System.Drawing.Point(0, 0);
-            this.btnUploadimage.Name = "btnUploadimage";
-            this.btnUploadimage.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnUploadimage.Size = new System.Drawing.Size(250, 40);
-            this.btnUploadimage.TabIndex = 0;
-            this.btnUploadimage.Text = "Upload Image";
-            this.btnUploadimage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUploadimage.UseVisualStyleBackColor = true;
-            this.btnUploadimage.Click += new System.EventHandler(this.btnUploadimage_Click);
-            // 
-            // btnHelp
-            // 
-            this.btnHelp.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnHelp.FlatAppearance.BorderSize = 0;
-            this.btnHelp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(21)))), ((int)(((byte)(32)))));
-            this.btnHelp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(22)))), ((int)(((byte)(34)))));
-            this.btnHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHelp.ForeColor = System.Drawing.Color.Silver;
-            this.btnHelp.Image = ((System.Drawing.Image)(resources.GetObject("btnHelp.Image")));
-            this.btnHelp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnHelp.Location = new System.Drawing.Point(0, 514);
-            this.btnHelp.Name = "btnHelp";
-            this.btnHelp.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.btnHelp.Size = new System.Drawing.Size(250, 45);
-            this.btnHelp.TabIndex = 14;
-            this.btnHelp.Text = "  Help";
-            this.btnHelp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnHelp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnHelp.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(940, 627);
+            this.ClientSize = new System.Drawing.Size(1083, 692);
             this.Controls.Add(this.panelChildForm);
             this.Controls.Add(this.panelSideMenu);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -371,9 +371,9 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.panelSideMenu.ResumeLayout(false);
+            this.panelImage.ResumeLayout(false);
             this.panelVideos.ResumeLayout(false);
             this.panelScreen.ResumeLayout(false);
-            this.panelImage.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

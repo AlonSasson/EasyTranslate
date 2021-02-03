@@ -124,7 +124,7 @@ namespace PlayerUI
 
         private void btnUploadimage_Click(object sender, EventArgs e)
         {
-
+            openChildForm(new UploadImagesFrom());
         }
 
         private void btnSavedImages_Click(object sender, EventArgs e)
