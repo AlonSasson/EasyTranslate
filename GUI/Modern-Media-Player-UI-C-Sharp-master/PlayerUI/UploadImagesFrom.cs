@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
+using System.Threading;
 
 namespace PlayerUI
 {
@@ -19,6 +20,18 @@ namespace PlayerUI
         public UploadImagesFrom()
         {
             InitializeComponent();
+            pictLoadingGif.Visible = false; // loading image gif
+        }
+
+        public UploadImagesFrom(String imagePath)
+        {
+            InitializeComponent();
+            pictLoadingGif.Visible = false;
+
+            uploadImage.Image = Image.FromFile(imagePath);
+            textBoxPath.Text = imagePath;
+
+            checkImageLoad = true;
         }
 
         private void btnUpload_Click(object sender, EventArgs e)
@@ -59,10 +72,12 @@ namespace PlayerUI
 
                 if (File.Exists(destPath)) // if the video exsist he will delete the first 
                 {
-                    File.Delete(destPath);
+                    MessageBox.Show("this image name alrady saved");
                 }
-
-                File.Copy(textBoxPath.Text, destPath);
+                else
+                {
+                    File.Copy(textBoxPath.Text, destPath);
+                }
             }
             else
             {
@@ -72,13 +87,26 @@ namespace PlayerUI
 
         private void btdTranslate_Click(object sender, EventArgs e)
         {
+            pictLoadingGif.Visible = true;
+            pictLoadingGif.Refresh();
+
             //should send the image to python script and get image translate
             string destPath = Path.Combine(@"images\\translate", Path.GetFileName(textBoxPath.Text));
-            File.Copy(textBoxPath.Text, destPath);
+            if (!File.Exists(destPath))
+            {
+                File.Copy(textBoxPath.Text, destPath);              
+            }
+            
+
+
+
 
             translate_image_path = destPath;
             //this is for now
             translateImage.Image = Image.FromFile(destPath);
+            pictLoadingGif.Image = null;
+
+            pictLoadingGif.Hide();
         }
 
         private void btnOpenTranslateImage_Click(object sender, EventArgs e)

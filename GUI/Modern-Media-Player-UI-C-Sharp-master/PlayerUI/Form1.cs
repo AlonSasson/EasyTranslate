@@ -38,7 +38,7 @@ namespace PlayerUI
 
         private void btnHome_Click(object sender, EventArgs e)
         {
-            openChildForm(new uploadVideForm());
+            
         }
 
         private void btnScreenList_Click(object sender, EventArgs e)
@@ -78,10 +78,8 @@ namespace PlayerUI
 
         private void btnSavedVideos_Click(object sender, EventArgs e)
         {
-            //..
-            //your codes
-            //..
-            hideSubMenu();
+            Form1 thisForm = this; // only for pass the class
+            openChildForm(new LoadingSaveFile(thisForm, false));
         }
 
         #endregion
@@ -104,7 +102,7 @@ namespace PlayerUI
         }
 
         private Form activeForm = null;
-        private void openChildForm(Form childForm)
+        public void openChildForm(Form childForm)
         {
             if (activeForm != null) activeForm.Close();
             activeForm = childForm;
@@ -129,7 +127,8 @@ namespace PlayerUI
 
         private void btnSavedImages_Click(object sender, EventArgs e)
         {
-
+            Form1 thisForm = this; // only for pass the class
+            openChildForm(new LoadingSaveFile(thisForm, true));
         }
     }
 }

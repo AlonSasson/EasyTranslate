@@ -20,7 +20,18 @@ namespace PlayerUI
             changeSoundMadia(15); // start 15 as difult volume sound
         }
 
-     
+        public uploadVideForm(String videoPath)
+        {
+            InitializeComponent();
+            changeSoundMadia(15); // start 15 as difult volume sound
+
+            videoMadia.URL = videoPath;
+            textBoxPath.Text = videoPath;
+
+            checkLoadVideo = true;
+        }
+
+
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog open = new OpenFileDialog();
@@ -107,12 +118,15 @@ namespace PlayerUI
 
                 if (File.Exists(destPath)) // if the video exsist he will delete the first 
                 {
-                    File.Delete(destPath);
+                    MessageBox.Show("this video name alrady saved");
+                }
+                else
+                {
+                    File.Copy(textBoxPath.Text, destPath);
                 }
 
 
 
-                File.Copy(textBoxPath.Text, destPath);
             }
             else
             {
