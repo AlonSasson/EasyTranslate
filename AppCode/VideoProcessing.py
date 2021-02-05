@@ -2,6 +2,9 @@ import cv2
 import moviepy.editor as mp
 import sys
 from PyQt5 import QtWidgets, QtCore
+from threading import Thread
+import heapq
+import time
 
 
 class SelectWindow(QtWidgets.QMainWindow):
@@ -91,24 +94,45 @@ def process_video(video_path, out_path, frame_function):
 
     # creating output video
     fourcc = cv2.VideoWriter_fourcc(*'MJPG')
-    out = cv2.VideoWriter(out_path, fourcc, fps, (frame_width,frame_height))
-    frame_to_write = 0
-    i = fps
+    out = cv2.VideoWriter(out_path, fourcc, fps, (frame_width, frame_height))
+    frame_count = 0
+    threads = []
+    frames_heap = []
     while (True):
         ret, frame = cap.read()
 
         if not ret:
             break
-        if i % fps == 0:
-            frame_to_write = frame_function(frame)
-            frame_to_write = cv2.resize(frame_to_write, (frame_width,frame_height))
+        if frame_count % fps == 0:  # process with speed of 1 fps
+            # process the frame on a different thread
+            threads.append(Thread(target=process_frame, args=(frame_function, frames_heap, frame, frame_count)))
+            threads[-1].start()  # start the thread
+        frame_count += 1
 
-
-        out.write(frame_to_write)
-        i += 1
+    for i in range(frame_count):
+        if i % fps == 0:  # if its a processed frame
+            threads.pop(0).join()  # wait for the thread to finish
+            _, frame = heapq.heappop(frames_heap)  # get the processed frame
+        frame = cv2.resize(frame, (frame_width, frame_height))
+        out.write(frame)
 
     cap.release()
     out.release()
     cv2.destroyAllWindows()
+
+
+def process_frame(frame_function, frames_heap, frame, index):
+    """ processes a frame and enters it to a frame heap with its index
+    :param frame_function: the function to process the frame with
+    :param frames_heap: a priority queue (heap) we enter the frame into
+    :param frame: the frame to process
+    :param index: the frame's index
+    """
+    start = time.time()
+    frame_to_write = frame_function(frame)
+    end = time.time()
+    print(end - start)
+    heapq.heappush(frames_heap, (index, frame_to_write))  # add the frame to the frame list
+
 
 

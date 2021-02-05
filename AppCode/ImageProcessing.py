@@ -4,6 +4,7 @@ import imutils
 import functools
 import tensorflow as tf
 from imutils.object_detection import non_max_suppression
+from threading import Lock
 
 X = 0
 Y = 1
@@ -12,6 +13,8 @@ HEIGHT = 3
 
 model = tf.keras.models.load_model('my_model')
 net = cv2.dnn.readNet(r'east_model\frozen_east_text_detection.pb')
+
+net_lock = Lock()
 
 
 def loc_area(location):
@@ -359,8 +362,12 @@ def east_get_text_locations(image, min_confidence):
     # the model to obtain the two output layer sets
     blob = cv2.dnn.blobFromImage(thresh, 1.0, (W, H),
                                  (123.68, 116.78, 103.94), swapRB=True, crop=False)
+
     net.setInput(blob)
-    (scores, geometry) = net.forward(layer_names)
+
+    net_lock.acquire()  # lock before using the shared net
+    (scores, geometry) = net.forward(layer_names)  # get text locations and scores
+    net_lock.release()  # release lock
 
     # get the locations from the net output
     (rects, confidences) = get_locations_from_net_results(scores, geometry, min_confidence)
@@ -484,6 +491,9 @@ def get_word_ml(word_img, char_locs):
     """
     char_images = []
     word_output = ''
+
+    if not char_locs:
+        return word_output
     avg_loc_width = get_average_loc_width(char_locs)
 
     word_img = cv2.cvtColor(word_img, cv2.COLOR_BGR2GRAY)

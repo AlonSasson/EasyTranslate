@@ -60,8 +60,8 @@ def translate_video(video_path):
 
 
 def main():
-    image = cv2.imread("testing/test2.jpg")  # Read the file
-    translate_image(image)
+    #image = cv2.imread("testing/test2.jpg")  # Read the file
+    #translate_image(image)
     translate_video('testing/project_present.avi')
 
 
