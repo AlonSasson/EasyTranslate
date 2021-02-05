@@ -84,11 +84,6 @@ namespace PlayerUI
             controlSound.Value = soundValue;
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void Form2_Resize(object sender, EventArgs e)
         {
             controlSound.Location = new Point(soundPict.Location.X + 40, soundPict.Location.Y);

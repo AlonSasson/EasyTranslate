@@ -35,7 +35,7 @@
             // listOfFile
             // 
             this.listOfFile.AutoScroll = true;
-            this.listOfFile.BackColor = System.Drawing.Color.Black;
+            this.listOfFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
             this.listOfFile.Location = new System.Drawing.Point(60, 99);
             this.listOfFile.Name = "listOfFile";
             this.listOfFile.Size = new System.Drawing.Size(536, 407);
@@ -55,7 +55,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(692, 566);
             this.Controls.Add(this.textBoxTitle);
             this.Controls.Add(this.listOfFile);

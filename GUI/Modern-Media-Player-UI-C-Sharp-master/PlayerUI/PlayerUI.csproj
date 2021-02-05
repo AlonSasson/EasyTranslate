@@ -53,6 +53,12 @@
     <Compile Include="Form1.designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="HomePage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HomePage.Designer.cs">
+      <DependentUpon>HomePage.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoadingSaveFile.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +81,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HomePage.resx">
+      <DependentUpon>HomePage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoadingSaveFile.resx">
       <DependentUpon>LoadingSaveFile.cs</DependentUpon>
@@ -140,7 +149,24 @@
     <None Include="Resources\upload-2-24.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\sinchronize-24.png" />
+    <None Include="Resources\upload-2-24 %281%29.png" />
+    <None Include="Resources\open-in-browser-24.png" />
+    <None Include="Resources\save-32 %283%29.png" />
+    <None Include="Resources\save-xxl.png" />
+    <None Include="Resources\open-in-browser-32.png" />
+    <None Include="Resources\video-play-4-24 %281%29.png" />
+    <None Include="Resources\picture-2-24.png" />
+    <None Include="Resources\monitor-24.png" />
     <Resource Include="Resources\giphy.gif" />
+    <None Include="Resources\home-5-32.gif" />
+    <None Include="Resources\house-24.png" />
+    <None Include="Resources\help-24 %281%29.png" />
+    <None Include="Resources\exit-24.png" />
+    <None Include="Resources\download.png" />
+    <None Include="Resources\download1.png" />
+    <None Include="Resources\google-translate-32 %281%29.png" />
+    <None Include="Resources\google-translate-24.png" />
     <Content Include="Resources\loading_circle_dots.mp4" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

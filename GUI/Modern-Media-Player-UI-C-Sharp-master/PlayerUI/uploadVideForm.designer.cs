@@ -29,42 +29,29 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(uploadVideForm));
-            this.label1 = new System.Windows.Forms.Label();
             this.textBoxPath = new System.Windows.Forms.TextBox();
-            this.btnExit = new System.Windows.Forms.Button();
             this.panelPlayer = new System.Windows.Forms.Panel();
             this.controlSound = new System.Windows.Forms.TrackBar();
             this.textBoxSoundValue = new System.Windows.Forms.Label();
+            this.videoMadia = new AxWMPLib.AxWindowsMediaPlayer();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btdTranslate = new System.Windows.Forms.Button();
             this.soundPict = new System.Windows.Forms.PictureBox();
             this.restartVideBtn = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.playButton = new System.Windows.Forms.PictureBox();
-            this.videoMadia = new AxWMPLib.AxWindowsMediaPlayer();
-            this.btdTranslate = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panelPlayer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.controlSound)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.videoMadia)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.soundPict)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.restartVideBtn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.videoMadia)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(250, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(127, 25);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Chose video ";
             // 
             // textBoxPath
             // 
@@ -77,24 +64,9 @@
             this.textBoxPath.Size = new System.Drawing.Size(442, 24);
             this.textBoxPath.TabIndex = 1;
             // 
-            // btnExit
-            // 
-            this.btnExit.FlatAppearance.BorderSize = 0;
-            this.btnExit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(42)))), ((int)(((byte)(83)))));
-            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.ForeColor = System.Drawing.Color.LightGray;
-            this.btnExit.Location = new System.Drawing.Point(0, 0);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(25, 25);
-            this.btnExit.TabIndex = 7;
-            this.btnExit.Text = "X";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
             // panelPlayer
             // 
-            this.panelPlayer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(21)))), ((int)(((byte)(32)))));
+            this.panelPlayer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
             this.panelPlayer.Controls.Add(this.controlSound);
             this.panelPlayer.Controls.Add(this.textBoxSoundValue);
             this.panelPlayer.Controls.Add(this.soundPict);
@@ -114,7 +86,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.controlSound.AutoSize = false;
-            this.controlSound.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(21)))), ((int)(((byte)(32)))));
+            this.controlSound.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
             this.controlSound.CausesValidation = false;
             this.controlSound.Location = new System.Drawing.Point(352, 34);
             this.controlSound.Maximum = 100;
@@ -138,6 +110,46 @@
             this.textBoxSoundValue.TabIndex = 11;
             this.textBoxSoundValue.Text = "0%";
             // 
+            // videoMadia
+            // 
+            this.videoMadia.AllowDrop = true;
+            this.videoMadia.Enabled = true;
+            this.videoMadia.Location = new System.Drawing.Point(54, 116);
+            this.videoMadia.Name = "videoMadia";
+            this.videoMadia.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("videoMadia.OcxState")));
+            this.videoMadia.Size = new System.Drawing.Size(397, 223);
+            this.videoMadia.TabIndex = 8;
+            this.videoMadia.TabStop = false;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Monotype Corsiva", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
+            this.label2.Location = new System.Drawing.Point(224, 4);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(149, 39);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Chose video";
+            // 
+            // btdTranslate
+            // 
+            this.btdTranslate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btdTranslate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
+            this.btdTranslate.FlatAppearance.BorderSize = 0;
+            this.btdTranslate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btdTranslate.Font = new System.Drawing.Font("Perpetua", 18.5F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btdTranslate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
+            this.btdTranslate.Image = global::PlayerUI.Properties.Resources.google_translate_24;
+            this.btdTranslate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btdTranslate.Location = new System.Drawing.Point(530, 180);
+            this.btdTranslate.Name = "btdTranslate";
+            this.btdTranslate.Size = new System.Drawing.Size(150, 40);
+            this.btdTranslate.TabIndex = 10;
+            this.btdTranslate.Text = "Translate";
+            this.btdTranslate.UseVisualStyleBackColor = false;
+            // 
             // soundPict
             // 
             this.soundPict.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -153,7 +165,7 @@
             // 
             this.restartVideBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.restartVideBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.restartVideBtn.Image = ((System.Drawing.Image)(resources.GetObject("restartVideBtn.Image")));
+            this.restartVideBtn.Image = global::PlayerUI.Properties.Resources.sinchronize_24;
             this.restartVideBtn.Location = new System.Drawing.Point(283, 34);
             this.restartVideBtn.Name = "restartVideBtn";
             this.restartVideBtn.Size = new System.Drawing.Size(24, 24);
@@ -199,43 +211,15 @@
             this.playButton.TabStop = false;
             this.playButton.Click += new System.EventHandler(this.btnPlay_Click);
             // 
-            // videoMadia
-            // 
-            this.videoMadia.AllowDrop = true;
-            this.videoMadia.Enabled = true;
-            this.videoMadia.Location = new System.Drawing.Point(54, 116);
-            this.videoMadia.Name = "videoMadia";
-            this.videoMadia.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("videoMadia.OcxState")));
-            this.videoMadia.Size = new System.Drawing.Size(397, 223);
-            this.videoMadia.TabIndex = 8;
-            this.videoMadia.TabStop = false;
-            // 
-            // btdTranslate
-            // 
-            this.btdTranslate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btdTranslate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.btdTranslate.FlatAppearance.BorderSize = 0;
-            this.btdTranslate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btdTranslate.Font = new System.Drawing.Font("Perpetua", 18.5F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btdTranslate.ForeColor = System.Drawing.Color.Red;
-            this.btdTranslate.Image = global::PlayerUI.Properties.Resources.google_translate_321;
-            this.btdTranslate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btdTranslate.Location = new System.Drawing.Point(530, 180);
-            this.btdTranslate.Name = "btdTranslate";
-            this.btdTranslate.Size = new System.Drawing.Size(150, 40);
-            this.btdTranslate.TabIndex = 10;
-            this.btdTranslate.Text = "Translate";
-            this.btdTranslate.UseVisualStyleBackColor = false;
-            // 
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
             this.btnSave.FlatAppearance.BorderSize = 0;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Perpetua", 24.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.ForeColor = System.Drawing.Color.Red;
-            this.btnSave.Image = global::PlayerUI.Properties.Resources.save_32;
+            this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
+            this.btnSave.Image = global::PlayerUI.Properties.Resources.save_32__3_;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSave.Location = new System.Drawing.Point(530, 116);
             this.btnSave.Name = "btnSave";
@@ -248,12 +232,12 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(22)))), ((int)(((byte)(34)))));
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.LightGray;
-            this.button1.Image = global::PlayerUI.Properties.Resources.upload_2_24;
+            this.button1.Image = global::PlayerUI.Properties.Resources.upload_2_24__1_;
             this.button1.Location = new System.Drawing.Point(530, 47);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(24, 24);
@@ -265,40 +249,36 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(692, 558);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.btdTranslate);
             this.Controls.Add(this.videoMadia);
             this.Controls.Add(this.panelPlayer);
-            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBoxPath);
-            this.Controls.Add(this.label1);
             this.Name = "uploadVideForm";
             this.Text = "uploadVideForm";
             this.Resize += new System.EventHandler(this.Form2_Resize);
             this.panelPlayer.ResumeLayout(false);
             this.panelPlayer.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.controlSound)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.videoMadia)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.soundPict)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.restartVideBtn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.playButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.videoMadia)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxPath;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Panel panelPlayer;
         private AxWMPLib.AxWindowsMediaPlayer videoMadia;
         private System.Windows.Forms.TrackBar controlSound;
@@ -309,5 +289,6 @@
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox playButton;
         private System.Windows.Forms.Button btdTranslate;
+        private System.Windows.Forms.Label label2;
     }
 }

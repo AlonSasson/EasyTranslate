@@ -42,20 +42,21 @@ namespace PlayerUI
                 Button b = new Button();
 
                 if (isImage)
-                    b.Image = Image.FromFile(files[i]);
-                else
+                {
+                    b.BackgroundImage = Image.FromFile(files[i]);
+                }
+                else // video
                 {
                     b.Text = Path.GetFileName(files[i]);
                     b.TextAlign = ContentAlignment.MiddleLeft;
                     b.ForeColor = Color.White;
-                    b.BackgroundImageLayout = ImageLayout.Zoom;
+
                 }
 
-
-                b.Name = files[i];
                 b.Size = new Size(148, 148);
+                b.Name = files[i];
+                b.BackgroundImageLayout = ImageLayout.Zoom;
                 b.Click += new EventHandler(button_Click);
-
 
                 listOfFile.Controls.Add(b);
             }

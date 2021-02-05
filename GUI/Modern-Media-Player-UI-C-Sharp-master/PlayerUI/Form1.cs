@@ -16,6 +16,8 @@ namespace PlayerUI
         {
             InitializeComponent();
             hideSubMenu();
+
+            openChildForm(new HomePage());  
         }
 
         private void hideSubMenu()
@@ -38,7 +40,7 @@ namespace PlayerUI
 
         private void btnHome_Click(object sender, EventArgs e)
         {
-            
+            openChildForm(new HomePage());
         }
 
         private void btnScreenList_Click(object sender, EventArgs e)
@@ -89,13 +91,6 @@ namespace PlayerUI
             showSubMenu(panelVideos);
         }
 
-        private void btnHelp_Click(object sender, EventArgs e)
-        {
-            //..
-            //your codes
-            //..
-            hideSubMenu();
-        }
         private void btnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -130,5 +125,11 @@ namespace PlayerUI
             Form1 thisForm = this; // only for pass the class
             openChildForm(new LoadingSaveFile(thisForm, true));
         }
+
+        private void btnScreenList_MouseDown(object sender, MouseEventArgs e)
+        {
+
+        }
+
     }
 }
