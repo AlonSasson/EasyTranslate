@@ -3,19 +3,19 @@ import numpy
 import imutils
 import functools
 import tensorflow as tf
+import Translate
+import TextReplacement
 from imutils.object_detection import non_max_suppression
 from threading import Lock
+import pytesseract
+from pytesseract import Output
 
 X = 0
 Y = 1
 WIDTH = 2
 HEIGHT = 3
 
-model = tf.keras.models.load_model('my_model')
-net = cv2.dnn.readNet(r'east_model\frozen_east_text_detection.pb')
-
 net_lock = Lock()
-
 
 def loc_area(location):
     """" Calculates the area of a location
@@ -347,6 +347,8 @@ def east_get_text_locations(image, min_confidence):
     :param min_confidence: the minimum confidence score that will be accepted as a text area
     :return: the original image, the image after resizing, a list of sorted locations of the possible text areas
     """
+    if "model" not in east_get_text_locations.__dict__:  # initialize the net
+        east_get_text_locations.net = cv2.dnn.readNet(r'east_model\frozen_east_text_detection.pb')
     # resize the image and grab the new image dimensions
     thresh = cv2.resize(image, (640, 320))
     (H, W) = thresh.shape[:2]
@@ -363,10 +365,10 @@ def east_get_text_locations(image, min_confidence):
     blob = cv2.dnn.blobFromImage(thresh, 1.0, (W, H),
                                  (123.68, 116.78, 103.94), swapRB=True, crop=False)
 
-    net.setInput(blob)
+    east_get_text_locations.net.setInput(blob)
 
     net_lock.acquire()  # lock before using the shared net
-    (scores, geometry) = net.forward(layer_names)  # get text locations and scores
+    (scores, geometry) = east_get_text_locations.net.forward(layer_names)  # get text locations and scores
     net_lock.release()  # release lock
 
     # get the locations from the net output
@@ -486,9 +488,11 @@ def get_word_ml(word_img, char_locs):
     """ gets the word from an image using the character locations in it and a template for all character
     :param word_img - an image that contains a word
     :param char_locs - the locations of all characters in the image
-    :param model_path - the path of training model to run
     :return the word that was found in the image
     """
+    if "model" not in get_word_ml.__dict__:  # initialize the model
+        get_word_ml.model = tf.keras.models.load_model('my_model')
+
     char_images = []
     word_output = ''
 
@@ -512,7 +516,7 @@ def get_word_ml(word_img, char_locs):
     # reshaping
     char_images = char_images.reshape(-1, 28, 28, 1)
 
-    classifications = model.predict(char_images)
+    classifications = get_word_ml.model.predict(char_images)
 
     for i, classification in enumerate(classifications):
         if i != 0:  # if its less likely its a capital letter
@@ -529,3 +533,63 @@ def get_word_ml(word_img, char_locs):
 
     return word_output
 
+
+def translate_image(image):
+    """ Translates the text in an image
+    :param image: the image to translate
+    :return: the translated image, and the text locations in the image
+    """
+    if image is None:
+        return image, []
+
+    image, thresh, locations = east_get_text_locations(image, 0.2)  # get the word locations in the image
+    text = []
+    for word_loc in locations:
+        (x, y, width, height) = word_loc
+        word_img = thresh[y:y + height, x:x + width]  # get an image of just the word
+        _, char_locs = get_image_contours(word_img)  # get the character locations from that image
+        word_output = get_word_ml(word_img, char_locs)
+        for loc in char_locs:
+            (x1, y1, width1, height1) = loc
+            cv2.rectangle(thresh, (x+x1, y+y1),
+                          (x+x1 + width1, y+y1 + height1), (0, 255, 0), 2)
+
+        if word_output != '':
+            text.append(word_output + ' ')
+
+    for i, word_loc in enumerate(locations):  # create a bounding box with text
+        (x, y, width, height) = word_loc
+        cv2.rectangle(thresh, (x, y),
+                      (x + width, y + height), (0, 0, 255), 2)
+        cv2.putText(thresh, text[i], (x, y + height + 10),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.65, (0, 0, 255), 2)
+
+    text = ''.join(text).lower()
+    print(text)
+
+    text, right_left = Translate.googletrans_translate(text, 'HE')
+    thresh = blur_locations(thresh, locations)
+    thresh = TextReplacement.place_text_in_locs(thresh, locations, text, right_left)
+
+    return thresh, locations
+
+
+def find_word_tesseract(img):
+    """
+    the function get image and return a dict withe word in image and location
+    :param img: cv2 of image
+    :return: dict [word] = location of word [x, y, w, h]
+    """
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
+
+    d = pytesseract.image_to_data(img, output_type=Output.DICT)
+
+    word_in_image = {}
+
+    n_boxes = len(d['text'])
+    for i in range(n_boxes):
+        if int(d['conf'][i]) > 45:
+            word_in_image[d['text'][i]] =  [d['left'][i], d['top'][i], d['width'][i], d['height'][i]] # [x, y, w, h]
+
+    return word_in_image
