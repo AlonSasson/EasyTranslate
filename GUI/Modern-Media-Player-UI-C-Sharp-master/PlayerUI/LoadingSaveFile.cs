@@ -18,9 +18,25 @@ namespace PlayerUI
     {
         private bool isImage;
         private Form1 mainForm;
-        public LoadingSaveFile(PlayerUI.Form1 form1, bool isImageCheck)
+        PlayerUI.UploadVideForm uploadVideForm = null;
+        PlayerUI.UploadImagesFrom uploadImagesFrom = null;
+
+        public LoadingSaveFile(PlayerUI.Form1 form1, bool isImageCheck, PlayerUI.UploadVideForm videoChildForm)
         {
             InitializeComponent();
+            initailzeList(form1, isImageCheck);
+            uploadVideForm = videoChildForm;
+        }
+
+        public LoadingSaveFile(PlayerUI.Form1 form1, bool isImageCheck, PlayerUI.UploadImagesFrom imageChildForm)
+        {
+            InitializeComponent();
+            initailzeList(form1, isImageCheck);
+            uploadImagesFrom = imageChildForm;
+        }
+
+        private void initailzeList(PlayerUI.Form1 form1, bool isImageCheck)
+        {
             mainForm = form1;
             isImage = isImageCheck;
 
@@ -32,7 +48,7 @@ namespace PlayerUI
                 textBoxTitle.Text = "Image files";
             }
             else
-            { 
+            {
                 files = Directory.GetFiles("videos");
                 textBoxTitle.Text = "video files";
             }
@@ -60,7 +76,6 @@ namespace PlayerUI
 
                 listOfFile.Controls.Add(b);
             }
-            
         }
 
         public bool ThumbnailCallback()
@@ -74,20 +89,18 @@ namespace PlayerUI
 
             if (isImage)
             {
-                UploadImagesFrom imageForm = new UploadImagesFrom(button.Name);
-                
-                mainForm.openChildForm(imageForm);
-                this.Close();
+                uploadImagesFrom.setImage(button.Name);
+
+                mainForm.openChildForm(uploadImagesFrom);
+                this.Hide();
             }
             else  // it means is a video
             {
-                uploadVideForm videForm = new uploadVideForm(button.Name);
+                uploadVideForm.setVideo(button.Name);
 
-                mainForm.openChildForm(videForm);
-                this.Close();
+                mainForm.openChildForm(uploadVideForm);
+                this.Hide();
             }
-
-
         }
 
 

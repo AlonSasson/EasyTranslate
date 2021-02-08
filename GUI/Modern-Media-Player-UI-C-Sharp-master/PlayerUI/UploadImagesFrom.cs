@@ -23,17 +23,6 @@ namespace PlayerUI
             pictLoadingGif.Visible = false; // loading image gif
         }
 
-        public UploadImagesFrom(String imagePath)
-        {
-            InitializeComponent();
-            pictLoadingGif.Visible = false;
-
-            uploadImage.Image = Image.FromFile(imagePath);
-            textBoxPath.Text = imagePath;
-
-            checkImageLoad = true;
-        }
-
         private void btnUpload_Click(object sender, EventArgs e)
         {
             OpenFileDialog open = new OpenFileDialog();
@@ -43,11 +32,7 @@ namespace PlayerUI
             {
                 try
                 {
-                    textBoxPath.Text = open.FileName;
-                    uploadImage.Image = Image.FromFile(textBoxPath.Text);
-
-                    //not saving or play none video
-                    checkImageLoad = true;
+                    setImage(open.FileName);
                 }
                 catch (Exception)
                 {
@@ -56,6 +41,15 @@ namespace PlayerUI
                 }
 
             }
+        }
+
+        public void setImage(string imagePath)
+        {
+            uploadImage.Image = Image.FromFile(imagePath);
+            textBoxPath.Text = imagePath;
+
+            checkImageLoad = true;
+            translateImage.Image = null;
         }
 
         private void btnSave_Click(object sender, EventArgs e)

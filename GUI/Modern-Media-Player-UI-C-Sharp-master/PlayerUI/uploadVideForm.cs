@@ -11,25 +11,15 @@ using System.IO;
 
 namespace PlayerUI
 {
-    public partial class uploadVideForm : Form
+    public partial class UploadVideForm : Form
     {
         private bool checkLoadVideo = false;
-        public uploadVideForm()
+        public UploadVideForm()
         {
             InitializeComponent();
             changeSoundMadia(15); // start 15 as difult volume sound
         }
 
-        public uploadVideForm(String videoPath)
-        {
-            InitializeComponent();
-            changeSoundMadia(15); // start 15 as difult volume sound
-
-            videoMadia.URL = videoPath;
-            textBoxPath.Text = videoPath;
-
-            checkLoadVideo = true;
-        }
 
 
         private void button1_Click(object sender, EventArgs e)
@@ -55,6 +45,14 @@ namespace PlayerUI
                 }
                 
             }
+        }
+
+        public void setVideo(string videoPath)
+        {
+            videoMadia.URL = videoPath;
+            textBoxPath.Text = videoPath;
+
+            checkLoadVideo = true;
         }
 
         private void btnPlay_Click(object sender, EventArgs e)

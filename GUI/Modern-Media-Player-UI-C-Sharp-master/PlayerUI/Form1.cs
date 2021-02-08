@@ -12,12 +12,43 @@ namespace PlayerUI
 {
     public partial class Form1 : Form
     {
+
+        private HomePage homePage;
+        private UploadVideForm uploadVideoForm;
+        private UploadImagesFrom uploadImagesFrom;
+        private LoadingSaveFile loadingSaveVideo;
+        private LoadingSaveFile loadingSaveImage;
+
+        //private Form homePage = new HomePage();
         public Form1()
         {
             InitializeComponent();
+            createForm();
+
             hideSubMenu();
 
-            openChildForm(new HomePage());  
+            openChildForm(homePage);
+        }
+
+        private void createForm()
+        {
+            Form1 thisForm = this; // only for pass the class
+
+            homePage = new HomePage();
+            buildUpForChildForm(homePage);
+
+            uploadVideoForm = new UploadVideForm();
+            buildUpForChildForm(uploadVideoForm);
+
+            uploadImagesFrom = new UploadImagesFrom();
+            buildUpForChildForm(uploadImagesFrom);
+
+            loadingSaveVideo = new LoadingSaveFile(thisForm, false, uploadVideoForm);
+            buildUpForChildForm(loadingSaveVideo);
+
+            loadingSaveImage = new LoadingSaveFile(thisForm, true, uploadImagesFrom);
+            buildUpForChildForm(loadingSaveImage);
+
         }
 
         private void hideSubMenu()
@@ -26,6 +57,7 @@ namespace PlayerUI
             panelVideos.Visible = false;
             panelImage.Visible = false;
         }
+
 
         private void showSubMenu(Panel subMenu)
         {
@@ -40,11 +72,11 @@ namespace PlayerUI
 
         private void btnHome_Click(object sender, EventArgs e)
         {
-            openChildForm(new HomePage());
+            openChildForm(homePage);
         }
 
         private void btnScreenList_Click(object sender, EventArgs e)
-            //screen list btn
+        //screen list btn
         {
             showSubMenu(panelScreen);
         }
@@ -75,13 +107,13 @@ namespace PlayerUI
         #region ToolsSubMenu
         private void btnUploadVideo_Click(object sender, EventArgs e)
         {
-            openChildForm(new uploadVideForm());
+            openChildForm(uploadVideoForm);
         }
 
         private void btnSavedVideos_Click(object sender, EventArgs e)
         {
             Form1 thisForm = this; // only for pass the class
-            openChildForm(new LoadingSaveFile(thisForm, false));
+            openChildForm(loadingSaveVideo);
         }
 
         #endregion
@@ -96,16 +128,23 @@ namespace PlayerUI
             Application.Exit();
         }
 
-        private Form activeForm = null;
-        public void openChildForm(Form childForm)
+
+        private void buildUpForChildForm(Form childForm)
+            // the function get the settings of the form ready for be in form1 child
         {
-            if (activeForm != null) activeForm.Close();
-            activeForm = childForm;
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
             childForm.Dock = DockStyle.Fill;
             panelChildForm.Controls.Add(childForm);
             panelChildForm.Tag = childForm;
+        }
+
+        private Form activeForm = null;
+        public void openChildForm(Form childForm)
+        {
+            //if (activeForm != null) activeForm.Hide();
+            activeForm = childForm;
+            
             childForm.BringToFront();
             childForm.Show();
         }
@@ -117,18 +156,12 @@ namespace PlayerUI
 
         private void btnUploadimage_Click(object sender, EventArgs e)
         {
-            openChildForm(new UploadImagesFrom());
+            openChildForm(uploadImagesFrom);
         }
 
         private void btnSavedImages_Click(object sender, EventArgs e)
         {
-            Form1 thisForm = this; // only for pass the class
-            openChildForm(new LoadingSaveFile(thisForm, true));
-        }
-
-        private void btnScreenList_MouseDown(object sender, MouseEventArgs e)
-        {
-
+            openChildForm(loadingSaveImage);
         }
 
     }

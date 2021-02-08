@@ -1,6 +1,6 @@
 ﻿namespace PlayerUI
 {
-    partial class uploadVideForm
+    partial class UploadVideForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(uploadVideForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UploadVideForm));
             this.textBoxPath = new System.Windows.Forms.TextBox();
             this.panelPlayer = new System.Windows.Forms.Panel();
             this.controlSound = new System.Windows.Forms.TrackBar();

@@ -316,7 +316,6 @@
             this.btnScreenList.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnScreenList.UseVisualStyleBackColor = false;
             this.btnScreenList.Click += new System.EventHandler(this.btnScreenList_Click);
-            this.btnScreenList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnScreenList_MouseDown);
             // 
             // btnHome
             // 
