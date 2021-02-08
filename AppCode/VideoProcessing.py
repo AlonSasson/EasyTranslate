@@ -1,13 +1,16 @@
 import cv2
+import numpy
+import ImageProcessing as ip
 import moviepy.editor as mp
-import sys
 from PyQt5 import QtWidgets, QtCore
+from PIL import ImageGrab
 from threading import Thread
 import heapq
 import time
+import sys
 
 
-class SelectWindow(QtWidgets.QMainWindow):
+class SelectionWindow(QtWidgets.QMainWindow):
 
     selected_area = []
 
@@ -47,16 +50,52 @@ class SelectWindow(QtWidgets.QMainWindow):
         QtWidgets.qApp.quit()  # close the overlay
 
 
+class OverlayWindow(QtWidgets.QMainWindow):
+
+    def __init__(self):
+        QtWidgets.QMainWindow.__init__(self)
+
+        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        self.setWindowFlags(
+            QtCore.Qt.WindowStaysOnTopHint |  # make the overlay the first window
+            QtCore.Qt.FramelessWindowHint |  # remove window border
+            QtCore.Qt.X11BypassWindowManagerHint
+        )
+
+        screen_geometry = QtWidgets.qApp.desktop().availableGeometry()  # screen resolutions
+        self.setGeometry(0, 0, screen_geometry.width(), screen_geometry.height())  # set overlay resolutions
+
+
 def select_area():
     """
     Selects an area on the screen
     :return the area that the user selected (two points)
     """
     app = QtWidgets.QApplication(sys.argv)
-    mywindow = SelectWindow()
-    mywindow.show()
-    app.exec_()
-    return mywindow.selected_area
+    my_window = SelectionWindow()
+    my_window.show()
+    app.exec_()  # run until the area is selected
+    return my_window.selected_area
+
+
+def translate_screen(selected_area=[]):
+    """
+    translates the screen in real time using an overlay
+    :param selected_area: the selected area to translate
+    """
+    #my_window = OverlayWindow()
+    #my_window.show()
+
+    if not selected_area:
+        #screen_geometry = QtWidgets.qApp.desktop().availableGeometry()  # screen resolutions
+        selected_area = [0, 0, 50, 50]#screen_geometry.width(), screen_geometry.height()]
+
+    while True:
+        pil_image = ImageGrab.grab(bbox=selected_area)  # bbox specifies specific region (bbox= x,y,width,height)
+        frame = cv2.cvtColor(numpy.array(pil_image), cv2.COLOR_RGB2BGR)
+        frame, _ = ip.translate_image(frame)
+        cv2.imshow("test", frame)
+    cv2.destroyAllWindows()
 
 
 def copy_video_sound(video_sound_path, video_out_path, video_clip_path):
