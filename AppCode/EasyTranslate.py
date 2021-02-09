@@ -25,14 +25,14 @@ def translate_video(video_path):
     """
     out_path = video_path.split(".", -1)
     out_path = out_path[0] + '_translated.avi'
-    vp.process_video(video_path, out_path, translate_image)
+    vp.process_video(video_path, out_path)
     vp.copy_video_sound(video_path, out_path, out_path)
 
 
 def main():
     #translate_image("testing/test2.jpg")
     #translate_video('testing/project_present.avi')
-    vp.translate_screen()
+    vp.translate_screen(vp.select_area())
 
 if __name__ == "__main__":
     main()

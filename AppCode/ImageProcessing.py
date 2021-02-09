@@ -1,6 +1,5 @@
 import cv2
 import numpy
-import imutils
 import functools
 import tensorflow as tf
 import Translate
@@ -89,22 +88,6 @@ def merge_small_locs(locations):
     return locations
 
 
-def enlarge_small_locs(locations):
-    """ enlarges small locations in a list of locations
-    :param locations - a list of locations
-    :return the list of locations after enlarging small locations
-    """
-    # get the average loc size, height and width before enlarging small locs
-    avg_loc_size = get_average_loc_area(locations)
-    avg_loc_width = get_average_loc_width(locations)
-    avg_loc_height = get_average_loc_height(locations)
-    for i in range(len(locations)):
-        if loc_area(locations[i]) < avg_loc_size / 2:  # if the location is smaller than average
-            # make them a bit bigger
-            locations[i] = enlarge_loc(locations[i], int(avg_loc_width / 5), int(avg_loc_height / 5))
-    return locations
-
-
 def remove_small_locs(locations):
     """ removes small locations in a list of locations
     :param locations - a list of locations
@@ -181,24 +164,6 @@ def merge_overlapping_locs(locations):
     return locations
 
 
-def merge_close_locs(locations, threshold):
-    """ Merges close locations in a sorted list
-    :param locations - a list of sorted locations
-    :param threshold - the threshold for the locations to be considered close
-    :return the list of sorted locations after merging close locations
-    """
-    i = 0
-    while i < len(locations) - 1:
-        # if the two rectangles are in the same "line" and are close enough
-        if locations[i][Y] + locations[i][HEIGHT] > locations[i + 1][Y] \
-                and locations[i][X] + locations[i][WIDTH] + threshold > locations[i + 1][X]:
-            locations[i] = union_two_rects(locations[i], locations[i + 1])  # merge them
-            locations.remove(locations[i + 1])
-            i = -1  # reset to see if some rectangle needs more merging
-        i += 1
-    return locations
-
-
 def union_two_rects(rect1, rect2):
     """ gets the union of two rectangles
     :param rect1 - a rectangle
@@ -263,21 +228,6 @@ def get_image_contours(image):
     return thresh, locations
 
 
-def get_character_dict():
-    """ gets the character dictionary to use as a template
-    :return a dictionary where each character is a key and it's value is a template image of it
-    """
-    image = cv2.imread(r'font2.jpg')  # read the template image of all the chars
-    thresh, locations = get_image_contours(image)  # get the contours from it
-    chars = {}
-    for (i, c) in enumerate(locations):
-        # compute the bounding box for the character, extract it, and resize it to a fixed size
-        (x, y, width, height) = locations[i]
-        roi = thresh[y:y + height, x:x + width]
-        roi = cv2.resize(roi, (60, 90))
-        # update the digits dictionary, mapping the character name to the ROI
-        chars[chr(ord('!') + i)] = roi
-    return chars
 
 
 def get_locations_from_net_results(scores, geometry, min_confidence):
@@ -351,7 +301,9 @@ def east_get_text_locations(image, min_confidence):
         east_get_text_locations.net = cv2.dnn.readNet(r'east_model\frozen_east_text_detection.pb')
     # resize the image and grab the new image dimensions
     thresh = cv2.resize(image, (640, 320))
+    (oldH, oldW) = image.shape[:2]
     (H, W) = thresh.shape[:2]
+    (rH, rW) = oldH/H, oldW/W  # save the old and new height and width ratio
 
     # define the two output layer names for the EAST detector model that
     # we are interested -- the first is the output probabilities and the
@@ -380,74 +332,16 @@ def east_get_text_locations(image, min_confidence):
 
     # loop over the bounding boxes
     for i, (startX, startY, endX, endY) in enumerate(boxes):
+        startX *= rW
+        endX *= rW
+        startY *= rH
+        endY *= rH
         boxes[i] = [startX, startY, endX - startX, endY - startY]  # use width and height instead of end points
         boxes[i] = enlarge_loc(boxes[i], 0, int(boxes[i][HEIGHT] / 10))  # enlarge the boxes by a bit to reduce errors
 
     locations = sorted(boxes, key=functools.cmp_to_key(cmp_locs_left_right))  # sort the locations
 
     return image, thresh, locations
-
-
-def get_text_locations(image):
-    """ gets all the text locations in an image
-    :param image - the image from which we get the text locations
-    :return the resized image, the image after thresholding and a sorted list of all the text locations in image
-    """
-    rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (17, 5))
-    sq_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
-    #  resize the image and apply filters to make text locations stand out
-    image = imutils.resize(image, width=600)
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    gradX = cv2.Sobel(gray, ddepth=cv2.CV_32F, dx=1, dy=0, ksize=-1)
-    gradX = numpy.absolute(gradX)
-    (minVal, maxVal) = (numpy.min(gradX), numpy.max(gradX))
-    gradX = (255 * ((gradX - minVal) / (maxVal - minVal)))
-    gradX = gradX.astype("uint8")
-    gradX = cv2.morphologyEx(gradX, cv2.MORPH_CLOSE, rect_kernel)
-    gradX = cv2.morphologyEx(gradX, cv2.MORPH_CLOSE, rect_kernel)
-    thresh = cv2.threshold(gradX, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
-    thresh = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, sq_kernel)
-    # find the contours in the image
-    word_cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    word_cnts = imutils.grab_contours(word_cnts)
-    locations = []
-    for cnt in word_cnts:  # put the contours into a list of locations
-        (x, y, width, height) = cv2.boundingRect(cnt)
-        locations.append((x, y, width, height))
-    locations = enlarge_small_locs(locations)
-    locations = merge_overlapping_locs(locations)
-    locations = sorted(locations, key=functools.cmp_to_key(cmp_locs_left_right))  # sort after merging
-    locations = merge_close_locs(locations, 5)
-    locations = merge_small_locs(locations)
-    locations = sorted(locations, key=functools.cmp_to_key(cmp_locs_left_right))  # sort again after merging
-    for i in range(len(locations)):
-        locations[i] = enlarge_loc(locations[i], 0, int(locations[i][HEIGHT] / 5))
-    return image, thresh, locations
-
-
-def get_word_template_matching(word_img, char_locs, char_templates):
-    """ gets the word from an image using the character locations in it and a template for all character
-    :param word_img - an image that contains a word
-    :param char_locs - the locations of all characters in the image
-    :param char_templates - the tamplate images for all the valid characters
-    :return the word that was found in the image
-    """
-    word_output = ''
-    for char_loc in char_locs:
-        scores = []
-        (x, y, width, height) = char_loc
-        roi = word_img[y:y + height, x:x + width]
-        roi = cv2.resize(roi, (60, 90))
-        # loop over the reference characters
-        for char_roi in char_templates.values():
-            # apply correlation-based template matching, take the
-            # score, and update the scores list
-            result = cv2.matchTemplate(roi, char_roi,
-                                       cv2.TM_CCOEFF)
-            (_, score, _, _) = cv2.minMaxLoc(result)
-            scores.append(score)
-        word_output += list(char_templates.keys())[numpy.argmax(scores)]  # get the character with the highest score
-    return word_output
 
 
 def blur_locations(image, locations):
@@ -546,50 +440,84 @@ def translate_image(image):
     text = []
     for word_loc in locations:
         (x, y, width, height) = word_loc
-        word_img = thresh[y:y + height, x:x + width]  # get an image of just the word
+        word_img = image[y:y + height, x:x + width]  # get an image of just the word
         _, char_locs = get_image_contours(word_img)  # get the character locations from that image
         word_output = get_word_ml(word_img, char_locs)
         for loc in char_locs:
             (x1, y1, width1, height1) = loc
-            cv2.rectangle(thresh, (x+x1, y+y1),
-                          (x+x1 + width1, y+y1 + height1), (0, 255, 0), 2)
+            """cv2.rectangle(image, (x+x1, y+y1),
+                          (x+x1 + width1, y+y1 + height1), (0, 255, 0), 2)"""
 
         if word_output != '':
             text.append(word_output + ' ')
 
     for i, word_loc in enumerate(locations):  # create a bounding box with text
         (x, y, width, height) = word_loc
-        cv2.rectangle(thresh, (x, y),
+        """cv2.rectangle(image, (x, y),
                       (x + width, y + height), (0, 0, 255), 2)
-        cv2.putText(thresh, text[i], (x, y + height + 10),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.65, (0, 0, 255), 2)
+        cv2.putText(image, text[i], (x, y + height + 10),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.65, (0, 0, 255), 2)"""
 
     text = ''.join(text).lower()
     print(text)
 
     text, right_left = Translate.googletrans_translate(text, 'HE')
-    thresh = blur_locations(thresh, locations)
-    thresh = TextReplacement.place_text_in_locs(thresh, locations, text, right_left)
+    image = blur_locations(image, locations)
+    image = TextReplacement.place_text_in_locs(image, locations, text, right_left)
 
-    return thresh, locations
+    return image, locations
 
 
-def find_word_tesseract(img):
+def find_sentences_tesseract(img):
     """
     the function get image and return a dict withe word in image and location
     :param img: cv2 of image
     :return: dict [word] = location of word [x, y, w, h]
     """
+    bla = img
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
 
     d = pytesseract.image_to_data(img, output_type=Output.DICT)
 
-    word_in_image = {}
+    sentences_in_image = {}
+    word_num_check = 0
+    sentence = ""
+    x, y, w, h, check_line = 0, 0, 0, 0, 0
 
     n_boxes = len(d['text'])
     for i in range(n_boxes):
-        if int(d['conf'][i]) > 45:
-            word_in_image[d['text'][i]] =  [d['left'][i], d['top'][i], d['width'][i], d['height'][i]] # [x, y, w, h]
+        if int(d['conf'][i]) > 30:
+            d['text'][i] = ''.join(filter(str.isalpha, d['text'][i]))
 
-    return word_in_image
+            if (d['text'][i] != ''):  # check if the text is not empty
+
+                if (word_num_check >= d["word_num"][i] or not check_line == d['line_num'][
+                    i] and not check_line == 0):  # check if end a sentence
+                    h = h // word_num_check  # average of high
+                    sentences_in_image[sentence] = [x, y, w, h]  # (x, y, w, h)
+                    word_num_check, w, h = 0, 0, 0  # installation for the next sentences
+                    sentence = ""
+
+                if word_num_check == 0:  # means the first word
+                    check_line = d['line_num'][i]  # set new line
+                    x = d['left'][i]
+                    y = d['top'][i]
+                    sentence = d["text"][i]
+                else:  # not the first word
+                    sentence += " " + d["text"][i]
+                w += d['width'][i]
+                h += d['height'][i]
+
+                word_num_check += 1
+
+    if (word_num_check != 0):  # means he was in midel of sentece check
+        h = h // word_num_check  # average of high
+        sentences_in_image[sentence] = [x, y, w, h]  # (x, y, w, h)
+
+    print(sentences_in_image)
+
+    return sentences_in_image
+
+
+
