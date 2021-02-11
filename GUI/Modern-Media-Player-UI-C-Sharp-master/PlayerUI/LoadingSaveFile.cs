@@ -44,11 +44,17 @@ namespace PlayerUI
 
             if (isImage)
             {
+                if (!Directory.Exists("images"))
+                    Directory.CreateDirectory("images");
+
                 files = Directory.GetFiles("images");
                 textBoxTitle.Text = "Image files";
             }
             else
             {
+                if (!Directory.Exists("videos"))
+                    Directory.CreateDirectory("videos");
+
                 files = Directory.GetFiles("videos");
                 textBoxTitle.Text = "video files";
             }
