@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e8f6df46-c8a5-4cc8-b1ae-3697538c745e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../GUI/DarkDemo/DarkDemo/Form1.resx" beforeDir="false" afterPath="$PROJECT_DIR$/../GUI/DarkDemo/DarkDemo/Form1.resx" afterDir="false" />
-    </list>
+    <list default="true" id="e8f6df46-c8a5-4cc8-b1ae-3697538c745e" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -68,52 +66,62 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="669" y="115" key="#EasyTranslate/0.0.1920.1040/-1920.-6.1920.1040@0.0.1920.1040" timestamp="1609173883005" />
-    <state width="936" height="331" key="GridCell.Tab.0.bottom" timestamp="1612110967205">
+    <state width="949" height="190" key="GridCell.Tab.0.bottom" timestamp="1613235495140">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="936" height="331" key="GridCell.Tab.0.bottom/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1612110967205" />
+    <state width="949" height="190" key="GridCell.Tab.0.bottom/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1613235495140" />
     <state width="936" height="307" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.-6.1920.1040@0.0.1920.1040" timestamp="1609178797124" />
-    <state width="936" height="331" key="GridCell.Tab.0.center" timestamp="1612110967205">
+    <state width="949" height="190" key="GridCell.Tab.0.center" timestamp="1613235495140">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="936" height="331" key="GridCell.Tab.0.center/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1612110967205" />
+    <state width="949" height="190" key="GridCell.Tab.0.center/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1613235495140" />
     <state width="936" height="307" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.-6.1920.1040@0.0.1920.1040" timestamp="1609178797124" />
-    <state width="936" height="331" key="GridCell.Tab.0.left" timestamp="1612110967205">
+    <state width="949" height="190" key="GridCell.Tab.0.left" timestamp="1613235495140">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="936" height="331" key="GridCell.Tab.0.left/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1612110967205" />
+    <state width="949" height="190" key="GridCell.Tab.0.left/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1613235495140" />
     <state width="936" height="307" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.-6.1920.1040@0.0.1920.1040" timestamp="1609178797124" />
-    <state width="936" height="331" key="GridCell.Tab.0.right" timestamp="1612110967205">
+    <state width="949" height="190" key="GridCell.Tab.0.right" timestamp="1613235495140">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="936" height="331" key="GridCell.Tab.0.right/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1612110967205" />
+    <state width="949" height="190" key="GridCell.Tab.0.right/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1613235495140" />
     <state width="936" height="307" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.-6.1920.1040@0.0.1920.1040" timestamp="1609178797124" />
-    <state width="936" height="348" key="GridCell.Tab.1.bottom" timestamp="1609175812481">
+    <state width="1899" height="348" key="GridCell.Tab.1.bottom" timestamp="1613235251244">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1899" height="348" key="GridCell.Tab.1.bottom/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1613235251244" />
     <state width="936" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1920.-6.1920.1040@0.0.1920.1040" timestamp="1609175812481" />
-    <state width="936" height="348" key="GridCell.Tab.1.center" timestamp="1609175812481">
+    <state width="1899" height="348" key="GridCell.Tab.1.center" timestamp="1613235251244">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1899" height="348" key="GridCell.Tab.1.center/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1613235251244" />
     <state width="936" height="348" key="GridCell.Tab.1.center/0.0.1920.1040/-1920.-6.1920.1040@0.0.1920.1040" timestamp="1609175812481" />
-    <state width="936" height="348" key="GridCell.Tab.1.left" timestamp="1609175812481">
+    <state width="1899" height="348" key="GridCell.Tab.1.left" timestamp="1613235251244">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1899" height="348" key="GridCell.Tab.1.left/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1613235251244" />
     <state width="936" height="348" key="GridCell.Tab.1.left/0.0.1920.1040/-1920.-6.1920.1040@0.0.1920.1040" timestamp="1609175812481" />
-    <state width="936" height="348" key="GridCell.Tab.1.right" timestamp="1609175812481">
+    <state width="1899" height="348" key="GridCell.Tab.1.right" timestamp="1613235251244">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1899" height="348" key="GridCell.Tab.1.right/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1613235251244" />
     <state width="936" height="348" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.-6.1920.1040@0.0.1920.1040" timestamp="1609175812481" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/EasyTranslate.py</url>
-          <line>50</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="loc1" />
+        <watch expression="loc1[HEIGHT] + loc2[HEIGHT] / 2" language="Python" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

@@ -68,6 +68,7 @@ def place_text_in_locs(image, locations, text, right_left=False):
         draw = ImageDraw.Draw(image_pil)
         font_size = get_max_font_size("arial.ttf", words[i], roi_pil)  # get the max font size for that roi
         font = ImageFont.truetype("arial.ttf", font_size)
-        draw.text((x, y + height - font.getsize(words[i])[1]), words[i], font=font, fill=(0, 0, 0))  # draw the text in the correct location
+        draw.text((x, y + height - font.getsize(words[i])[1]), words[i], font=font, fill=(255, 0, 0))  # draw the text in the correct location
         image = numpy.array(image_pil)
+
     return image

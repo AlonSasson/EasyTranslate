@@ -13,7 +13,9 @@ def translate_image(image_path):
     if image is None:
         print("Image was not found")
         return
-    thresh, _ = ip.translate_image(image)
+    start_time = time.time()
+    thresh, _ = ip.translate_image_tess(image)
+    print("--- %s seconds ---" % (time.time() - start_time))
     cv2.imshow("Thresh", thresh)
     cv2.imshow("Image", image)
     cv2.waitKey(0)
@@ -30,9 +32,10 @@ def translate_video(video_path):
 
 
 def main():
-    #translate_image("testing/test2.jpg")
+    translate_image("testing/image.png")
+    #ip.translate_image_tess(cv2.imread("testing/image.jpg"))
     #translate_video('testing/project_present.avi')
-    vp.translate_screen(vp.select_area())
+    #vp.translate_screen(vp.select_area())
 
 if __name__ == "__main__":
     main()

@@ -120,16 +120,36 @@ def enlarge_loc(loc, width, height):
     return loc
 
 
+def cmp_rect_same_lines(rec1, rec2):
+    """
+    check if this 2 rect in the same line
+    :param num1: (x, y, h, w)
+    :param num2: (x, y, h, w)
+    :return: bool if it true
+    """
+    # get the 50% of the avrage high
+    average_high = (rec1[HEIGHT] + rec2[HEIGHT]) // 2
+    average_high *= 0.5
+    return (rec1[Y] + average_high >= rec2[Y] and rec1[Y] - average_high <= rec2[Y])
+
+
 def cmp_locs_left_right(loc1, loc2):
     """ compares two locations to determine which should be before the other going from left to right
     :param loc1 - a location
     :param loc2 - a location
     :return -1 - if loc1 should be before loc2, return 1 otherwise
     """
-    # if loc1 is above loc2 or in the same row but further to the left
-    if loc1[Y] + loc1[HEIGHT] < loc2[Y] or (loc1[Y] < loc2[Y] + loc2[HEIGHT] and loc1[X] < loc2[X]):
+    if (cmp_rect_same_lines(loc1, loc2)):
+        if  loc1[X] < loc2[X]:
+            return -1
+        else:
+            return 1
+
+    if loc1[Y] < loc2[Y]:
         return -1
-    return 1
+    else:
+        return 1
+
 
 
 def cmp_locs_right_left(loc1, loc2):
@@ -138,10 +158,16 @@ def cmp_locs_right_left(loc1, loc2):
     :param loc2 - a location
     :return -1 - if loc1 should be before loc2, return 1 otherwise
     """
-    # if loc1 is above loc2 or in the same row but further to the left
-    if loc1[Y] + loc1[HEIGHT] < loc2[Y] or (loc1[Y] < loc2[Y] + loc2[HEIGHT] and loc1[X] > loc2[X]):
+    if (cmp_rect_same_lines(loc1, loc2)):
+        if loc1[X] > loc2[X]:
+            return -1
+        else:
+            return 1
+
+    if loc1[Y] < loc2[Y]:
         return -1
-    return 1
+    else:
+        return 1
 
 
 def merge_overlapping_locs(locations):
@@ -437,6 +463,10 @@ def translate_image(image):
         return image, []
 
     image, thresh, locations = east_get_text_locations(image, 0.2)  # get the word locations in the image
+
+    cv2.imshow("bla", image)
+    cv2.waitKey()
+
     text = []
     for word_loc in locations:
         (x, y, width, height) = word_loc
@@ -468,6 +498,14 @@ def translate_image(image):
     return image, locations
 
 
+#----------------------------------------------------tessaract
+#using east_get_text_locations function
+
+def get_contour_precedence(contour, cols):
+    tolerance_factor = 10
+    origin = cv2.boundingRect(contour)
+    return ((origin[1] // tolerance_factor) * tolerance_factor) * cols + origin[0]
+
 def find_sentences_tesseract(img):
     """
     the function get image and return a dict withe word in image and location
@@ -478,7 +516,10 @@ def find_sentences_tesseract(img):
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
 
-    d = pytesseract.image_to_data(img, output_type=Output.DICT)
+    config = '--psm 8'
+    d = pytesseract.image_to_data(img, output_type=Output.DICT, config=config)
+
+    word = d['text']
 
     sentences_in_image = {}
     word_num_check = 0
@@ -487,37 +528,76 @@ def find_sentences_tesseract(img):
 
     n_boxes = len(d['text'])
     for i in range(n_boxes):
-        if int(d['conf'][i]) > 30:
-            d['text'][i] = ''.join(filter(str.isalpha, d['text'][i]))
+        d['text'][i] = ''.join(filter(str.isalpha, d['text'][i]))
+        if (d['text'][i] != ''):  # check if the text is not empty
+            word = d['text'][i]
 
-            if (d['text'][i] != ''):  # check if the text is not empty
+    return word
 
-                if (word_num_check >= d["word_num"][i] or not check_line == d['line_num'][
-                    i] and not check_line == 0):  # check if end a sentence
-                    h = h // word_num_check  # average of high
-                    sentences_in_image[sentence] = [x, y, w, h]  # (x, y, w, h)
-                    word_num_check, w, h = 0, 0, 0  # installation for the next sentences
-                    sentence = ""
+def translate_image_tess(image):
+    """
+    get image and return image withe the translate of the text in the image
+    :param image: image of opencv2
+    :return: image of opencv2
+    """
+    if image is None:
+        return image, []
 
-                if word_num_check == 0:  # means the first word
-                    check_line = d['line_num'][i]  # set new line
-                    x = d['left'][i]
-                    y = d['top'][i]
-                    sentence = d["text"][i]
-                else:  # not the first word
-                    sentence += " " + d["text"][i]
-                w += d['width'][i]
-                h += d['height'][i]
+    #get the location of text using east
+    image, thresh, locations = east_get_text_locations(image, 0.2)  # get the word locations in the image
 
-                word_num_check += 1
+    words = []
+    indexs = []
 
-    if (word_num_check != 0):  # means he was in midel of sentece check
-        h = h // word_num_check  # average of high
-        sentences_in_image[sentence] = [x, y, w, h]  # (x, y, w, h)
+    #undestend the word text using tess
+    for i, word_loc in enumerate(locations):
+        (x, y, width, height) = word_loc
+        word_img = image[y:y + height, x:x + width]  # get an image of just the word
 
-    print(sentences_in_image)
-
-    return sentences_in_image
-
+        new_word = find_sentences_tesseract(word_img)
+        if (new_word != ""):
+            words.append(new_word)
+        else:
+            indexs.append(i)
 
 
+    for count, i  in enumerate(indexs):
+        locations.pop(i - count)
+
+    # blur the locations of the text
+    image = blur_locations(image, locations)
+
+    lines_of_location = {}
+    line_text = ''
+    new_line = []
+
+    #splite the location and text to line
+    for i, location in enumerate(locations):
+        if not new_line: # check if it is the first item in list
+            new_line.append(location)
+            line_text += words[i] + " "
+        else:
+            if (cmp_rect_same_lines(new_line[-1], location)): #check if in the smae line
+                new_line.append(location)
+                line_text += words[i] + " "
+            else:
+                lines_of_location[line_text] = new_line
+                new_line = []
+                new_line.append(location)
+                line_text = words[i] + " "
+        #Adding check on x scale
+
+        if (numpy.array_equal(locations[-1], location)): # it means the last word
+            lines_of_location[line_text] = new_line
+
+
+    #Translate the sentence
+    for  text_line in lines_of_location:
+        translate_sentence, right_left = Translate.googletrans_translate(text_line, 'HE')
+
+        image = TextReplacement.place_text_in_locs(image, lines_of_location[text_line], translate_sentence, right_left)  # right_left)
+
+
+    # draw the sentence in the image
+
+    return image, locations
