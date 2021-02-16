@@ -8,6 +8,8 @@ from imutils.object_detection import non_max_suppression
 from threading import Lock
 import pytesseract
 from pytesseract import Output
+import pathlib
+
 
 X = 0
 Y = 1
@@ -324,7 +326,7 @@ def east_get_text_locations(image, min_confidence):
     :return: the original image, the image after resizing, a list of sorted locations of the possible text areas
     """
     if "model" not in east_get_text_locations.__dict__:  # initialize the net
-        east_get_text_locations.net = cv2.dnn.readNet(r'east_model\frozen_east_text_detection.pb')
+        east_get_text_locations.net = cv2.dnn.readNet(str(pathlib.Path(__file__).parent.absolute()) + r'\east_model\frozen_east_text_detection.pb')
     # resize the image and grab the new image dimensions
     thresh = cv2.resize(image, (640, 320))
     (oldH, oldW) = image.shape[:2]

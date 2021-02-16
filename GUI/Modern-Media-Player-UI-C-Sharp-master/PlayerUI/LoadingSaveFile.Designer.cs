@@ -30,6 +30,7 @@
         {
             this.listOfFile = new System.Windows.Forms.FlowLayoutPanel();
             this.textBoxTitle = new System.Windows.Forms.Label();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listOfFile
@@ -51,12 +52,26 @@
             this.textBoxTitle.Size = new System.Drawing.Size(484, 79);
             this.textBoxTitle.TabIndex = 8;
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
+            this.btnRefresh.Font = new System.Drawing.Font("Monotype Corsiva", 14F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRefresh.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnRefresh.Location = new System.Drawing.Point(474, 17);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(75, 68);
+            this.btnRefresh.TabIndex = 9;
+            this.btnRefresh.Text = "Loading";
+            this.btnRefresh.UseVisualStyleBackColor = false;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // LoadingSaveFile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(692, 566);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.textBoxTitle);
             this.Controls.Add(this.listOfFile);
             this.Name = "LoadingSaveFile";
@@ -69,5 +84,6 @@
 
         private System.Windows.Forms.FlowLayoutPanel listOfFile;
         private System.Windows.Forms.Label textBoxTitle;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }

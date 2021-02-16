@@ -2,9 +2,13 @@ import cv2
 import ImageProcessing as ip
 import VideoProcessing as vp
 import time
+import sys
 
 
-def translate_image(image_path):
+
+
+
+def translate_image(image_path, save_path):
     """ Translates the text in an image
     :param image_path: the path of the image to translate
     :return: the translated image
@@ -16,7 +20,11 @@ def translate_image(image_path):
     start_time = time.time()
     thresh, _ = ip.translate_image_tess(image)
     print("--- %s seconds ---" % (time.time() - start_time))
+
     cv2.imshow("Thresh", thresh)
+    print(save_path)
+    cv2.imwrite(save_path, thresh)
+
     cv2.imshow("Image", image)
     cv2.waitKey(0)
 
@@ -32,7 +40,8 @@ def translate_video(video_path):
 
 
 def main():
-    translate_image("testing/image.png")
+    print(sys.argv[2])
+    translate_image(sys.argv[1], sys.argv[2])
     #ip.translate_image_tess(cv2.imread("testing/image.jpg"))
     #translate_video('testing/project_present.avi')
     #vp.translate_screen(vp.select_area())

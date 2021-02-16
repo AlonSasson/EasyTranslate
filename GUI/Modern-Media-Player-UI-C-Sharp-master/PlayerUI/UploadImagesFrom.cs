@@ -84,15 +84,15 @@ namespace PlayerUI
             pictLoadingGif.Visible = true;
             pictLoadingGif.Refresh();
 
-            //should send the image to python script and get image translate
             string destPath = Path.Combine(@"images\\translate", Path.GetFileName(textBoxPath.Text));
             if (!File.Exists(destPath))
             {
-                File.Copy(textBoxPath.Text, destPath);              
+                string path = @"..\..\..\..\..\AppCode\EasyTranslate.py";
+                string parameters = textBoxPath.Text + " " + Path.GetFullPath(destPath);
+                PlayerUI.PythonRun.run_cmd(path, parameters);
             }
+
             
-
-
 
 
             translate_image_path = destPath;

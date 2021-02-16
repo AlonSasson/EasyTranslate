@@ -24,59 +24,81 @@ namespace PlayerUI
         public LoadingSaveFile(PlayerUI.Form1 form1, bool isImageCheck, PlayerUI.UploadVideForm videoChildForm)
         {
             InitializeComponent();
-            initailzeList(form1, isImageCheck);
+
+            mainForm = form1;
+            isImage = isImageCheck;
             uploadVideForm = videoChildForm;
+
         }
 
         public LoadingSaveFile(PlayerUI.Form1 form1, bool isImageCheck, PlayerUI.UploadImagesFrom imageChildForm)
         {
             InitializeComponent();
-            initailzeList(form1, isImageCheck);
-            uploadImagesFrom = imageChildForm;
-        }
 
-        private void initailzeList(PlayerUI.Form1 form1, bool isImageCheck)
-        {
             mainForm = form1;
             isImage = isImageCheck;
+            uploadImagesFrom = imageChildForm;
 
-            String[] files = null;
+        }
 
+        private void initailzeList()
+        {
             if (isImage)
             {
-                if (!Directory.Exists("images"))
-                    Directory.CreateDirectory("images");
-
-                files = Directory.GetFiles("images");
-                textBoxTitle.Text = "Image files";
+                loadingImages();
             }
             else
             {
-                if (!Directory.Exists("videos"))
-                    Directory.CreateDirectory("videos");
+                loadingVideos();
+            }            
+        }
 
-                files = Directory.GetFiles("videos");
-                textBoxTitle.Text = "video files";
-            }
+        public void loadingImages()
+        {
+            String[] files = null;
+            //listOfFile.Controls.Clear();
+
+            if (!Directory.Exists("images"))
+                Directory.CreateDirectory("images");
+
+            files = Directory.GetFiles("images");
+            textBoxTitle.Text = "Image files";
 
             for (int i = 0; i < files.Length; i++)
             {
                 Button b = new Button();
 
-                if (isImage)
-                {
-                    b.BackgroundImage = Image.FromFile(files[i]);
-                }
-                else // video
-                {
-                    b.Text = Path.GetFileName(files[i]);
-                    b.TextAlign = ContentAlignment.MiddleLeft;
-                    b.ForeColor = Color.White;
-
-                }
+                b.BackgroundImage = Image.FromFile(files[i]);
 
                 b.Size = new Size(148, 148);
-                b.Name = files[i];
+                b.Name = Path.GetFullPath(files[i]);
+                b.BackgroundImageLayout = ImageLayout.Zoom;
+                b.Click += new EventHandler(button_Click);
+
+                listOfFile.Controls.Add(b);
+            }
+        }
+        private void loadingVideos()
+        {
+            String[] files = null;
+            listOfFile.Controls.Clear();
+
+            if (!Directory.Exists("videos"))
+                Directory.CreateDirectory("videos");
+
+            files = Directory.GetFiles("videos");
+            textBoxTitle.Text = "video files";
+
+            for (int i = 0; i < files.Length; i++)
+            {
+                Button b = new Button();
+
+                b.Text = files[i];
+                b.TextAlign = ContentAlignment.MiddleLeft;
+                b.ForeColor = Color.White;
+
+                b.Size = new Size(148, 148);
+                b.Name = Path.GetFullPath(files[i]);
                 b.BackgroundImageLayout = ImageLayout.Zoom;
                 b.Click += new EventHandler(button_Click);
 
@@ -109,8 +131,9 @@ namespace PlayerUI
             }
         }
 
-
-
-
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            initailzeList();
+        }
     }
 }

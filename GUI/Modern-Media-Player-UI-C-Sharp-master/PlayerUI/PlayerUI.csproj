@@ -65,6 +65,7 @@
     <Compile Include="LoadingSaveFile.Designer.cs">
       <DependentUpon>LoadingSaveFile.cs</DependentUpon>
     </Compile>
+    <Compile Include="PythonRun.cs" />
     <Compile Include="UploadImagesFrom.cs">
       <SubType>Form</SubType>
     </Compile>
