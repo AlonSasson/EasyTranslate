@@ -3,11 +3,13 @@ import numpy
 import ImageProcessing as ip
 import moviepy.editor as mp
 from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtCore import QObject, QThread, pyqtSignal
+from PyQt5.QtCore import QObject, QThread, pyqtSignal, QEventLoop
 from PIL import ImageGrab
 from threading import Thread, Lock
 import heapq
 import sys
+
+image_lock = Lock()
 
 
 class SelectionWindow(QtWidgets.QMainWindow):
@@ -55,34 +57,46 @@ class SelectionWindow(QtWidgets.QMainWindow):
 
 
 class TranslateWorker(QObject):
-    word_finished = pyqtSignal(QtGui.QImage, numpy.ndarray)
-    frame_finished = pyqtSignal()
+
+    add_images = pyqtSignal(list, list)  # signals to call functions from gui thread
+    remove_images = pyqtSignal()
 
     def __init__(self, selected_area, translate_function):
         QObject.__init__(self)
         self.selected_area = selected_area
         self.translate_function = translate_function
+        self.loop = QEventLoop(self)  # an event loop that waits for images on overlay to be removed
 
     def translate(self):
+        """
+        translates the screen
+        """
+        locations = []
+        qt_images = []
         while True:
+            self.remove_images.emit()  # remove the previous images before grabbing from screen
+            self.loop.exec()  # wait until the images are removed
             pil_image = ImageGrab.grab(bbox=self.selected_area)  # grab the area from screen
-            frame = cv2.cvtColor(numpy.array(pil_image), cv2.COLOR_RGB2BGR)
-            cv2.imshow("frame", frame)
-            cv2.waitKey()
-            translated_frame, locations = self.translate_function(frame)
+            self.add_images.emit(qt_images, locations)
+            qt_images = []  # reset the images list
+            frame = cv2.cvtColor(numpy.array(pil_image), cv2.COLOR_RGB2BGR)  # convert the frame to a cv2 image
+            #cv2.imshow("frame", frame)
+            #cv2.waitKey()
+            translated_frame, locations = self.translate_function(frame)  # translate the frame
             translated_frame = cv2.cvtColor(translated_frame, cv2.COLOR_BGR2RGB)
-            self.frame_finished.emit()
-            for location in locations:
+
+            for location in locations:  # for each translated word
                 (x, y, w, h) = location
                 word_img = translated_frame[y:y + h, x:x + w]  # get an image of the translated word
-                height, width, _ = word_img.shape
+                height, width, _ = word_img.shape  # convert the image to a qt image
                 bytes_per_line = 3 * width
                 qt_img = QtGui.QImage(bytes(word_img.data), width, height, bytes_per_line, QtGui.QImage.Format_RGB888)
-                self.word_finished.emit(qt_img, location)
-
+                qt_images.append(qt_img)
 
 
 class OverlayWindow(QtWidgets.QMainWindow):
+
+    removed_images = pyqtSignal()  # a signal that notifies when all the images on overlay were removed
 
     def __init__(self, selected_area, translate_function):
         QtWidgets.QMainWindow.__init__(self)
@@ -95,32 +109,50 @@ class OverlayWindow(QtWidgets.QMainWindow):
         self.screen_geometry = QtWidgets.qApp.desktop().availableGeometry()  # screen resolutions
         self.setGeometry(0, 0, self.screen_geometry.width(), self.screen_geometry.height())  # set overlay resolutions
 
-        if not selected_area:
+        if not selected_area:  # if no area was selected
+            # set selected area to screen resolutions
             selected_area = [0, 0, self.screen_geometry.width(), self.screen_geometry.height()]
         self.selected_area = selected_area
         self.translate_function = translate_function
 
         self.images = []
 
-        self.translate_thread = QThread()
+        self.translate_thread = QThread()  # create a different thread to handle the screen translation
         self.translate_worker = TranslateWorker(selected_area, translate_function)
-        self.translate_worker.moveToThread(self.translate_thread)
-        self.translate_thread.started.connect(self.translate_worker.translate)
-        self.translate_worker.word_finished.connect(self.add_image)
-        self.translate_worker.frame_finished.connect(self.remove_images)
+        self.translate_worker.moveToThread(self.translate_thread)  # connect the worker to the thread
+        self.translate_thread.started.connect(self.translate_worker.translate)  # connect all the signals
+        self.translate_worker.add_images.connect(self.add_images)
+        self.translate_worker.remove_images.connect(self.remove_images)
+        self.removed_images.connect(self.translate_worker.loop.quit)
         self.translate_thread.start()
 
+    def add_images(self, qt_images, locations):
+        image_lock.acquire()
+        for i in range(len(qt_images)):  # add each image
+            self.add_image(qt_images[i], locations[i])
+        image_lock.release()
+
     def add_image(self, qt_image, location):
-        self.images.append(QtWidgets.QLabel(self))
-        self.images[-1].setPixmap(QtGui.QPixmap(qt_image))
+        """
+        adds an image to the overlay
+        :param qt_image: the image to add
+        :param location: the location to add it at
+        """
+        self.images.append(QtWidgets.QLabel(self))  # add an image to the list
+        self.images[-1].setPixmap(QtGui.QPixmap(qt_image))  # set the image to the given image
         self.images[-1].move(self.selected_area[ip.X] + location[ip.X], self.selected_area[ip.Y] + location[ip.Y])
         self.images[-1].show()
 
     def remove_images(self):
-        for image in self.images:
+        """
+        removes all the images on screen
+        """
+        image_lock.acquire()  # lock when using the image list
+        for image in self.images:  # hide all the images
             image.hide()
-        self.images = []
-
+        self.images = []  # empty the images list
+        image_lock.release()
+        self.removed_images.emit()  # notify the worker thread that all images were removed
 
 
 def select_area():
@@ -131,8 +163,7 @@ def select_area():
     app = QtWidgets.QApplication(sys.argv)
     my_window = SelectionWindow()
     my_window.show()
-    app.exec_()  # run until the area is selected
-    print(my_window.selected_area)
+    app.exec()  # run until the area is selected
     return my_window.selected_area
 
 
