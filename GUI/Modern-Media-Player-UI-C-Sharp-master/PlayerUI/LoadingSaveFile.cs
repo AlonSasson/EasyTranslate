@@ -56,7 +56,7 @@ namespace PlayerUI
         public void loadingImages()
         {
             String[] files = null;
-            //listOfFile.Controls.Clear();
+            listOfFile.Controls.Clear();
 
             if (!Directory.Exists("images"))
                 Directory.CreateDirectory("images");
@@ -70,7 +70,7 @@ namespace PlayerUI
 
                 b.BackgroundImage = Image.FromFile(files[i]);
 
-                b.Size = new Size(148, 148);
+                b.Size = new Size(230, 230);
                 b.Name = Path.GetFullPath(files[i]);
                 b.BackgroundImageLayout = ImageLayout.Zoom;
                 b.Click += new EventHandler(button_Click);
@@ -97,7 +97,7 @@ namespace PlayerUI
                 b.TextAlign = ContentAlignment.MiddleLeft;
                 b.ForeColor = Color.White;
 
-                b.Size = new Size(148, 148);
+                b.Size = new Size(230, 230);
                 b.Name = Path.GetFullPath(files[i]);
                 b.BackgroundImageLayout = ImageLayout.Zoom;
                 b.Click += new EventHandler(button_Click);

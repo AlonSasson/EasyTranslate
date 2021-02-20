@@ -104,7 +104,6 @@
             this.pictLoadingGif.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictLoadingGif.TabIndex = 13;
             this.pictLoadingGif.TabStop = false;
-            this.pictLoadingGif.Visible = false;
             // 
             // btdTranslate
             // 

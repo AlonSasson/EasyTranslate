@@ -33,24 +33,26 @@
             this.panelPlayer = new System.Windows.Forms.Panel();
             this.controlSound = new System.Windows.Forms.TrackBar();
             this.textBoxSoundValue = new System.Windows.Forms.Label();
-            this.videoMadia = new AxWMPLib.AxWindowsMediaPlayer();
-            this.label2 = new System.Windows.Forms.Label();
-            this.btdTranslate = new System.Windows.Forms.Button();
             this.soundPict = new System.Windows.Forms.PictureBox();
             this.restartVideBtn = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.playButton = new System.Windows.Forms.PictureBox();
+            this.videoMadia = new AxWMPLib.AxWindowsMediaPlayer();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btdTranslate = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.pictLoadingGif = new System.Windows.Forms.PictureBox();
             this.panelPlayer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.controlSound)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.videoMadia)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.soundPict)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.restartVideBtn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.videoMadia)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictLoadingGif)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxPath
@@ -109,46 +111,6 @@
             this.textBoxSoundValue.Size = new System.Drawing.Size(21, 13);
             this.textBoxSoundValue.TabIndex = 11;
             this.textBoxSoundValue.Text = "0%";
-            // 
-            // videoMadia
-            // 
-            this.videoMadia.AllowDrop = true;
-            this.videoMadia.Enabled = true;
-            this.videoMadia.Location = new System.Drawing.Point(54, 116);
-            this.videoMadia.Name = "videoMadia";
-            this.videoMadia.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("videoMadia.OcxState")));
-            this.videoMadia.Size = new System.Drawing.Size(397, 223);
-            this.videoMadia.TabIndex = 8;
-            this.videoMadia.TabStop = false;
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Monotype Corsiva", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
-            this.label2.Location = new System.Drawing.Point(224, 4);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(149, 39);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Chose video";
-            // 
-            // btdTranslate
-            // 
-            this.btdTranslate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btdTranslate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
-            this.btdTranslate.FlatAppearance.BorderSize = 0;
-            this.btdTranslate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btdTranslate.Font = new System.Drawing.Font("Perpetua", 18.5F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btdTranslate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
-            this.btdTranslate.Image = global::PlayerUI.Properties.Resources.google_translate_24;
-            this.btdTranslate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btdTranslate.Location = new System.Drawing.Point(530, 180);
-            this.btdTranslate.Name = "btdTranslate";
-            this.btdTranslate.Size = new System.Drawing.Size(150, 40);
-            this.btdTranslate.TabIndex = 10;
-            this.btdTranslate.Text = "Translate";
-            this.btdTranslate.UseVisualStyleBackColor = false;
             // 
             // soundPict
             // 
@@ -211,6 +173,47 @@
             this.playButton.TabStop = false;
             this.playButton.Click += new System.EventHandler(this.btnPlay_Click);
             // 
+            // videoMadia
+            // 
+            this.videoMadia.AllowDrop = true;
+            this.videoMadia.Enabled = true;
+            this.videoMadia.Location = new System.Drawing.Point(54, 116);
+            this.videoMadia.Name = "videoMadia";
+            this.videoMadia.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("videoMadia.OcxState")));
+            this.videoMadia.Size = new System.Drawing.Size(397, 223);
+            this.videoMadia.TabIndex = 8;
+            this.videoMadia.TabStop = false;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Monotype Corsiva", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
+            this.label2.Location = new System.Drawing.Point(224, 4);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(149, 39);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Chose video";
+            // 
+            // btdTranslate
+            // 
+            this.btdTranslate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btdTranslate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
+            this.btdTranslate.FlatAppearance.BorderSize = 0;
+            this.btdTranslate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btdTranslate.Font = new System.Drawing.Font("Perpetua", 18.5F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btdTranslate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
+            this.btdTranslate.Image = global::PlayerUI.Properties.Resources.google_translate_24;
+            this.btdTranslate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btdTranslate.Location = new System.Drawing.Point(530, 180);
+            this.btdTranslate.Name = "btdTranslate";
+            this.btdTranslate.Size = new System.Drawing.Size(150, 40);
+            this.btdTranslate.TabIndex = 10;
+            this.btdTranslate.Text = "Translate";
+            this.btdTranslate.UseVisualStyleBackColor = false;
+            this.btdTranslate.Click += new System.EventHandler(this.btdTranslate_Click);
+            // 
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -245,12 +248,26 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // uploadVideForm
+            // pictLoadingGif
+            // 
+            this.pictLoadingGif.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.pictLoadingGif.Image = global::PlayerUI.Properties.Resources.giphy;
+            this.pictLoadingGif.InitialImage = global::PlayerUI.Properties.Resources.giphy;
+            this.pictLoadingGif.Location = new System.Drawing.Point(54, 116);
+            this.pictLoadingGif.Name = "pictLoadingGif";
+            this.pictLoadingGif.Size = new System.Drawing.Size(397, 223);
+            this.pictLoadingGif.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictLoadingGif.TabIndex = 14;
+            this.pictLoadingGif.TabStop = false;
+            this.pictLoadingGif.Visible = false;
+            // 
+            // UploadVideForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(692, 558);
+            this.Controls.Add(this.pictLoadingGif);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btdTranslate);
             this.Controls.Add(this.videoMadia);
@@ -258,18 +275,19 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBoxPath);
-            this.Name = "uploadVideForm";
+            this.Name = "UploadVideForm";
             this.Text = "uploadVideForm";
             this.Resize += new System.EventHandler(this.Form2_Resize);
             this.panelPlayer.ResumeLayout(false);
             this.panelPlayer.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.controlSound)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.videoMadia)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.soundPict)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.restartVideBtn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.playButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.videoMadia)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictLoadingGif)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -290,5 +308,6 @@
         private System.Windows.Forms.PictureBox playButton;
         private System.Windows.Forms.Button btdTranslate;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox pictLoadingGif;
     }
 }

@@ -49,7 +49,6 @@ namespace PlayerUI
         {
             ProcessStartInfo start = new ProcessStartInfo();
             start.FileName = "python.exe";
-            MessageBox.Show(string.Format("{0} {1}", cmd, args));
             start.Arguments = string.Format("{0} {1}", cmd, args);
 
             start.UseShellExecute = false;
@@ -70,6 +69,8 @@ namespace PlayerUI
                     string result = reader.ReadToEnd();
                     MessageBox.Show(result);
                 }
+              
+             
 
             }
                 try

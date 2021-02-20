@@ -17,7 +17,14 @@ namespace PlayerUI
         public UploadVideForm()
         {
             InitializeComponent();
+            pictLoadingGif.Visible = false; // loading image gif
             changeSoundMadia(15); // start 15 as difult volume sound
+
+            if (!Directory.Exists("videos"))
+                Directory.CreateDirectory(@"videos");
+
+            if (!Directory.Exists("videos\\translate"))
+                Directory.CreateDirectory(@"videos\translate");
         }
 
 
@@ -104,8 +111,7 @@ namespace PlayerUI
         {
             if (checkLoadVideo)
             {
-                if (!Directory.Exists("videos"))
-                    Directory.CreateDirectory(@"videos");
+
 
                 string destPath = Path.Combine(@"videos\", Path.GetFileName(textBoxPath.Text));
 
@@ -125,6 +131,28 @@ namespace PlayerUI
             {
                 MessageBox.Show("You need upload video befor you save :(");
             }
+        }
+
+        private void btdTranslate_Click(object sender, EventArgs e)
+        {
+            pictLoadingGif.Visible = true;
+            pictLoadingGif.Show();
+            pictLoadingGif.Refresh();
+
+            string destPath = Path.Combine(@"videos\\translate", "test.mp4"); //Path.GetFileName(textBoxPath.Text));
+            if (!File.Exists(destPath))
+            {
+                string path = @"..\..\..\..\..\AppCode\EasyTranslate.py";
+                string parameters = "2 " + textBoxPath.Text + " " + Path.GetFullPath(destPath);
+                PlayerUI.PythonRun.run_cmd(path, parameters);
+            }
+
+            textBoxPath.Text = destPath;
+            videoMadia.URL = destPath;
+            //this is for now
+            //pictLoadingGif.Image = null;
+
+            pictLoadingGif.Hide();
         }
     }
 }
