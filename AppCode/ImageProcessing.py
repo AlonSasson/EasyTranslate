@@ -345,9 +345,9 @@ def east_get_text_locations(image, min_confidence):
     blob = cv2.dnn.blobFromImage(thresh, 1.0, (W, H),
                                  (123.68, 116.78, 103.94), swapRB=True, crop=False)
 
+    net_lock.acquire()  # lock before using the shared net
     east_get_text_locations.net.setInput(blob)
 
-    net_lock.acquire()  # lock before using the shared net
     (scores, geometry) = east_get_text_locations.net.forward(layer_names)  # get text locations and scores
     net_lock.release()  # release lock
 
@@ -489,7 +489,7 @@ def translate_image(image):
 
     text = ''.join(text).lower()
 
-    text, right_left = Translate.googletrans_translate(text, 'HE')
+    text, right_left = Translate.googletrans_translate(text, 'he')
     image = blur_locations(image, locations)
     image = TextReplacement.place_text_in_locs(image, locations, text, right_left)
 
@@ -591,7 +591,7 @@ def translate_image_tess(image):
 
     #Translate the sentence
     for  text_line in lines_of_location:
-        translate_sentence, right_left = Translate.googletrans_translate(text_line, 'HE')
+        translate_sentence, right_left = Translate.googletrans_translate(text_line, 'he')
         image = TextReplacement.place_text_in_locs(image, lines_of_location[text_line], translate_sentence, right_left)  # right_left)
 
 
