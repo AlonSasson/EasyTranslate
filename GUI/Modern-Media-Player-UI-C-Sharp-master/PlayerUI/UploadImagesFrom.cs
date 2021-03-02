@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
 using System.Threading;
-using System.Threading;
 
 
 namespace PlayerUI

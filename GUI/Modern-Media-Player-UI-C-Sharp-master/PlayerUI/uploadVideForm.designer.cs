@@ -63,7 +63,7 @@
             this.textBoxPath.Location = new System.Drawing.Point(54, 46);
             this.textBoxPath.Name = "textBoxPath";
             this.textBoxPath.ReadOnly = true;
-            this.textBoxPath.Size = new System.Drawing.Size(442, 24);
+            this.textBoxPath.Size = new System.Drawing.Size(470, 24);
             this.textBoxPath.TabIndex = 1;
             // 
             // panelPlayer
@@ -77,9 +77,9 @@
             this.panelPlayer.Controls.Add(this.pictureBox3);
             this.panelPlayer.Controls.Add(this.playButton);
             this.panelPlayer.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelPlayer.Location = new System.Drawing.Point(0, 434);
+            this.panelPlayer.Location = new System.Drawing.Point(0, 442);
             this.panelPlayer.Name = "panelPlayer";
-            this.panelPlayer.Size = new System.Drawing.Size(692, 124);
+            this.panelPlayer.Size = new System.Drawing.Size(720, 124);
             this.panelPlayer.TabIndex = 9;
             // 
             // controlSound
@@ -106,7 +106,7 @@
             this.textBoxSoundValue.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxSoundValue.AutoSize = true;
             this.textBoxSoundValue.ForeColor = System.Drawing.Color.LightGray;
-            this.textBoxSoundValue.Location = new System.Drawing.Point(558, 37);
+            this.textBoxSoundValue.Location = new System.Drawing.Point(572, 37);
             this.textBoxSoundValue.Name = "textBoxSoundValue";
             this.textBoxSoundValue.Size = new System.Drawing.Size(21, 13);
             this.textBoxSoundValue.TabIndex = 11;
@@ -116,7 +116,7 @@
             // 
             this.soundPict.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.soundPict.Image = ((System.Drawing.Image)(resources.GetObject("soundPict.Image")));
-            this.soundPict.Location = new System.Drawing.Point(322, 34);
+            this.soundPict.Location = new System.Drawing.Point(336, 34);
             this.soundPict.Name = "soundPict";
             this.soundPict.Size = new System.Drawing.Size(24, 24);
             this.soundPict.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -128,7 +128,7 @@
             this.restartVideBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.restartVideBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.restartVideBtn.Image = global::PlayerUI.Properties.Resources.sinchronize_24;
-            this.restartVideBtn.Location = new System.Drawing.Point(283, 34);
+            this.restartVideBtn.Location = new System.Drawing.Point(297, 34);
             this.restartVideBtn.Name = "restartVideBtn";
             this.restartVideBtn.Size = new System.Drawing.Size(24, 24);
             this.restartVideBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -141,7 +141,7 @@
             this.pictureBox4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
-            this.pictureBox4.Location = new System.Drawing.Point(133, 34);
+            this.pictureBox4.Location = new System.Drawing.Point(147, 34);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(24, 24);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -153,7 +153,7 @@
             this.pictureBox3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(242, 34);
+            this.pictureBox3.Location = new System.Drawing.Point(256, 34);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(24, 24);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -165,7 +165,7 @@
             this.playButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.playButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.playButton.Image = ((System.Drawing.Image)(resources.GetObject("playButton.Image")));
-            this.playButton.Location = new System.Drawing.Point(184, 30);
+            this.playButton.Location = new System.Drawing.Point(198, 30);
             this.playButton.Name = "playButton";
             this.playButton.Size = new System.Drawing.Size(32, 32);
             this.playButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -190,7 +190,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Monotype Corsiva", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
-            this.label2.Location = new System.Drawing.Point(224, 4);
+            this.label2.Location = new System.Drawing.Point(238, 4);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(149, 39);
             this.label2.TabIndex = 11;
@@ -206,7 +206,7 @@
             this.btdTranslate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
             this.btdTranslate.Image = global::PlayerUI.Properties.Resources.google_translate_24;
             this.btdTranslate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btdTranslate.Location = new System.Drawing.Point(530, 180);
+            this.btdTranslate.Location = new System.Drawing.Point(558, 180);
             this.btdTranslate.Name = "btdTranslate";
             this.btdTranslate.Size = new System.Drawing.Size(150, 40);
             this.btdTranslate.TabIndex = 10;
@@ -224,7 +224,7 @@
             this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
             this.btnSave.Image = global::PlayerUI.Properties.Resources.save_32__3_;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(530, 116);
+            this.btnSave.Location = new System.Drawing.Point(558, 116);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(150, 40);
             this.btnSave.TabIndex = 4;
@@ -241,7 +241,7 @@
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.LightGray;
             this.button1.Image = global::PlayerUI.Properties.Resources.upload_2_24__1_;
-            this.button1.Location = new System.Drawing.Point(530, 47);
+            this.button1.Location = new System.Drawing.Point(558, 47);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(24, 24);
             this.button1.TabIndex = 3;
@@ -251,22 +251,20 @@
             // pictLoadingGif
             // 
             this.pictLoadingGif.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.pictLoadingGif.Image = global::PlayerUI.Properties.Resources.giphy;
-            this.pictLoadingGif.InitialImage = global::PlayerUI.Properties.Resources.giphy;
+            this.pictLoadingGif.Image = ((System.Drawing.Image)(resources.GetObject("pictLoadingGif.Image")));
             this.pictLoadingGif.Location = new System.Drawing.Point(54, 116);
             this.pictLoadingGif.Name = "pictLoadingGif";
             this.pictLoadingGif.Size = new System.Drawing.Size(397, 223);
-            this.pictLoadingGif.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictLoadingGif.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictLoadingGif.TabIndex = 14;
             this.pictLoadingGif.TabStop = false;
-            this.pictLoadingGif.Visible = false;
             // 
             // UploadVideForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
-            this.ClientSize = new System.Drawing.Size(692, 558);
+            this.ClientSize = new System.Drawing.Size(720, 566);
             this.Controls.Add(this.pictLoadingGif);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btdTranslate);

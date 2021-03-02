@@ -63,6 +63,16 @@ namespace PlayerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _4SHX {
+            get {
+                object obj = ResourceManager.GetObject("4SHX", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap download {
             get {
                 object obj = ResourceManager.GetObject("download", resourceCulture);
@@ -93,9 +103,9 @@ namespace PlayerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap giphy {
+        internal static System.Drawing.Bitmap expand_256 {
             get {
-                object obj = ResourceManager.GetObject("giphy", resourceCulture);
+                object obj = ResourceManager.GetObject("expand-256", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -106,56 +116,6 @@ namespace PlayerUI.Properties {
         internal static System.Drawing.Bitmap google_translate_24 {
             get {
                 object obj = ResourceManager.GetObject("google-translate-24", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap google_translate_32 {
-            get {
-                object obj = ResourceManager.GetObject("google-translate-32", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap google_translate_32__1_ {
-            get {
-                object obj = ResourceManager.GetObject("google-translate-32 (1)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap google_translate_321 {
-            get {
-                object obj = ResourceManager.GetObject("google-translate-321", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap help_24__1_ {
-            get {
-                object obj = ResourceManager.GetObject("help-24 (1)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap home_5_32 {
-            get {
-                object obj = ResourceManager.GetObject("home-5-32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -193,16 +153,6 @@ namespace PlayerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap open_in_browser_32 {
-            get {
-                object obj = ResourceManager.GetObject("open-in-browser-32", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap picture_2_24 {
             get {
                 object obj = ResourceManager.GetObject("picture-2-24", resourceCulture);
@@ -213,9 +163,9 @@ namespace PlayerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap save_32 {
+        internal static System.Drawing.Bitmap puzzle_piece_256 {
             get {
-                object obj = ResourceManager.GetObject("save-32", resourceCulture);
+                object obj = ResourceManager.GetObject("puzzle-piece-256", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -233,29 +183,9 @@ namespace PlayerUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap save_xxl {
-            get {
-                object obj = ResourceManager.GetObject("save-xxl", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap sinchronize_24 {
             get {
                 object obj = ResourceManager.GetObject("sinchronize-24", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap upload_2_24 {
-            get {
-                object obj = ResourceManager.GetObject("upload-2-24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

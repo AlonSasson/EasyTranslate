@@ -49,6 +49,7 @@ namespace PlayerUI
         {
             ProcessStartInfo start = new ProcessStartInfo();
             start.FileName = "python.exe";
+            string a = (string.Format("{0} {1}", cmd, args));
             start.Arguments = string.Format("{0} {1}", cmd, args);
 
             start.UseShellExecute = false;
@@ -59,16 +60,17 @@ namespace PlayerUI
             
             using (Process process = Process.Start(start))
             {
-                using (StreamReader reader = process.StandardOutput)
-                {
-                    string result = reader.ReadToEnd();
-                    MessageBox.Show(result);
-                }
                 using (StreamReader reader = process.StandardError)
                 {
                     string result = reader.ReadToEnd();
                     MessageBox.Show(result);
                 }
+                using (StreamReader reader = process.StandardOutput)
+                {
+                    string result = reader.ReadToEnd();
+                    MessageBox.Show(result);
+                }
+
               
              
 

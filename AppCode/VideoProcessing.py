@@ -2,6 +2,8 @@ import cv2
 import numpy
 import ImageProcessing as ip
 import moviepy.editor as mp
+import Translate
+import TextReplacement
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import QObject, QThread, pyqtSignal, QEventLoop
 from PIL import ImageGrab
@@ -179,22 +181,20 @@ def translate_screen(selected_area=[], translate_function=ip.translate_image):
     app.exec()  # run the gui
 
 
-def copy_video_sound(video_sound_path, video_out_path, video_clip_path):
+def copy_video_sound(video_sound_path, video_clip_path, video_out_path):
     """ copies a video's sound onto another video
-    :param video_sound_path: the path to the video with soun
+    :param video_sound_path: the path to the video with sound
     :param video_out_path: the output path to save the new video at
     :param video_clip_path: the path to the video we want to add sound to
     """
-    video_out_path = video_out_path.split('.', -1)[0]  # remove the file type from the path
-    #load the video
+    # load the video
     my_clip = mp.VideoFileClip(video_clip_path)
     #load sound
     audio_background = mp.AudioFileClip(video_sound_path)
     #mix the sound and video
     final_clip = my_clip.set_audio(audio_background)
-
     #output the video
-    final_clip.write_videofile(video_out_path + '.mp4', codec= 'mpeg4' ,audio_codec='libvorbis')
+    final_clip.write_videofile(video_out_path)
 
 
 def process_video(video_path, out_path, filter_function=ip.translate_image):
@@ -213,7 +213,7 @@ def process_video(video_path, out_path, filter_function=ip.translate_image):
     fps = int(cap.get(5))
 
     # creating output video
-    fourcc = cv2.VideoWriter_fourcc(*'MJPG')
+    fourcc = cv2.VideoWriter_fourcc(*'MP4V')
     out = cv2.VideoWriter(out_path, fourcc, fps, (frame_width, frame_height))
     frame_count = 0
     threads = []
@@ -227,18 +227,32 @@ def process_video(video_path, out_path, filter_function=ip.translate_image):
             # process the frame on a different thread
             threads.append(Thread(target=process_frame, args=(filter_function, frames_heap, frame, frame_count)))
             threads[-1].start()  # start the thread
+            print(frame_count)
+        else:  # if the frame shouldn't be processed
+            heapq.heappush(frames_heap, (frame_count, frame, []))  # add the frame to the frame list
         frame_count += 1
 
+    frame = None
+    processed_frame = None
+    locations = []
     for i in range(frame_count):
         if i % fps == 0:  # if its a processed frame
             threads.pop(0).join()  # wait for the thread to finish
-            _, frame = heapq.heappop(frames_heap)  # get the processed frame
-        frame = cv2.resize(frame, (frame_width, frame_height))
+            _, processed_frame, locations = heapq.heappop(frames_heap)  # get the processed frame
+            frame = processed_frame
+        else:  # if its a normal frame
+            _, frame, _ = heapq.heappop(frames_heap)  # get the frame
+            for location in locations:  # copy all the changed locations from the last processed frame to this frame
+                (x, y, width, height) = location
+                frame[y:y + height, x:x + width] = processed_frame[y:y + height, x:x + width]
+
+        frame = cv2.resize(frame, (frame_width, frame_height))  # resize the frame to the video size
         out.write(frame)
 
     cap.release()
     out.release()
     cv2.destroyAllWindows()
+
 
 
 def process_frame(frame_function, frames_heap, frame, index):
@@ -248,8 +262,8 @@ def process_frame(frame_function, frames_heap, frame, index):
     :param frame: the frame to process
     :param index: the frame's index
     """
-    frame_to_write = frame_function(frame)
-    heapq.heappush(frames_heap, (index, frame_to_write))  # add the frame to the frame list
+    frame_to_write, locations = frame_function(frame)
+    heapq.heappush(frames_heap, (index, frame_to_write, locations))  # add the frame to the frame list
 
 
 

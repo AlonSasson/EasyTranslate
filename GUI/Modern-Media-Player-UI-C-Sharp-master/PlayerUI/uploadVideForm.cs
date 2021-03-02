@@ -8,16 +8,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Threading;
+
 
 namespace PlayerUI
 {
     public partial class UploadVideForm : Form
     {
         private bool checkLoadVideo = false;
+        private bool checkInMideleTranslate = false;
         public UploadVideForm()
         {
             InitializeComponent();
-            pictLoadingGif.Visible = false; // loading image gif
+            lock (pictLoadingGif)
+            {
+                pictLoadingGif.Size = videoMadia.Size;
+                pictLoadingGif.Location = videoMadia.Location;
+                pictLoadingGif.Visible = false;
+            }
             changeSoundMadia(15); // start 15 as difult volume sound
 
             if (!Directory.Exists("videos"))
@@ -56,15 +64,25 @@ namespace PlayerUI
 
         public void setVideo(string videoPath)
         {
-            videoMadia.URL = videoPath;
-            textBoxPath.Text = videoPath;
+            if (!checkInMideleTranslate)
+            {
+                videoMadia.Ctlcontrols.stop();
+                videoMadia.URL = "";
+                videoMadia.URL = videoPath;
+                textBoxPath.Text = videoPath;
+                videoMadia.Ctlcontrols.play();
 
-            checkLoadVideo = true;
+                checkLoadVideo = true;
+            }
+            else
+            {
+                MessageBox.Show("The video in midle translate");
+            }
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            if (checkLoadVideo)
+            if (!checkInMideleTranslate)
             {
                 if (videoMadia.playState == WMPLib.WMPPlayState.wmppsPlaying)
                 {
@@ -75,6 +93,10 @@ namespace PlayerUI
                     videoMadia.Ctlcontrols.play();
                 }
             }
+            else
+            {
+                MessageBox.Show("The video in midle translate");
+            }
         }
 
         private void controlSound_Scroll_1(object sender, EventArgs e)
@@ -84,9 +106,16 @@ namespace PlayerUI
 
         private void changeSoundMadia(int soundValue)
         {
-            videoMadia.settings.volume = soundValue;
-            textBoxSoundValue.Text = soundValue + "%";
-            controlSound.Value = soundValue;
+            if (!checkInMideleTranslate)
+            {
+                videoMadia.settings.volume = soundValue;
+                textBoxSoundValue.Text = soundValue + "%";
+                controlSound.Value = soundValue;
+            }
+            else
+            {
+                MessageBox.Show("The video in midle translate");
+            }
         }
 
         private void Form2_Resize(object sender, EventArgs e)
@@ -98,6 +127,7 @@ namespace PlayerUI
 
         private void restartVideBtn_Click(object sender, EventArgs e)
         {
+
             if (checkLoadVideo)
             {
                 videoMadia.Ctlcontrols.stop();
@@ -105,41 +135,67 @@ namespace PlayerUI
                 videoMadia.URL = textBoxPath.Text;
                 videoMadia.Ctlcontrols.play();
             }
+     
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (checkLoadVideo)
+            if (!checkInMideleTranslate)
             {
-
-
-                string destPath = Path.Combine(@"videos\", Path.GetFileName(textBoxPath.Text));
-
-                if (File.Exists(destPath)) // if the video exsist he will delete the first 
+                if (checkLoadVideo)
                 {
-                    MessageBox.Show("this video name alrady saved");
+
+
+                    string destPath = Path.Combine(@"videos\", Path.GetFileName(textBoxPath.Text));
+
+                    if (File.Exists(destPath)) // if the video exsist he will delete the first 
+                    {
+                        MessageBox.Show("this video name alrady saved");
+                    }
+                    else
+                    {
+                        File.Copy(textBoxPath.Text, destPath);
+                    }
+
+
+
                 }
                 else
                 {
-                    File.Copy(textBoxPath.Text, destPath);
+                    MessageBox.Show("You need upload video befor you save :(");
                 }
-
-
-
             }
             else
             {
-                MessageBox.Show("You need upload video befor you save :(");
+                MessageBox.Show("The video in midle translate");
             }
         }
 
         private void btdTranslate_Click(object sender, EventArgs e)
         {
-            pictLoadingGif.Visible = true;
-            pictLoadingGif.Show();
-            pictLoadingGif.Refresh();
+            if (!checkInMideleTranslate)
+            {
+                lock (pictLoadingGif)
+                {
+                    pictLoadingGif.Visible = true;
+                    videoMadia.Visible = false;
+                }
 
-            string destPath = Path.Combine(@"videos\\translate", "test.mp4"); //Path.GetFileName(textBoxPath.Text));
+
+                Thread thr = new Thread(pythonThread);
+                thr.Start();
+            }
+            else
+            {
+                MessageBox.Show("The video in midle translate");
+            }
+        }
+
+        private void pythonThread()
+        {
+            checkInMideleTranslate = true;
+
+            string destPath = Path.Combine(@"videos\\translate", Path.GetFileName(textBoxPath.Text)); //Path.GetFileName(textBoxPath.Text));
             if (!File.Exists(destPath))
             {
                 string path = @"..\..\..\..\..\AppCode\EasyTranslate.py";
@@ -147,12 +203,19 @@ namespace PlayerUI
                 PlayerUI.PythonRun.run_cmd(path, parameters);
             }
 
-            textBoxPath.Text = destPath;
-            videoMadia.URL = destPath;
-            //this is for now
-            //pictLoadingGif.Image = null;
+            textBoxPath.Invoke(new Action(() => { textBoxPath.Text = destPath; }));
+            videoMadia.Invoke(new Action(() => { videoMadia.URL = destPath; }));
+            videoMadia.Invoke(new Action(() => { videoMadia.Visible = true; ; }));
 
-            pictLoadingGif.Hide();
+            lock (pictLoadingGif)
+            {
+                pictLoadingGif.Invoke(new Action(() =>
+                {
+                    pictLoadingGif.Visible = false;
+
+                }));
+            }
+            checkInMideleTranslate = false;
         }
     }
 }

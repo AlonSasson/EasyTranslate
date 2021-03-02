@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UploadImagesFrom));
             this.textBoxPath = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -96,8 +97,7 @@
             // pictLoadingGif
             // 
             this.pictLoadingGif.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.pictLoadingGif.Image = global::PlayerUI.Properties.Resources.giphy;
-            this.pictLoadingGif.InitialImage = global::PlayerUI.Properties.Resources.giphy;
+            this.pictLoadingGif.Image = global::PlayerUI.Properties.Resources._4SHX;
             this.pictLoadingGif.Location = new System.Drawing.Point(380, 188);
             this.pictLoadingGif.Name = "pictLoadingGif";
             this.pictLoadingGif.Size = new System.Drawing.Size(249, 167);
@@ -113,7 +113,7 @@
             this.btdTranslate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btdTranslate.Font = new System.Drawing.Font("Perpetua", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btdTranslate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
-            this.btdTranslate.Image = global::PlayerUI.Properties.Resources.google_translate_24;
+            this.btdTranslate.Image = ((System.Drawing.Image)(resources.GetObject("btdTranslate.Image")));
             this.btdTranslate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btdTranslate.Location = new System.Drawing.Point(235, 458);
             this.btdTranslate.Name = "btdTranslate";
@@ -149,7 +149,7 @@
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Perpetua", 24.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
-            this.btnSave.Image = global::PlayerUI.Properties.Resources.save_32__3_;
+            this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSave.Location = new System.Drawing.Point(74, 457);
             this.btnSave.Name = "btnSave";

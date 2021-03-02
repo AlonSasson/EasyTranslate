@@ -33,20 +33,20 @@
             this.panelImage = new System.Windows.Forms.Panel();
             this.btnSavedImages = new System.Windows.Forms.Button();
             this.btnUploadimage = new System.Windows.Forms.Button();
+            this.btnImagesList = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
             this.panelVideos = new System.Windows.Forms.Panel();
             this.btnSavedVideos = new System.Windows.Forms.Button();
             this.btnUploadVideo = new System.Windows.Forms.Button();
+            this.btnEqualizer = new System.Windows.Forms.Button();
             this.panelScreen = new System.Windows.Forms.Panel();
             this.btnPartOfScreen = new System.Windows.Forms.Button();
             this.btnFullScreen = new System.Windows.Forms.Button();
-            this.panelLogo = new System.Windows.Forms.Panel();
-            this.panelChildForm = new System.Windows.Forms.Panel();
-            this.btnImagesList = new System.Windows.Forms.Button();
-            this.btnExit = new System.Windows.Forms.Button();
-            this.btnEqualizer = new System.Windows.Forms.Button();
             this.btnScreenList = new System.Windows.Forms.Button();
             this.btnHome = new System.Windows.Forms.Button();
+            this.panelLogo = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panelChildForm = new System.Windows.Forms.Panel();
             this.panelSideMenu.SuspendLayout();
             this.panelImage.SuspendLayout();
             this.panelVideos.SuspendLayout();
@@ -121,6 +121,48 @@
             this.btnUploadimage.UseVisualStyleBackColor = false;
             this.btnUploadimage.Click += new System.EventHandler(this.btnUploadimage_Click);
             // 
+            // btnImagesList
+            // 
+            this.btnImagesList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(112)))), ((int)(((byte)(114)))));
+            this.btnImagesList.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnImagesList.FlatAppearance.BorderSize = 0;
+            this.btnImagesList.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(155)))), ((int)(((byte)(151)))));
+            this.btnImagesList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImagesList.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
+            this.btnImagesList.Image = global::PlayerUI.Properties.Resources.picture_2_24;
+            this.btnImagesList.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnImagesList.Location = new System.Drawing.Point(0, 386);
+            this.btnImagesList.Name = "btnImagesList";
+            this.btnImagesList.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.btnImagesList.Size = new System.Drawing.Size(250, 45);
+            this.btnImagesList.TabIndex = 11;
+            this.btnImagesList.Text = " Image";
+            this.btnImagesList.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnImagesList.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnImagesList.UseVisualStyleBackColor = false;
+            this.btnImagesList.Click += new System.EventHandler(this.btnImagesList_Click);
+            // 
+            // btnExit
+            // 
+            this.btnExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(112)))), ((int)(((byte)(114)))));
+            this.btnExit.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnExit.FlatAppearance.BorderSize = 0;
+            this.btnExit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(155)))), ((int)(((byte)(151)))));
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
+            this.btnExit.Image = global::PlayerUI.Properties.Resources.exit_24;
+            this.btnExit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExit.Location = new System.Drawing.Point(0, 647);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.btnExit.Size = new System.Drawing.Size(250, 45);
+            this.btnExit.TabIndex = 9;
+            this.btnExit.Text = "  Exit";
+            this.btnExit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnExit.UseVisualStyleBackColor = false;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
             // panelVideos
             // 
             this.panelVideos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
@@ -168,6 +210,27 @@
             this.btnUploadVideo.UseVisualStyleBackColor = false;
             this.btnUploadVideo.Click += new System.EventHandler(this.btnUploadVideo_Click);
             // 
+            // btnEqualizer
+            // 
+            this.btnEqualizer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(112)))), ((int)(((byte)(114)))));
+            this.btnEqualizer.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnEqualizer.FlatAppearance.BorderSize = 0;
+            this.btnEqualizer.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(155)))), ((int)(((byte)(151)))));
+            this.btnEqualizer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEqualizer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
+            this.btnEqualizer.Image = global::PlayerUI.Properties.Resources.video_play_4_24__1_;
+            this.btnEqualizer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnEqualizer.Location = new System.Drawing.Point(0, 258);
+            this.btnEqualizer.Name = "btnEqualizer";
+            this.btnEqualizer.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.btnEqualizer.Size = new System.Drawing.Size(250, 45);
+            this.btnEqualizer.TabIndex = 5;
+            this.btnEqualizer.Text = "Video ";
+            this.btnEqualizer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnEqualizer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnEqualizer.UseVisualStyleBackColor = false;
+            this.btnEqualizer.Click += new System.EventHandler(this.btnEqualizer_Click);
+            // 
             // panelScreen
             // 
             this.panelScreen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
@@ -192,7 +255,7 @@
             this.btnPartOfScreen.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnPartOfScreen.Size = new System.Drawing.Size(250, 40);
             this.btnPartOfScreen.TabIndex = 1;
-            this.btnPartOfScreen.Text = "Part of screen translate";
+            this.btnPartOfScreen.Text = "who to";
             this.btnPartOfScreen.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnPartOfScreen.UseVisualStyleBackColor = false;
             this.btnPartOfScreen.Click += new System.EventHandler(this.btnPartOfScreen_Click);
@@ -210,91 +273,9 @@
             this.btnFullScreen.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.btnFullScreen.Size = new System.Drawing.Size(250, 40);
             this.btnFullScreen.TabIndex = 0;
-            this.btnFullScreen.Text = "Full screen translate";
+            this.btnFullScreen.Text = "screen translation";
             this.btnFullScreen.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnFullScreen.UseVisualStyleBackColor = false;
-            // 
-            // panelLogo
-            // 
-            this.panelLogo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(112)))), ((int)(((byte)(114)))));
-            this.panelLogo.Controls.Add(this.pictureBox1);
-            this.panelLogo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelLogo.Location = new System.Drawing.Point(0, 0);
-            this.panelLogo.Name = "panelLogo";
-            this.panelLogo.Size = new System.Drawing.Size(250, 92);
-            this.panelLogo.TabIndex = 0;
-            // 
-            // panelChildForm
-            // 
-            this.panelChildForm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
-            this.panelChildForm.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelChildForm.Location = new System.Drawing.Point(250, 0);
-            this.panelChildForm.Name = "panelChildForm";
-            this.panelChildForm.Size = new System.Drawing.Size(833, 692);
-            this.panelChildForm.TabIndex = 2;
-            // 
-            // btnImagesList
-            // 
-            this.btnImagesList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(112)))), ((int)(((byte)(114)))));
-            this.btnImagesList.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnImagesList.FlatAppearance.BorderSize = 0;
-            this.btnImagesList.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(155)))), ((int)(((byte)(151)))));
-            this.btnImagesList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnImagesList.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
-            this.btnImagesList.Image = global::PlayerUI.Properties.Resources.picture_2_24;
-            this.btnImagesList.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnImagesList.Location = new System.Drawing.Point(0, 386);
-            this.btnImagesList.Name = "btnImagesList";
-            this.btnImagesList.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.btnImagesList.Size = new System.Drawing.Size(250, 45);
-            this.btnImagesList.TabIndex = 11;
-            this.btnImagesList.Text = " Image";
-            this.btnImagesList.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnImagesList.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnImagesList.UseVisualStyleBackColor = false;
-            this.btnImagesList.Click += new System.EventHandler(this.btnImagesList_Click);
-            // 
-            // btnExit
-            // 
-            this.btnExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(112)))), ((int)(((byte)(114)))));
-            this.btnExit.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnExit.FlatAppearance.BorderSize = 0;
-            this.btnExit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(155)))), ((int)(((byte)(151)))));
-            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
-            this.btnExit.Image = global::PlayerUI.Properties.Resources.exit_24;
-            this.btnExit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExit.Location = new System.Drawing.Point(0, 647);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.btnExit.Size = new System.Drawing.Size(250, 45);
-            this.btnExit.TabIndex = 9;
-            this.btnExit.Text = "  Exit";
-            this.btnExit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnExit.UseVisualStyleBackColor = false;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
-            // btnEqualizer
-            // 
-            this.btnEqualizer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(112)))), ((int)(((byte)(114)))));
-            this.btnEqualizer.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnEqualizer.FlatAppearance.BorderSize = 0;
-            this.btnEqualizer.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(155)))), ((int)(((byte)(151)))));
-            this.btnEqualizer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEqualizer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
-            this.btnEqualizer.Image = global::PlayerUI.Properties.Resources.video_play_4_24__1_;
-            this.btnEqualizer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEqualizer.Location = new System.Drawing.Point(0, 258);
-            this.btnEqualizer.Name = "btnEqualizer";
-            this.btnEqualizer.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.btnEqualizer.Size = new System.Drawing.Size(250, 45);
-            this.btnEqualizer.TabIndex = 5;
-            this.btnEqualizer.Text = "Video ";
-            this.btnEqualizer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEqualizer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnEqualizer.UseVisualStyleBackColor = false;
-            this.btnEqualizer.Click += new System.EventHandler(this.btnEqualizer_Click);
             // 
             // btnScreenList
             // 
@@ -339,6 +320,16 @@
             this.btnHome.UseVisualStyleBackColor = false;
             this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
             // 
+            // panelLogo
+            // 
+            this.panelLogo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(112)))), ((int)(((byte)(114)))));
+            this.panelLogo.Controls.Add(this.pictureBox1);
+            this.panelLogo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelLogo.Location = new System.Drawing.Point(0, 0);
+            this.panelLogo.Name = "panelLogo";
+            this.panelLogo.Size = new System.Drawing.Size(250, 92);
+            this.panelLogo.TabIndex = 0;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::PlayerUI.Properties.Resources.download1;
@@ -348,6 +339,15 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            // 
+            // panelChildForm
+            // 
+            this.panelChildForm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
+            this.panelChildForm.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelChildForm.Location = new System.Drawing.Point(250, 0);
+            this.panelChildForm.Name = "panelChildForm";
+            this.panelChildForm.Size = new System.Drawing.Size(833, 692);
+            this.panelChildForm.TabIndex = 2;
             // 
             // Form1
             // 
