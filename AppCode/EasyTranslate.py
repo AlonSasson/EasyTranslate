@@ -3,14 +3,15 @@ import ImageProcessing as ip
 import VideoProcessing as vp
 import time
 import sys
+import os
 from enum import Enum
 
 
 class Choice(Enum):
-    IMAGE_TANSLATE_TESS = "0"
-    IMAGE_TANSLATE_TENSARFLOW = "1"
-    VIDEO_TANSLATE_TESS = "2"
-    VIDEO_TANSLATE_TENSARFLOW = "3"
+    IMAGE_TRANSLATE_TESS = "0"
+    IMAGE_TRANSLATE_TENSORFLOW = "1"
+    VIDEO_TRANSLATE_TESS = "2"
+    VIDEO_TRANSLATE_TENSORFLOW = "3"
     REAL_TIME = "4"
 
 
@@ -36,29 +37,33 @@ def translate_video(video_path, out_path, filter_function = ip.translate_image):
     """ translates a video
     :param video_path: the video to translate
     """
+    # output the video to a temp file first, for when the video clip path and the out path are the same
+    temp_path = out_path.split('.', -1)[0]  # get the out path without the file type
+    temp_path += '_temp.mp4'
 
-    vp.process_video(video_path, out_path, filter_function)
-    vp.copy_video_sound(video_path, out_path, out_path)
+    vp.process_video(video_path, temp_path, filter_function)
+    vp.copy_video_sound(video_path, temp_path, out_path)
 
+    os.remove(temp_path)  # remove the temp file
 
 def main():
 
     function_choice = sys.argv[1]
 
-    if   (function_choice == Choice.IMAGE_TANSLATE_TESS.value):
+    if   (function_choice == Choice.IMAGE_TRANSLATE_TESS.value):
         translate_image(sys.argv[2], sys.argv[3], ip.translate_image_tess)
 
-    elif (function_choice == Choice.IMAGE_TANSLATE_TENSARFLOW.value):
+    elif (function_choice == Choice.IMAGE_TRANSLATE_TENSORFLOW.value):
         translate_image(sys.argv[2], sys.argv[3], ip.translate_image)
 
-    elif (function_choice == Choice.VIDEO_TANSLATE_TESS.value):
+    elif (function_choice == Choice.VIDEO_TRANSLATE_TESS.value):
         translate_video(sys.argv[2], sys.argv[3], ip.translate_image_tess)
 
-    elif (function_choice == Choice.VIDEO_TANSLATE_TENSARFLOW.value):
+    elif (function_choice == Choice.VIDEO_TRANSLATE_TENSORFLOW.value):
         translate_video(sys.argv[2], sys.argv[3], ip.translate_image)
 
     elif (function_choice == Choice.REAL_TIME.value):
-        pass
+        vp.translate_screen()
 
     #translate_image(sys.argv[1], sys.argv[2])
     #ip.translate_image_tess(cv2.imread("testing/image.jpg"))
