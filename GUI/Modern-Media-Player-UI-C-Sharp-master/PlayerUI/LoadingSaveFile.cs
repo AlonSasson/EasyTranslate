@@ -24,7 +24,7 @@ namespace PlayerUI
         public LoadingSaveFile(PlayerUI.Form1 form1, bool isImageCheck, PlayerUI.UploadVideForm videoChildForm)
         {
             InitializeComponent();
-
+            initailzeList();
             mainForm = form1;
             isImage = isImageCheck;
             uploadVideForm = videoChildForm;
@@ -34,10 +34,11 @@ namespace PlayerUI
         public LoadingSaveFile(PlayerUI.Form1 form1, bool isImageCheck, PlayerUI.UploadImagesFrom imageChildForm)
         {
             InitializeComponent();
-
             mainForm = form1;
             isImage = isImageCheck;
             uploadImagesFrom = imageChildForm;
+            initailzeList();
+
 
         }
 
@@ -70,7 +71,7 @@ namespace PlayerUI
 
                 b.BackgroundImage = Image.FromFile(files[i]);
 
-                b.Size = new Size(230, 230);
+                b.Size = new Size(150, 150);
                 b.Name = Path.GetFullPath(files[i]);
                 b.BackgroundImageLayout = ImageLayout.Zoom;
                 b.Click += new EventHandler(button_Click);
@@ -97,7 +98,7 @@ namespace PlayerUI
                 b.TextAlign = ContentAlignment.MiddleLeft;
                 b.ForeColor = Color.White;
 
-                b.Size = new Size(230, 230);
+                b.Size = new Size(150, 150);
                 b.Name = Path.GetFullPath(files[i]);
                 b.BackgroundImageLayout = ImageLayout.Zoom;
                 b.Click += new EventHandler(button_Click);

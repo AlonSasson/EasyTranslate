@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PlayerUI</RootNamespace>
-    <AssemblyName>PlayerUI</AssemblyName>
+    <AssemblyName>EasyTranslate</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -66,6 +66,12 @@
       <DependentUpon>LoadingSaveFile.cs</DependentUpon>
     </Compile>
     <Compile Include="PythonRun.cs" />
+    <Compile Include="ScreenTranslate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScreenTranslate.Designer.cs">
+      <DependentUpon>ScreenTranslate.cs</DependentUpon>
+    </Compile>
     <Compile Include="UploadImagesFrom.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +94,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LoadingSaveFile.resx">
       <DependentUpon>LoadingSaveFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScreenTranslate.resx">
+      <DependentUpon>ScreenTranslate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UploadImagesFrom.resx">
       <DependentUpon>UploadImagesFrom.cs</DependentUpon>
@@ -150,6 +159,7 @@
     <None Include="Resources\upload-2-24.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\puzzle-piece-256.png" />
     <None Include="Resources\sinchronize-24.png" />
     <None Include="Resources\upload-2-24 %281%29.png" />
     <None Include="Resources\open-in-browser-24.png" />
@@ -168,6 +178,10 @@
     <None Include="Resources\download1.png" />
     <None Include="Resources\google-translate-32 %281%29.png" />
     <None Include="Resources\google-translate-24.png" />
+    <None Include="Resources\fullscreen-10-32.png" />
+    <None Include="Resources\fullscreen-10-256.png" />
+    <None Include="Resources\4SHX.gif" />
+    <None Include="Resources\expand-256.png" />
     <Content Include="Resources\loading_circle_dots.mp4" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

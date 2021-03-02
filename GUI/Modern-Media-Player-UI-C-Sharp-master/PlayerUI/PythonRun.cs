@@ -49,6 +49,7 @@ namespace PlayerUI
         {
             ProcessStartInfo start = new ProcessStartInfo();
             start.FileName = "python.exe";
+            string a = (string.Format("{0} {1}", cmd, args));
             start.Arguments = string.Format("{0} {1}", cmd, args);
 
             start.UseShellExecute = false;

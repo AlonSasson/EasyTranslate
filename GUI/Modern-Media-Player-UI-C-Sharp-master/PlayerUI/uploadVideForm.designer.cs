@@ -252,7 +252,6 @@
             // 
             this.pictLoadingGif.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.pictLoadingGif.Image = ((System.Drawing.Image)(resources.GetObject("pictLoadingGif.Image")));
-            this.pictLoadingGif.InitialImage = global::PlayerUI.Properties.Resources.giphy;
             this.pictLoadingGif.Location = new System.Drawing.Point(54, 116);
             this.pictLoadingGif.Name = "pictLoadingGif";
             this.pictLoadingGif.Size = new System.Drawing.Size(397, 223);
