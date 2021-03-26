@@ -19,6 +19,7 @@ namespace PlayerUI
         private UploadImagesFrom uploadImagesFrom;
         private LoadingSaveFile loadingSaveVideo;
         private LoadingSaveFile loadingSaveImage;
+        private ScreenTranslate screenTranslate;
 
         //private Form homePage = new HomePage();
         public Form1()
@@ -31,7 +32,7 @@ namespace PlayerUI
             openChildForm(homePage);
         }
 
-        private void createForm()
+        private void createForm() // make all the option form (like show images or tanslate them)
         {
             Form1 thisForm = this; // only for pass the class
 
@@ -49,6 +50,9 @@ namespace PlayerUI
 
             loadingSaveImage = new LoadingSaveFile(thisForm, true, uploadImagesFrom);
             buildUpForChildForm(loadingSaveImage);
+
+            screenTranslate = new ScreenTranslate();
+            buildUpForChildForm(screenTranslate);
 
         }
 
@@ -82,24 +86,6 @@ namespace PlayerUI
             showSubMenu(panelScreen);
         }
 
-        #region ScreenManagemetSubMenu
-        private void btnFullScreen_Click(object sender, EventArgs e)
-        {
-            //..
-            //your codes
-            //..
-            hideSubMenu();
-        }
-
-        private void btnPartOfScreen_Click(object sender, EventArgs e)
-        {
-            //..
-            //your codes
-            //..
-            hideSubMenu();
-        }
-
-        #endregion
 
         private void btnTools_Click(object sender, EventArgs e)
         {
@@ -165,5 +151,9 @@ namespace PlayerUI
             openChildForm(loadingSaveImage);
         }
 
+        private void btnFullScreen_Click_1(object sender, EventArgs e)
+        {
+            openChildForm(screenTranslate);
+        }
     }
 }

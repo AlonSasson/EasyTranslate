@@ -514,23 +514,25 @@ def find_sentences_tesseract(img):
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
 
-    config = '--psm 8'
+    config = '--psm 7'
     d = pytesseract.image_to_data(img, output_type=Output.DICT, config=config)
 
     word = d['text']
+
 
     sentences_in_image = {}
     word_num_check = 0
     sentence = ""
     x, y, w, h, check_line = 0, 0, 0, 0, 0
 
+    text = ""
     n_boxes = len(d['text'])
     for i in range(n_boxes):
         d['text'][i] = ''.join(filter(str.isalpha, d['text'][i]))
         if (d['text'][i] != ''):  # check if the text is not empty
-            word = d['text'][i]
+            text = d['text'][i] + " "
 
-    return word
+    return text
 
 def translate_image_tess(image):
     """
@@ -551,9 +553,9 @@ def translate_image_tess(image):
     for i, word_loc in enumerate(locations):
         (x, y, width, height) = word_loc
         word_img = image[y:y + height, x:x + width]  # get an image of just the word
-
         new_word = find_sentences_tesseract(word_img)
         if (new_word != ""):
+            print(new_word)
             words.append(new_word)
         else:
             indexs.append(i)
@@ -587,7 +589,6 @@ def translate_image_tess(image):
 
         if (numpy.array_equal(locations[-1], location)): # it means the last word
             lines_of_location[line_text] = new_line
-
 
     #Translate the sentence
     for  text_line in lines_of_location:

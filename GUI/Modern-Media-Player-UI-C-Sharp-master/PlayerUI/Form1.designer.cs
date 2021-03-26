@@ -258,7 +258,6 @@
             this.btnPartOfScreen.Text = "who to";
             this.btnPartOfScreen.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnPartOfScreen.UseVisualStyleBackColor = false;
-            this.btnPartOfScreen.Click += new System.EventHandler(this.btnPartOfScreen_Click);
             // 
             // btnFullScreen
             // 
@@ -276,6 +275,7 @@
             this.btnFullScreen.Text = "screen translation";
             this.btnFullScreen.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnFullScreen.UseVisualStyleBackColor = false;
+            this.btnFullScreen.Click += new System.EventHandler(this.btnFullScreen_Click_1);
             // 
             // btnScreenList
             // 

@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             this.fullScreenBtn = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
+            this.btnPartScreen = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.btnStopTranslate = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // fullScreenBtn
@@ -44,27 +45,29 @@
             this.fullScreenBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
             this.fullScreenBtn.Image = global::PlayerUI.Properties.Resources.expand_256;
             this.fullScreenBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fullScreenBtn.Location = new System.Drawing.Point(493, 147);
+            this.fullScreenBtn.Location = new System.Drawing.Point(610, 149);
             this.fullScreenBtn.Name = "fullScreenBtn";
-            this.fullScreenBtn.Size = new System.Drawing.Size(256, 256);
+            this.fullScreenBtn.Size = new System.Drawing.Size(202, 193);
             this.fullScreenBtn.TabIndex = 11;
             this.fullScreenBtn.UseVisualStyleBackColor = false;
+            this.fullScreenBtn.Click += new System.EventHandler(this.fullScreenBtn_Click);
             // 
-            // btnSave
+            // btnPartScreen
             // 
-            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(145)))), ((int)(((byte)(148)))));
-            this.btnSave.FlatAppearance.BorderSize = 0;
-            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSave.Font = new System.Drawing.Font("Perpetua", 24.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
-            this.btnSave.Image = global::PlayerUI.Properties.Resources.puzzle_piece_256;
-            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(66, 147);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(256, 256);
-            this.btnSave.TabIndex = 10;
-            this.btnSave.UseVisualStyleBackColor = false;
+            this.btnPartScreen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPartScreen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(145)))), ((int)(((byte)(148)))));
+            this.btnPartScreen.FlatAppearance.BorderSize = 0;
+            this.btnPartScreen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPartScreen.Font = new System.Drawing.Font("Perpetua", 24.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPartScreen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
+            this.btnPartScreen.Image = global::PlayerUI.Properties.Resources.puzzle_piece_256;
+            this.btnPartScreen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPartScreen.Location = new System.Drawing.Point(274, 149);
+            this.btnPartScreen.Name = "btnPartScreen";
+            this.btnPartScreen.Size = new System.Drawing.Size(192, 193);
+            this.btnPartScreen.TabIndex = 10;
+            this.btnPartScreen.UseVisualStyleBackColor = false;
+            this.btnPartScreen.Click += new System.EventHandler(this.btnPartScreen_Click);
             // 
             // textBox1
             // 
@@ -72,7 +75,7 @@
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.Font = new System.Drawing.Font("MingLiU-ExtB", 28F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
-            this.textBox1.Location = new System.Drawing.Point(66, 74);
+            this.textBox1.Location = new System.Drawing.Point(87, 74);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(277, 45);
@@ -85,23 +88,41 @@
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox2.Font = new System.Drawing.Font("MingLiU-ExtB", 28F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
-            this.textBox2.Location = new System.Drawing.Point(493, 74);
+            this.textBox2.Location = new System.Drawing.Point(423, 74);
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(277, 45);
             this.textBox2.TabIndex = 13;
             this.textBox2.Text = "Full Screen";
             // 
+            // btnStopTranslate
+            // 
+            this.btnStopTranslate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnStopTranslate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(145)))), ((int)(((byte)(148)))));
+            this.btnStopTranslate.FlatAppearance.BorderSize = 0;
+            this.btnStopTranslate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStopTranslate.Font = new System.Drawing.Font("Perpetua", 50F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStopTranslate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
+            this.btnStopTranslate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnStopTranslate.Location = new System.Drawing.Point(324, 423);
+            this.btnStopTranslate.Name = "btnStopTranslate";
+            this.btnStopTranslate.Size = new System.Drawing.Size(391, 104);
+            this.btnStopTranslate.TabIndex = 14;
+            this.btnStopTranslate.Text = "Stop";
+            this.btnStopTranslate.UseVisualStyleBackColor = false;
+            this.btnStopTranslate.Click += new System.EventHandler(this.btnStopTranslate_Click);
+            // 
             // ScreenTranslate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(817, 653);
+            this.Controls.Add(this.btnStopTranslate);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.fullScreenBtn);
-            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.btnPartScreen);
             this.Name = "ScreenTranslate";
             this.Text = "ScreenTranslate";
             this.ResumeLayout(false);
@@ -111,9 +132,10 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnPartScreen;
         private System.Windows.Forms.Button fullScreenBtn;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button btnStopTranslate;
     }
 }

@@ -8,7 +8,6 @@ def googletrans_translate(text_to_translate, dest_language):
     right_left = dest_language.lower() in RIGHT_LEFT_LANGUAGES
     #set setting to translate
     translator = googletrans.Translator()
-
     #translate the text
     translation = translator.translate(text_to_translate, dest=dest_language).text
     return translation, right_left

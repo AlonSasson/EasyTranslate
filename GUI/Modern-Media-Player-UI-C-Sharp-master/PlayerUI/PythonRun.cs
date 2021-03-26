@@ -58,7 +58,7 @@ namespace PlayerUI
             start.RedirectStandardError = true;
 
             
-            using (Process process = Process.Start(start))
+          /*  using (Process process = Process.Start(start))
             {
                 using (StreamReader reader = process.StandardError)
                 {
@@ -69,12 +69,8 @@ namespace PlayerUI
                 {
                     string result = reader.ReadToEnd();
                     MessageBox.Show(result);
-                }
-
-              
-             
-
-            }
+                }                  
+            }*/
                 try
             {
                 return Process.Start(start);
