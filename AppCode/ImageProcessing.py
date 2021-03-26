@@ -489,7 +489,7 @@ def translate_image(image):
 
     text = ''.join(text).lower()
 
-    text, right_left = Translate.googletrans_translate(text, 'he')
+    text, right_left = Translate.googletrans_translate(text, 'iw')
     image = blur_locations(image, locations)
     image = TextReplacement.place_text_in_locs(image, locations, text, right_left)
 
@@ -514,25 +514,23 @@ def find_sentences_tesseract(img):
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
 
-    config = '--psm 7'
+    config = '--psm 8'
     d = pytesseract.image_to_data(img, output_type=Output.DICT, config=config)
 
     word = d['text']
-
 
     sentences_in_image = {}
     word_num_check = 0
     sentence = ""
     x, y, w, h, check_line = 0, 0, 0, 0, 0
 
-    text = ""
     n_boxes = len(d['text'])
     for i in range(n_boxes):
         d['text'][i] = ''.join(filter(str.isalpha, d['text'][i]))
         if (d['text'][i] != ''):  # check if the text is not empty
-            text = d['text'][i] + " "
+            word = d['text'][i]
 
-    return text
+    return word
 
 def translate_image_tess(image):
     """
@@ -553,9 +551,9 @@ def translate_image_tess(image):
     for i, word_loc in enumerate(locations):
         (x, y, width, height) = word_loc
         word_img = image[y:y + height, x:x + width]  # get an image of just the word
+
         new_word = find_sentences_tesseract(word_img)
         if (new_word != ""):
-            print(new_word)
             words.append(new_word)
         else:
             indexs.append(i)
@@ -590,9 +588,10 @@ def translate_image_tess(image):
         if (numpy.array_equal(locations[-1], location)): # it means the last word
             lines_of_location[line_text] = new_line
 
+
     #Translate the sentence
     for  text_line in lines_of_location:
-        translate_sentence, right_left = Translate.googletrans_translate(text_line, 'he')
+        translate_sentence, right_left = Translate.googletrans_translate(text_line, 'iw')
         image = TextReplacement.place_text_in_locs(image, lines_of_location[text_line], translate_sentence, right_left)  # right_left)
 
 

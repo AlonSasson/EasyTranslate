@@ -82,8 +82,6 @@ class TranslateWorker(QObject):
             self.add_images.emit(qt_images, locations)
             qt_images = []  # reset the images list
             frame = cv2.cvtColor(numpy.array(pil_image), cv2.COLOR_RGB2BGR)  # convert the frame to a cv2 image
-            #cv2.imshow("frame", frame)
-            #cv2.waitKey()
             translated_frame, locations = self.translate_function(frame)  # translate the frame
             translated_frame = cv2.cvtColor(translated_frame, cv2.COLOR_BGR2RGB)
 
