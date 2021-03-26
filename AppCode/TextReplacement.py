@@ -18,7 +18,8 @@ def get_max_font_size(font_name, text, image):
     font = ImageFont.truetype(font_name, font_size)
     jump_size = 75
     while True:  # finding the right font size using binary search
-        if font.getsize(text)[0] < image.size[0]:  # if the text font is still small
+        # if the text font is still small
+        if font.getsize(text)[0] < image.size[0] and font.getsize(text)[1] < image.size[1]:
             font_size += jump_size
         else:  # if the text size is too big
             jump_size = jump_size // 2
@@ -68,7 +69,9 @@ def place_text_in_locs(image, locations, text, right_left=False):
         draw = ImageDraw.Draw(image_pil)
         font_size = get_max_font_size("arial.ttf", words[i], roi_pil)  # get the max font size for that roi
         font = ImageFont.truetype("arial.ttf", font_size)
-        draw.text((x, y + height - font.getsize(words[i])[1]), words[i], font=font, fill=(255, 0, 0))  # draw the text in the correct location
+        font_w, font_h = font.getsize(words[i])
+        # draw the text in the correct location
+        draw.text((x + (width - font_w) / 2, y + (height - font_h) / 2), words[i], font=font, fill=(255, 0, 0))
         image = numpy.array(image_pil)
 
     return image
