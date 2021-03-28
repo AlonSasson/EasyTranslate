@@ -4,10 +4,11 @@ import ImageProcessing as ip
 import moviepy.editor as mp
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import QObject, QThread, pyqtSignal, QEventLoop
-from PIL import ImageGrab
-from threading import Thread, Lock
+from PIL import ImageGrab, ImageTk, Image
+from threading import Thread, Lock, Condition
 import heapq
 import sys
+import tkinter as tk
 
 image_lock = Lock()
 
@@ -76,7 +77,6 @@ class TranslateWorker(QObject):
         while True:
             self.remove_images.emit()  # remove the previous images before grabbing from screen
             self.loop.exec()  # wait until the images are removed
-            sleep(2)
             pil_image = ImageGrab.grab(bbox=self.selected_area)  # grab the area from screen
             self.add_images.emit(qt_images, locations)
             qt_images = []  # reset the images list
@@ -166,16 +166,106 @@ def select_area():
     return my_window.selected_area
 
 
+#def translate_screen(selected_area=[], translate_function=ip.translate_image):
+    """
+    translates the screen in real time using an overlay
+    :param selected_area: the selected area to translate
+    :param translate_function: the function used to translate the screen
+    """
+    #app = QtWidgets.QApplication(sys.argv)
+    #overlay = OverlayWindow(selected_area, translate_function)  # create overlay
+    #overlay.show()
+    #app.exec()  # run the gui
+
+
+class Overlay:
+    def __init__(self, master, selected_area, condition_variable):
+        self.master = master
+        master.attributes('-fullscreen', True)  # make the overlay fullscreen
+        master.attributes('-transparentcolor', master['bg'])  # make the overlay transparent
+        master.attributes('-topmost', True)  # make the overlay always stay on top
+
+        # create a canvas on the entire screen
+        self.canvas = tk.Canvas(master, width=master.winfo_screenwidth(), height=master.winfo_screenheight())
+        self.canvas.pack()
+
+        if not selected_area:  # if no area was selected
+            # set selected area to screen resolutions
+            selected_area = [0, 0, master.winfo_screenwidth(), master.winfo_screenwidth()]
+        self.selected_area = selected_area
+
+        self.cv = condition_variable
+        self.images = []
+
+    def translate(self, translate_function):
+        """
+        translates the screen infinitely
+        :param translate_function: the function used to translate each frame
+        """
+        locations = []
+        pil_images = []
+        while True:
+            with self.cv:  # lock before removing images to not miss the signal
+                self.master.after(0, self.remove_images)  # remove the previous images before grabbing from screen
+                self.cv.wait()  # wait until the images are removed
+            pil_image = ImageGrab.grab(bbox=self.selected_area)  # grab the area from screen
+            self.master.after(0, self.add_images(pil_images, locations))
+            pil_images = []  # reset the images list
+            frame = cv2.cvtColor(numpy.array(pil_image), cv2.COLOR_RGB2BGR)  # convert the frame to a cv2 image
+            translated_frame, locations = translate_function(frame)  # translate the frame
+            translated_frame = cv2.cvtColor(translated_frame, cv2.COLOR_BGR2RGB)
+
+            for location in locations:  # for each translated word
+                (x, y, w, h) = location
+                word_img = translated_frame[y:y + h, x:x + w]  # get an image of the translated word
+                word_img = Image.fromarray(word_img)  # convert the frame to a pil image
+                pil_images.append(word_img)  # add the image
+
+    def add_images(self, pil_images, locations):
+        """
+        adds images to the overlay
+        :param pil_images: the pillow images to add
+        :param locations: the locations to add them at
+        """
+        for i in range(len(pil_images)):  # add each image
+            self.add_image(pil_images[i], locations[i])
+
+    def add_image(self, pil_image, location):
+        """
+        adds an image to the overlay
+        :param pil_image: the pillow image to add
+        :param location: the location to add it at
+        """
+        print("adding")
+        self.images.append(ImageTk.PhotoImage(pil_image))  # save the image so it doesnt get garbage collected
+        # add the image to the canvas
+        self.canvas.create_image(self.selected_area[ip.X] + location[ip.X], self.selected_area[ip.Y] + location[ip.Y],
+                                 anchor=tk.NW, image=self.images[-1])
+
+    def remove_images(self):
+        """
+        removes all the images on screen
+        """
+        self.canvas.delete("all")  # clear the canvas
+        self.images = []  # empty all the images
+        with self.cv:
+            self.cv.notify()
+
+
 def translate_screen(selected_area=[], translate_function=ip.translate_image):
     """
     translates the screen in real time using an overlay
     :param selected_area: the selected area to translate
     :param translate_function: the function used to translate the screen
     """
-    app = QtWidgets.QApplication(sys.argv)
-    overlay = OverlayWindow(selected_area, translate_function)  # create overlay
-    overlay.show()
-    app.exec()  # run the gui
+
+    root = tk.Tk()
+    overlay = Overlay(root, selected_area, Condition())  # create the overlay
+    # create a worker thread for translating the screen
+    translate_thread = Thread(target=overlay.translate, args=(translate_function,))
+    translate_thread.setDaemon(True)
+    translate_thread.start()  # start the thread
+    root.mainloop()  # start the event loop
 
 
 def copy_video_sound(video_sound_path, video_clip_path, video_out_path):

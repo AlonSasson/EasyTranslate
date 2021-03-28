@@ -16,7 +16,6 @@ class Choice(Enum):
     REAL_TIME_PART = "5"
 
 
-
 def translate_image(image_path, save_path, filter_function):
     """ Translates the text in an image
     :param image_path: the path of the image to translate
@@ -46,7 +45,6 @@ def translate_video(video_path, out_path, filter_function = ip.translate_image):
     vp.copy_video_sound(video_path, temp_path, out_path)
 
     os.remove(temp_path)  # remove the temp file
-
 
 def main():
 
