@@ -1,4 +1,3 @@
-import cv2
 import numpy
 import ImageProcessing as ip
 import functools

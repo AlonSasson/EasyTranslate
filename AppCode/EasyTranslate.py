@@ -13,6 +13,7 @@ class Choice(Enum):
     VIDEO_TRANSLATE_TESS = "2"
     VIDEO_TRANSLATE_TENSORFLOW = "3"
     REAL_TIME = "4"
+    REAL_TIME_PART = "5"
 
 
 
@@ -46,29 +47,29 @@ def translate_video(video_path, out_path, filter_function = ip.translate_image):
 
     os.remove(temp_path)  # remove the temp file
 
+
 def main():
 
     function_choice = sys.argv[1]
 
-    if   (function_choice == Choice.IMAGE_TRANSLATE_TESS.value):
+    if function_choice == Choice.IMAGE_TRANSLATE_TESS.value:
         translate_image(sys.argv[2], sys.argv[3], ip.translate_image_tess)
 
-    elif (function_choice == Choice.IMAGE_TRANSLATE_TENSORFLOW.value):
+    elif function_choice == Choice.IMAGE_TRANSLATE_TENSORFLOW.value:
         translate_image(sys.argv[2], sys.argv[3], ip.translate_image)
 
-    elif (function_choice == Choice.VIDEO_TRANSLATE_TESS.value):
+    elif function_choice == Choice.VIDEO_TRANSLATE_TESS.value:
         translate_video(sys.argv[2], sys.argv[3], ip.translate_image_tess)
 
-    elif (function_choice == Choice.VIDEO_TRANSLATE_TENSORFLOW.value):
+    elif function_choice == Choice.VIDEO_TRANSLATE_TENSORFLOW.value:
         translate_video(sys.argv[2], sys.argv[3], ip.translate_image)
 
-    elif (function_choice == Choice.REAL_TIME.value):
-        vp.translate_screen()
+    elif function_choice == Choice.REAL_TIME.value:
+        vp.translate_screen(translate_function=ip.translate_image_tess)
 
-    #translate_image(sys.argv[1], sys.argv[2])
-    #ip.translate_image_tess(cv2.imread("testing/image.jpg"))
-    #translate_video(sys.argv[1], sys.argv[2], ip.translate_image_tess)
-    #vp.translate_screen(vp.select_area())
+    elif function_choice == Choice.REAL_TIME_PART.value:
+        vp.translate_screen(vp.select_area(), ip.translate_image_tess)
+
 
 if __name__ == "__main__":
     main()

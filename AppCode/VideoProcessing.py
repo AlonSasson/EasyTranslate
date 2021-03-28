@@ -2,8 +2,6 @@ import cv2
 import numpy
 import ImageProcessing as ip
 import moviepy.editor as mp
-import Translate
-import TextReplacement
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import QObject, QThread, pyqtSignal, QEventLoop
 from PIL import ImageGrab
@@ -78,6 +76,7 @@ class TranslateWorker(QObject):
         while True:
             self.remove_images.emit()  # remove the previous images before grabbing from screen
             self.loop.exec()  # wait until the images are removed
+            sleep(2)
             pil_image = ImageGrab.grab(bbox=self.selected_area)  # grab the area from screen
             self.add_images.emit(qt_images, locations)
             qt_images = []  # reset the images list
