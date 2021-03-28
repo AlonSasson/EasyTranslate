@@ -6,6 +6,8 @@ def googletrans_translate(text_to_translate, dest_language):
     #dest_language: for Hebrew input 'he' or 'iw'
 
     right_left = dest_language.lower() in RIGHT_LEFT_LANGUAGES
+    if text_to_translate == '':  # if there is nothing to translate
+        return text_to_translate, right_left
     #set settings for translation
     translator = GoogleTranslator(source='en', target=dest_language)
 
