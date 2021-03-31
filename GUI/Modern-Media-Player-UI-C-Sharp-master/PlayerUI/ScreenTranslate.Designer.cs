@@ -33,6 +33,8 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.btnStopTranslate = new System.Windows.Forms.Button();
+            this.choseFunction = new System.Windows.Forms.ComboBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // fullScreenBtn
@@ -112,12 +114,44 @@
             this.btnStopTranslate.UseVisualStyleBackColor = false;
             this.btnStopTranslate.Click += new System.EventHandler(this.btnStopTranslate_Click);
             // 
+            // choseFunction
+            // 
+            this.choseFunction.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
+            this.choseFunction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.choseFunction.Font = new System.Drawing.Font("Perpetua", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.choseFunction.ForeColor = System.Drawing.Color.White;
+            this.choseFunction.FormattingEnabled = true;
+            this.choseFunction.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.choseFunction.Items.AddRange(new object[] {
+            "tesseract",
+            "tensorflow"});
+            this.choseFunction.Location = new System.Drawing.Point(370, 368);
+            this.choseFunction.Name = "choseFunction";
+            this.choseFunction.Size = new System.Drawing.Size(147, 30);
+            this.choseFunction.TabIndex = 16;
+            this.choseFunction.TabStop = false;
+            // 
+            // textBox3
+            // 
+            this.textBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
+            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox3.Font = new System.Drawing.Font("MingLiU-ExtB", 28F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
+            this.textBox3.Location = new System.Drawing.Point(87, 361);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(277, 45);
+            this.textBox3.TabIndex = 17;
+            this.textBox3.Text = "Choose function:";
+            // 
             // ScreenTranslate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(817, 653);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.choseFunction);
             this.Controls.Add(this.btnStopTranslate);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
@@ -137,5 +171,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button btnStopTranslate;
+        private System.Windows.Forms.ComboBox choseFunction;
+        private System.Windows.Forms.TextBox textBox3;
     }
 }

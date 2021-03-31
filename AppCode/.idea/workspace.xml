@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e8f6df46-c8a5-4cc8-b1ae-3697538c745e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../GUI/Modern-Media-Player-UI-C-Sharp-master/PlayerUI/Form1.designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../GUI/Modern-Media-Player-UI-C-Sharp-master/PlayerUI/Form1.designer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GUI/Modern-Media-Player-UI-C-Sharp-master/PlayerUI/PythonRun.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../GUI/Modern-Media-Player-UI-C-Sharp-master/PlayerUI/PythonRun.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../GUI/Modern-Media-Player-UI-C-Sharp-master/PlayerUI/ScreenTranslate.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../GUI/Modern-Media-Player-UI-C-Sharp-master/PlayerUI/ScreenTranslate.Designer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../GUI/Modern-Media-Player-UI-C-Sharp-master/PlayerUI/ScreenTranslate.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../GUI/Modern-Media-Player-UI-C-Sharp-master/PlayerUI/ScreenTranslate.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GUI/Modern-Media-Player-UI-C-Sharp-master/PlayerUI/ScreenTranslate.resx" beforeDir="false" afterPath="$PROJECT_DIR$/../GUI/Modern-Media-Player-UI-C-Sharp-master/PlayerUI/ScreenTranslate.resx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GUI/Modern-Media-Player-UI-C-Sharp-master/PlayerUI/UploadImagesFrom.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../GUI/Modern-Media-Player-UI-C-Sharp-master/PlayerUI/UploadImagesFrom.Designer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GUI/Modern-Media-Player-UI-C-Sharp-master/PlayerUI/UploadImagesFrom.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../GUI/Modern-Media-Player-UI-C-Sharp-master/PlayerUI/UploadImagesFrom.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GUI/Modern-Media-Player-UI-C-Sharp-master/PlayerUI/UploadImagesFrom.resx" beforeDir="false" afterPath="$PROJECT_DIR$/../GUI/Modern-Media-Player-UI-C-Sharp-master/PlayerUI/UploadImagesFrom.resx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GUI/Modern-Media-Player-UI-C-Sharp-master/PlayerUI/uploadVideForm.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../GUI/Modern-Media-Player-UI-C-Sharp-master/PlayerUI/uploadVideForm.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GUI/Modern-Media-Player-UI-C-Sharp-master/PlayerUI/uploadVideForm.designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../GUI/Modern-Media-Player-UI-C-Sharp-master/PlayerUI/uploadVideForm.designer.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

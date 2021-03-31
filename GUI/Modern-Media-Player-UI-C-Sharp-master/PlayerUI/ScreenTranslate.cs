@@ -20,13 +20,17 @@ namespace PlayerUI
         {
             process = null;
             InitializeComponent();
+
+            //set difult list of chosing 
+            choseFunction.SelectedIndex = 0;
         }
 
         private void btnPartScreen_Click(object sender, EventArgs e)
         {
             if (process == null) // ceck if have active process of translate screen
             {
-                Thread thr = new Thread( () => pythonThread("5"));
+                string codeFunction = choseFunction.Text;
+                Thread thr = new Thread( () => pythonThread("part_of_screen", codeFunction));
                 thr.Start();
             }
         }
@@ -35,16 +39,17 @@ namespace PlayerUI
         {
             if (process == null) // ceck if have active process of translate screen
             {
-                Thread thr = new Thread(() => pythonThread("4"));
+                string codeFunction = choseFunction.Text;
+                Thread thr = new Thread(() => pythonThread("screen", codeFunction));
                 thr.Start();
             }
         }
 
-        private void pythonThread(string code)
+        private void pythonThread(string platform, string code)
         {
    
             string path = @"..\..\..\..\..\AppCode\EasyTranslate.py";
-            string parameters = code + " ";
+            string parameters = platform + " " + code + " ";
             process = PlayerUI.PythonRun.run_cmd(path, parameters);
         }
 

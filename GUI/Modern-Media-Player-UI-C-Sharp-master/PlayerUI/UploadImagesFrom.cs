@@ -22,6 +22,10 @@ namespace PlayerUI
         public UploadImagesFrom()
         {
             InitializeComponent();
+
+            //set difult list of chosing 
+            choseFunction.SelectedIndex = 0;
+
             lock (pictLoadingGif)
             {
                 pictLoadingGif.SendToBack();
@@ -111,8 +115,8 @@ namespace PlayerUI
                     pictLoadingGif.BringToFront();
                 }
 
-
-                Thread thr = new Thread(pythonThread);
+                string codeFunction = choseFunction.Text;
+                Thread thr = new Thread(() => pythonThread(codeFunction));
                 thr.Start();
             }
             else
@@ -121,21 +125,28 @@ namespace PlayerUI
             }
         }
 
-        private void pythonThread()
+        private void pythonThread(string codeFunction)
         {
             checkInMideleTranslate = true;
-            string destPath = Path.Combine(@"images\\translate", Path.GetFileName(textBoxPath.Text));
+            
+            //make file name withe the name of function
+            string destPath = Path.Combine(@"images\\translate", Path.GetFileNameWithoutExtension(textBoxPath.Text) + codeFunction +
+                Path.GetExtension(textBoxPath.Text));
 
             if (!File.Exists(destPath))
             {
                 string path = @"..\..\..\..\..\AppCode\EasyTranslate.py";
-                string parameters = "0 " + textBoxPath.Text + " " + Path.GetFullPath(destPath);
+                string parameters = "image " + codeFunction + " " + textBoxPath.Text + " " + Path.GetFullPath(destPath);
                 PlayerUI.PythonRun.run_cmd(path, parameters);
             }
 
-            translate_image_path = destPath;
-            //this is for now
-            translateImage.Image = Image.FromFile(destPath);
+            //check if could create the image
+            if (File.Exists(destPath))
+            {
+                translate_image_path = destPath;
+                translateImage.Image = Image.FromFile(destPath);
+            }
+
            
             lock (pictLoadingGif)
             {

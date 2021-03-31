@@ -20,6 +20,9 @@ namespace PlayerUI
         public UploadVideForm()
         {
             InitializeComponent();
+
+            //set difult list of chosing 
+            choseFunction.SelectedIndex = 0;
             lock (pictLoadingGif)
             {
                 pictLoadingGif.Size = videoMadia.Size;
@@ -156,9 +159,6 @@ namespace PlayerUI
                     {
                         File.Copy(textBoxPath.Text, destPath);
                     }
-
-
-
                 }
                 else
                 {
@@ -175,15 +175,18 @@ namespace PlayerUI
         {
             if (!checkInMideleTranslate)
             {
-                lock (pictLoadingGif)
+                if (textBoxPath.Text != "")
                 {
-                    pictLoadingGif.Visible = true;
-                    videoMadia.Visible = false;
+                    lock (pictLoadingGif)
+                    {
+                        pictLoadingGif.Visible = true;
+                        videoMadia.Visible = false;
+                    }
+
+                    string codeFunction = choseFunction.Text;
+                    Thread thr = new Thread(() => pythonThread(codeFunction));
+                    thr.Start();
                 }
-
-
-                Thread thr = new Thread(pythonThread);
-                thr.Start();
             }
             else
             {
@@ -191,15 +194,17 @@ namespace PlayerUI
             }
         }
 
-        private void pythonThread()
+        private void pythonThread(string codeFunction)
         {
             checkInMideleTranslate = true;
 
-            string destPath = Path.Combine(@"videos\\translate", Path.GetFileName(textBoxPath.Text)); //Path.GetFileName(textBoxPath.Text));
+            string destPath = Path.Combine(@"videos\\translate", Path.GetFileNameWithoutExtension(textBoxPath.Text) + codeFunction +
+               Path.GetExtension(textBoxPath.Text));
+
             if (!File.Exists(destPath))
             {
                 string path = @"..\..\..\..\..\AppCode\EasyTranslate.py";
-                string parameters = "2 " + textBoxPath.Text + " " + Path.GetFullPath(destPath);
+                string parameters = "video " + codeFunction + " " + textBoxPath.Text + " " + Path.GetFullPath(destPath);
                 PlayerUI.PythonRun.run_cmd(path, parameters);
             }
 

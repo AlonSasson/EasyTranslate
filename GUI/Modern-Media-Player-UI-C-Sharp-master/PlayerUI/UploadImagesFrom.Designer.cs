@@ -40,6 +40,7 @@
             this.btnUpload = new System.Windows.Forms.Button();
             this.translateImage = new System.Windows.Forms.PictureBox();
             this.uploadImage = new System.Windows.Forms.PictureBox();
+            this.choseFunction = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictLoadingGif)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.translateImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.uploadImage)).BeginInit();
@@ -193,12 +194,30 @@
             this.uploadImage.TabIndex = 0;
             this.uploadImage.TabStop = false;
             // 
+            // choseFunction
+            // 
+            this.choseFunction.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
+            this.choseFunction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.choseFunction.Font = new System.Drawing.Font("Perpetua", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.choseFunction.ForeColor = System.Drawing.Color.White;
+            this.choseFunction.FormattingEnabled = true;
+            this.choseFunction.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.choseFunction.Items.AddRange(new object[] {
+            "tesseract",
+            "tensorflow"});
+            this.choseFunction.Location = new System.Drawing.Point(12, 421);
+            this.choseFunction.Name = "choseFunction";
+            this.choseFunction.Size = new System.Drawing.Size(147, 30);
+            this.choseFunction.TabIndex = 16;
+            this.choseFunction.TabStop = false;
+            // 
             // UploadImagesFrom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(692, 558);
+            this.Controls.Add(this.choseFunction);
             this.Controls.Add(this.pictLoadingGif);
             this.Controls.Add(this.btdTranslate);
             this.Controls.Add(this.btnOpenTranslateImage);
@@ -233,5 +252,6 @@
         private System.Windows.Forms.Button btnOpenTranslateImage;
         private System.Windows.Forms.Button btdTranslate;
         private System.Windows.Forms.PictureBox pictLoadingGif;
+        private System.Windows.Forms.ComboBox choseFunction;
     }
 }

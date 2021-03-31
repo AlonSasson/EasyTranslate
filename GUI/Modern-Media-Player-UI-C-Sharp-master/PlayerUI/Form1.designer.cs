@@ -40,7 +40,6 @@
             this.btnUploadVideo = new System.Windows.Forms.Button();
             this.btnEqualizer = new System.Windows.Forms.Button();
             this.panelScreen = new System.Windows.Forms.Panel();
-            this.btnPartOfScreen = new System.Windows.Forms.Button();
             this.btnFullScreen = new System.Windows.Forms.Button();
             this.btnScreenList = new System.Windows.Forms.Button();
             this.btnHome = new System.Windows.Forms.Button();
@@ -80,7 +79,7 @@
             this.panelImage.Controls.Add(this.btnSavedImages);
             this.panelImage.Controls.Add(this.btnUploadimage);
             this.panelImage.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelImage.Location = new System.Drawing.Point(0, 431);
+            this.panelImage.Location = new System.Drawing.Point(0, 397);
             this.panelImage.Name = "panelImage";
             this.panelImage.Size = new System.Drawing.Size(250, 83);
             this.panelImage.TabIndex = 13;
@@ -131,7 +130,7 @@
             this.btnImagesList.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
             this.btnImagesList.Image = global::PlayerUI.Properties.Resources.picture_2_24;
             this.btnImagesList.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnImagesList.Location = new System.Drawing.Point(0, 386);
+            this.btnImagesList.Location = new System.Drawing.Point(0, 352);
             this.btnImagesList.Name = "btnImagesList";
             this.btnImagesList.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.btnImagesList.Size = new System.Drawing.Size(250, 45);
@@ -169,7 +168,7 @@
             this.panelVideos.Controls.Add(this.btnSavedVideos);
             this.panelVideos.Controls.Add(this.btnUploadVideo);
             this.panelVideos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelVideos.Location = new System.Drawing.Point(0, 303);
+            this.panelVideos.Location = new System.Drawing.Point(0, 269);
             this.panelVideos.Name = "panelVideos";
             this.panelVideos.Size = new System.Drawing.Size(250, 83);
             this.panelVideos.TabIndex = 7;
@@ -220,7 +219,7 @@
             this.btnEqualizer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
             this.btnEqualizer.Image = global::PlayerUI.Properties.Resources.video_play_4_24__1_;
             this.btnEqualizer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEqualizer.Location = new System.Drawing.Point(0, 258);
+            this.btnEqualizer.Location = new System.Drawing.Point(0, 224);
             this.btnEqualizer.Name = "btnEqualizer";
             this.btnEqualizer.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.btnEqualizer.Size = new System.Drawing.Size(250, 45);
@@ -234,30 +233,12 @@
             // panelScreen
             // 
             this.panelScreen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
-            this.panelScreen.Controls.Add(this.btnPartOfScreen);
             this.panelScreen.Controls.Add(this.btnFullScreen);
             this.panelScreen.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelScreen.Location = new System.Drawing.Point(0, 182);
             this.panelScreen.Name = "panelScreen";
-            this.panelScreen.Size = new System.Drawing.Size(250, 76);
+            this.panelScreen.Size = new System.Drawing.Size(250, 42);
             this.panelScreen.TabIndex = 4;
-            // 
-            // btnPartOfScreen
-            // 
-            this.btnPartOfScreen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(112)))), ((int)(((byte)(114)))));
-            this.btnPartOfScreen.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnPartOfScreen.FlatAppearance.BorderSize = 0;
-            this.btnPartOfScreen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(155)))), ((int)(((byte)(151)))));
-            this.btnPartOfScreen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPartOfScreen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
-            this.btnPartOfScreen.Location = new System.Drawing.Point(0, 40);
-            this.btnPartOfScreen.Name = "btnPartOfScreen";
-            this.btnPartOfScreen.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnPartOfScreen.Size = new System.Drawing.Size(250, 40);
-            this.btnPartOfScreen.TabIndex = 1;
-            this.btnPartOfScreen.Text = "who to";
-            this.btnPartOfScreen.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPartOfScreen.UseVisualStyleBackColor = false;
             // 
             // btnFullScreen
             // 
@@ -270,7 +251,7 @@
             this.btnFullScreen.Location = new System.Drawing.Point(0, 0);
             this.btnFullScreen.Name = "btnFullScreen";
             this.btnFullScreen.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.btnFullScreen.Size = new System.Drawing.Size(250, 40);
+            this.btnFullScreen.Size = new System.Drawing.Size(250, 42);
             this.btnFullScreen.TabIndex = 0;
             this.btnFullScreen.Text = "screen translation";
             this.btnFullScreen.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -382,7 +363,6 @@
         private System.Windows.Forms.Button btnUploadVideo;
         private System.Windows.Forms.Button btnEqualizer;
         private System.Windows.Forms.Panel panelScreen;
-        private System.Windows.Forms.Button btnPartOfScreen;
         private System.Windows.Forms.Button btnFullScreen;
         private System.Windows.Forms.Button btnScreenList;
         private System.Windows.Forms.Panel panelLogo;

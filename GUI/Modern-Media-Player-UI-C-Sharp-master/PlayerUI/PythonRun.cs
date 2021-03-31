@@ -45,6 +45,10 @@ namespace PlayerUI
             }
             return pythonPath;
         }
+
+
+
+
         public static Process run_cmd(string cmd, string args)
         {
             ProcessStartInfo start = new ProcessStartInfo();
@@ -57,8 +61,8 @@ namespace PlayerUI
             start.CreateNoWindow = true;
             start.RedirectStandardError = true;
 
-            
-          /*  using (Process process = Process.Start(start))
+            //check when the proces end 
+            using (Process process = Process.Start(start))
             {
                 using (StreamReader reader = process.StandardError)
                 {
@@ -70,7 +74,7 @@ namespace PlayerUI
                     string result = reader.ReadToEnd();
                     MessageBox.Show(result);
                 }                  
-            }*/
+            }
                 try
             {
                 return Process.Start(start);

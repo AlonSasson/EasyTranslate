@@ -8,12 +8,15 @@ from enum import Enum
 
 
 class Choice(Enum):
-    IMAGE_TRANSLATE_TESS = "0"
-    IMAGE_TRANSLATE_TENSORFLOW = "1"
-    VIDEO_TRANSLATE_TESS = "2"
-    VIDEO_TRANSLATE_TENSORFLOW = "3"
-    REAL_TIME = "4"
-    REAL_TIME_PART = "5"
+    #chose platform
+    IMAGE = "image"
+    VIDEO = "video"
+    SCREEN = "screen"
+    PART_OF_SCREEN = "part_of_screen"
+
+    #chose function
+    TESSERACT = "tesseract"
+    TENSORFLOW = "tensorflow"
 
 
 def translate_image(image_path, save_path, filter_function):
@@ -48,25 +51,37 @@ def translate_video(video_path, out_path, filter_function = ip.translate_image):
 
 def main():
 
-    function_choice = sys.argv[1]
 
-    if function_choice == Choice.IMAGE_TRANSLATE_TESS.value:
-        translate_image(sys.argv[2], sys.argv[3], ip.translate_image_tess)
+    platform_choice = sys.argv[1]
+    translate_function = sys.argv[2]
 
-    elif function_choice == Choice.IMAGE_TRANSLATE_TENSORFLOW.value:
-        translate_image(sys.argv[2], sys.argv[3], ip.translate_image)
+    #chosing the function of translate
+    if translate_function == Choice.TESSERACT.value:
+        translate_function = ip.translate_image_tess
+    elif translate_function == Choice.TENSORFLOW.value:
+        translate_function = ip.translate_image
+    else:
+        return -1
 
-    elif function_choice == Choice.VIDEO_TRANSLATE_TESS.value:
-        translate_video(sys.argv[2], sys.argv[3], ip.translate_image_tess)
+    #chosing platform
 
-    elif function_choice == Choice.VIDEO_TRANSLATE_TENSORFLOW.value:
-        translate_video(sys.argv[2], sys.argv[3], ip.translate_image)
+    if platform_choice == Choice.IMAGE.value:
+        translate_image(sys.argv[3], sys.argv[4], translate_function)
 
-    elif function_choice == Choice.REAL_TIME.value:
-        vp.translate_screen(translate_function=ip.translate_image_tess)
+    elif platform_choice == Choice.VIDEO.value:
+        translate_video(sys.argv[3], sys.argv[4], translate_function)
 
-    elif function_choice == Choice.REAL_TIME_PART.value:
-        vp.translate_screen(vp.select_area(), ip.translate_image_tess)
+    elif platform_choice == Choice.SCREEN.value:
+        print('aaa')
+        vp.translate_screen(translate_function=translate_function)
+
+    elif platform_choice == Choice.PART_OF_SCREEN.value:
+        print('aaa')
+        vp.translate_screen(vp.select_area(), translate_function)
+
+
+
+
 
 
 if __name__ == "__main__":

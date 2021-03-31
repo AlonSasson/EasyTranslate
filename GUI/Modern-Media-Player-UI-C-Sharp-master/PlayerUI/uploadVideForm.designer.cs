@@ -44,6 +44,7 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.pictLoadingGif = new System.Windows.Forms.PictureBox();
+            this.choseFunction = new System.Windows.Forms.ComboBox();
             this.panelPlayer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.controlSound)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.soundPict)).BeginInit();
@@ -259,12 +260,30 @@
             this.pictLoadingGif.TabIndex = 14;
             this.pictLoadingGif.TabStop = false;
             // 
+            // choseFunction
+            // 
+            this.choseFunction.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
+            this.choseFunction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.choseFunction.Font = new System.Drawing.Font("Perpetua", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.choseFunction.ForeColor = System.Drawing.Color.White;
+            this.choseFunction.FormattingEnabled = true;
+            this.choseFunction.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.choseFunction.Items.AddRange(new object[] {
+            "tesseract",
+            "tensorflow"});
+            this.choseFunction.Location = new System.Drawing.Point(461, 240);
+            this.choseFunction.Name = "choseFunction";
+            this.choseFunction.Size = new System.Drawing.Size(147, 30);
+            this.choseFunction.TabIndex = 15;
+            this.choseFunction.TabStop = false;
+            // 
             // UploadVideForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(720, 566);
+            this.Controls.Add(this.choseFunction);
             this.Controls.Add(this.pictLoadingGif);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btdTranslate);
@@ -273,6 +292,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBoxPath);
+            this.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.Name = "UploadVideForm";
             this.Text = "uploadVideForm";
             this.Resize += new System.EventHandler(this.Form2_Resize);
@@ -307,5 +327,6 @@
         private System.Windows.Forms.Button btdTranslate;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictLoadingGif;
+        private System.Windows.Forms.ComboBox choseFunction;
     }
 }
