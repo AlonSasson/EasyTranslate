@@ -30,7 +30,7 @@ namespace PlayerUI
             if (process == null) // ceck if have active process of translate screen
             {
                 string codeFunction = choseFunction.Text;
-                Thread thr = new Thread( () => pythonThread("part_of_screen", codeFunction));
+                Thread thr = new Thread( () => PythonThread("part_of_screen", codeFunction));
                 thr.Start();
             }
         }
@@ -40,12 +40,12 @@ namespace PlayerUI
             if (process == null) // ceck if have active process of translate screen
             {
                 string codeFunction = choseFunction.Text;
-                Thread thr = new Thread(() => pythonThread("screen", codeFunction));
+                Thread thr = new Thread(() => PythonThread("screen", codeFunction));
                 thr.Start();
             }
         }
 
-        private void pythonThread(string platform, string code)
+        private void PythonThread(string platform, string code)
         {
    
             string path = @"..\..\..\..\..\AppCode\EasyTranslate.py";

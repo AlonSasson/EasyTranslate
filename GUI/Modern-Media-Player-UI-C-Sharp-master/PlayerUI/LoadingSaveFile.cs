@@ -17,44 +17,44 @@ namespace PlayerUI
     public partial class LoadingSaveFile : Form
     {
         private bool isImage;
-        private Form1 mainForm;
-        PlayerUI.UploadVideForm uploadVideForm = null;
-        PlayerUI.UploadImagesFrom uploadImagesFrom = null;
+        private MainForm mainForm;
+        PlayerUI.UploadVideosForm uploadVideosForm = null;
+        PlayerUI.UploadImagesForm uploadImagesFrom = null;
 
-        public LoadingSaveFile(PlayerUI.Form1 form1, bool isImageCheck, PlayerUI.UploadVideForm videoChildForm)
+        public LoadingSaveFile(PlayerUI.MainForm form1, bool isImageCheck, PlayerUI.UploadVideosForm videoChildForm)
         {
             InitializeComponent();
-            initailzeList();
+            InitailzeList();
             mainForm = form1;
             isImage = isImageCheck;
-            uploadVideForm = videoChildForm;
+            uploadVideosForm = videoChildForm;
 
         }
 
-        public LoadingSaveFile(PlayerUI.Form1 form1, bool isImageCheck, PlayerUI.UploadImagesFrom imageChildForm)
+        public LoadingSaveFile(PlayerUI.MainForm form1, bool isImageCheck, PlayerUI.UploadImagesForm imageChildForm)
         {
             InitializeComponent();
             mainForm = form1;
             isImage = isImageCheck;
             uploadImagesFrom = imageChildForm;
-            initailzeList();
+            InitailzeList();
 
 
         }
 
-        private void initailzeList()
+        private void InitailzeList()
         {
             if (isImage)
             {
-                loadingImages();
+                LoadingImages();
             }
             else
             {
-                loadingVideos();
+                LoadingVideos();
             }            
         }
 
-        public void loadingImages()
+        public void LoadingImages()
         {
             String[] files = null;
             listOfFile.Controls.Clear();
@@ -79,7 +79,7 @@ namespace PlayerUI
                 listOfFile.Controls.Add(b);
             }
         }
-        private void loadingVideos()
+        private void LoadingVideos()
         {
             String[] files = null;
             listOfFile.Controls.Clear();
@@ -118,23 +118,23 @@ namespace PlayerUI
 
             if (isImage)
             {
-                uploadImagesFrom.setImage(button.Name);
+                uploadImagesFrom.SetImage(button.Name);
 
-                mainForm.openChildForm(uploadImagesFrom);
+                mainForm.OpenChildForm(uploadImagesFrom);
                 this.Hide();
             }
             else  // it means is a video
             {
-                uploadVideForm.setVideo(button.Name);
+                uploadVideosForm.SetVideo(button.Name);
 
-                mainForm.openChildForm(uploadVideForm);
+                mainForm.OpenChildForm(uploadVideosForm);
                 this.Hide();
             }
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            initailzeList();
+            InitailzeList();
         }
     }
 }

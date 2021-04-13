@@ -47,11 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="MainForm.designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="HomePage.cs">
       <SubType>Form</SubType>
@@ -72,22 +72,22 @@
     <Compile Include="ScreenTranslate.Designer.cs">
       <DependentUpon>ScreenTranslate.cs</DependentUpon>
     </Compile>
-    <Compile Include="UploadImagesFrom.cs">
+    <Compile Include="UploadImagesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UploadImagesFrom.Designer.cs">
-      <DependentUpon>UploadImagesFrom.cs</DependentUpon>
+    <Compile Include="UploadImagesForm.Designer.cs">
+      <DependentUpon>UploadImagesForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="uploadVideForm.cs">
+    <Compile Include="UploadVideosForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="uploadVideForm.designer.cs">
-      <DependentUpon>uploadVideForm.cs</DependentUpon>
+    <Compile Include="UploadVideosForm.designer.cs">
+      <DependentUpon>UploadVideosForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HomePage.resx">
       <DependentUpon>HomePage.cs</DependentUpon>
@@ -98,11 +98,11 @@
     <EmbeddedResource Include="ScreenTranslate.resx">
       <DependentUpon>ScreenTranslate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UploadImagesFrom.resx">
-      <DependentUpon>UploadImagesFrom.cs</DependentUpon>
+    <EmbeddedResource Include="UploadImagesForm.resx">
+      <DependentUpon>UploadImagesForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="uploadVideForm.resx">
-      <DependentUpon>uploadVideForm.cs</DependentUpon>
+    <EmbeddedResource Include="UploadVideosForm.resx">
+      <DependentUpon>UploadVideosForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
