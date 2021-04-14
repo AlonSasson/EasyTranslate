@@ -8,6 +8,7 @@ from threading import Thread, Condition
 import heapq
 import sys
 import tkinter as tk
+import pyautogui
 
 
 class SelectionWindow(QtWidgets.QMainWindow):
@@ -88,13 +89,15 @@ class Overlay:
         master.attributes('-transparentcolor', master['bg'])  # make the overlay transparent
         master.attributes('-topmost', True)  # make the overlay always stay on top
 
+        screen_size = pyautogui.size()  # use pyautogui since tkinter doesn't work wwith screen rescaling
         # create a canvas on the entire screen
-        self.canvas = tk.Canvas(master, width=master.winfo_screenwidth(), height=master.winfo_screenheight())
+        self.canvas = tk.Canvas(master, width=screen_size.width, height=screen_size.height)
         self.canvas.pack()
 
         if not selected_area:  # if no area was selected
             # set selected area to screen resolutions
-            selected_area = [0, 0, master.winfo_screenwidth(), master.winfo_screenwidth()]
+
+            selected_area = [0, 0, screen_size.width, screen_size.height]
         self.selected_area = selected_area
 
         self.cond_var = Condition()
