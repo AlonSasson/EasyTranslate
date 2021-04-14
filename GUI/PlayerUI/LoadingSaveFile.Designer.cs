@@ -38,7 +38,7 @@
             this.listOfFile.AutoScroll = true;
             this.listOfFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
             this.listOfFile.Location = new System.Drawing.Point(80, 122);
-            this.listOfFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listOfFile.Margin = new System.Windows.Forms.Padding(4);
             this.listOfFile.Name = "listOfFile";
             this.listOfFile.Size = new System.Drawing.Size(715, 501);
             this.listOfFile.TabIndex = 0;
@@ -60,11 +60,11 @@
             this.btnRefresh.Font = new System.Drawing.Font("Monotype Corsiva", 14F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRefresh.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnRefresh.Location = new System.Drawing.Point(632, 21);
-            this.btnRefresh.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRefresh.Margin = new System.Windows.Forms.Padding(4);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(100, 84);
             this.btnRefresh.TabIndex = 9;
-            this.btnRefresh.Text = "Load";
+            this.btnRefresh.Text = "Reload";
             this.btnRefresh.UseVisualStyleBackColor = false;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
@@ -77,7 +77,7 @@
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.textBoxTitle);
             this.Controls.Add(this.listOfFile);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "LoadingSaveFile";
             this.Text = "LoadingSaveFile";
             this.ResumeLayout(false);
