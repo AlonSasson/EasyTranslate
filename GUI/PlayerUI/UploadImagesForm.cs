@@ -137,7 +137,7 @@ namespace PlayerUI
 
             if (!File.Exists(destPath))
             {
-                string path = @"..\..\..\..\..\AppCode\EasyTranslate.py";
+                string path = @"..\..\..\..\AppCode\EasyTranslate.py";
                 string parameters = "image " + codeFunction + " " + destLanguage + " " + textBoxPath.Text + " " + Path.GetFullPath(destPath);
                 PlayerUI.PythonRun.run_cmd(path, parameters);
             }

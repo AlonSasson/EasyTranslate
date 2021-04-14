@@ -51,7 +51,7 @@ namespace PlayerUI
         private void PythonThread(string platform, string code, string destLanguage)
         {
    
-            string path = @"..\..\..\..\..\AppCode\EasyTranslate.py";
+            string path = @"..\..\..\..\AppCode\EasyTranslate.py";
             string parameters = platform + " " + code + " " + destLanguage + " ";
             process = PlayerUI.PythonRun.run_cmd(path, parameters);
         }
