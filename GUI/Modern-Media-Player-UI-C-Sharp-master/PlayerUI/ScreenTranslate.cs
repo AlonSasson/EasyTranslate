@@ -21,8 +21,9 @@ namespace PlayerUI
             process = null;
             InitializeComponent();
 
-            //set difult list of chosing 
+            //set the default function and language for translation
             choseFunction.SelectedIndex = 0;
+            destLanguageBox.Text = "hebrew";
         }
 
         private void btnPartScreen_Click(object sender, EventArgs e)
@@ -30,7 +31,8 @@ namespace PlayerUI
             if (process == null) // ceck if have active process of translate screen
             {
                 string codeFunction = choseFunction.Text;
-                Thread thr = new Thread( () => PythonThread("part_of_screen", codeFunction));
+                string destLanguage = destLanguageBox.Text;
+                Thread thr = new Thread( () => PythonThread("part_of_screen", codeFunction, destLanguage));
                 thr.Start();
             }
         }
@@ -40,16 +42,17 @@ namespace PlayerUI
             if (process == null) // ceck if have active process of translate screen
             {
                 string codeFunction = choseFunction.Text;
-                Thread thr = new Thread(() => PythonThread("screen", codeFunction));
+                string destLanguage = destLanguageBox.Text;
+                Thread thr = new Thread(() => PythonThread("screen", codeFunction, destLanguage));
                 thr.Start();
             }
         }
 
-        private void PythonThread(string platform, string code)
+        private void PythonThread(string platform, string code, string destLanguage)
         {
    
             string path = @"..\..\..\..\..\AppCode\EasyTranslate.py";
-            string parameters = platform + " " + code + " ";
+            string parameters = platform + " " + code + " " + destLanguage + " ";
             process = PlayerUI.PythonRun.run_cmd(path, parameters);
         }
 

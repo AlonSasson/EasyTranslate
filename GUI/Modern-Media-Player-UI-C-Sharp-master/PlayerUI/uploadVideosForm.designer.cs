@@ -45,6 +45,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.pictLoadingGif = new System.Windows.Forms.PictureBox();
             this.choseFunction = new System.Windows.Forms.ComboBox();
+            this.destLanguageBox = new System.Windows.Forms.ComboBox();
             this.panelPlayer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.controlSound)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.soundPict)).BeginInit();
@@ -62,7 +63,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxPath.Location = new System.Drawing.Point(72, 57);
-            this.textBoxPath.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxPath.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPath.Name = "textBoxPath";
             this.textBoxPath.ReadOnly = true;
             this.textBoxPath.Size = new System.Drawing.Size(625, 28);
@@ -80,7 +81,7 @@
             this.panelPlayer.Controls.Add(this.playButton);
             this.panelPlayer.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelPlayer.Location = new System.Drawing.Point(0, 544);
-            this.panelPlayer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelPlayer.Margin = new System.Windows.Forms.Padding(4);
             this.panelPlayer.Name = "panelPlayer";
             this.panelPlayer.Size = new System.Drawing.Size(960, 153);
             this.panelPlayer.TabIndex = 9;
@@ -94,7 +95,7 @@
             this.controlSound.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
             this.controlSound.CausesValidation = false;
             this.controlSound.Location = new System.Drawing.Point(469, 42);
-            this.controlSound.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.controlSound.Margin = new System.Windows.Forms.Padding(4);
             this.controlSound.Maximum = 100;
             this.controlSound.MaximumSize = new System.Drawing.Size(200, 55);
             this.controlSound.MinimumSize = new System.Drawing.Size(200, 55);
@@ -122,7 +123,7 @@
             this.soundPict.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.soundPict.Image = ((System.Drawing.Image)(resources.GetObject("soundPict.Image")));
             this.soundPict.Location = new System.Drawing.Point(448, 42);
-            this.soundPict.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.soundPict.Margin = new System.Windows.Forms.Padding(4);
             this.soundPict.Name = "soundPict";
             this.soundPict.Size = new System.Drawing.Size(24, 24);
             this.soundPict.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -135,7 +136,7 @@
             this.restartVideBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.restartVideBtn.Image = global::PlayerUI.Properties.Resources.sinchronize_24;
             this.restartVideBtn.Location = new System.Drawing.Point(396, 42);
-            this.restartVideBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.restartVideBtn.Margin = new System.Windows.Forms.Padding(4);
             this.restartVideBtn.Name = "restartVideBtn";
             this.restartVideBtn.Size = new System.Drawing.Size(24, 24);
             this.restartVideBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -149,7 +150,7 @@
             this.pictureBox4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
             this.pictureBox4.Location = new System.Drawing.Point(196, 42);
-            this.pictureBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox4.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(24, 24);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -162,7 +163,7 @@
             this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
             this.pictureBox3.Location = new System.Drawing.Point(341, 42);
-            this.pictureBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(24, 24);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -175,7 +176,7 @@
             this.playButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.playButton.Image = ((System.Drawing.Image)(resources.GetObject("playButton.Image")));
             this.playButton.Location = new System.Drawing.Point(264, 37);
-            this.playButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.playButton.Margin = new System.Windows.Forms.Padding(4);
             this.playButton.Name = "playButton";
             this.playButton.Size = new System.Drawing.Size(32, 32);
             this.playButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -188,7 +189,7 @@
             this.videoMadia.AllowDrop = true;
             this.videoMadia.Enabled = true;
             this.videoMadia.Location = new System.Drawing.Point(54, 116);
-            this.videoMadia.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.videoMadia.Margin = new System.Windows.Forms.Padding(4);
             this.videoMadia.Name = "videoMadia";
             this.videoMadia.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("videoMadia.OcxState")));
             this.videoMadia.Size = new System.Drawing.Size(397, 223);
@@ -219,7 +220,7 @@
             this.btdTranslate.Image = global::PlayerUI.Properties.Resources.google_translate_24;
             this.btdTranslate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btdTranslate.Location = new System.Drawing.Point(744, 222);
-            this.btdTranslate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btdTranslate.Margin = new System.Windows.Forms.Padding(4);
             this.btdTranslate.Name = "btdTranslate";
             this.btdTranslate.Size = new System.Drawing.Size(200, 49);
             this.btdTranslate.TabIndex = 10;
@@ -238,7 +239,7 @@
             this.btnSave.Image = global::PlayerUI.Properties.Resources.save_32__3_;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSave.Location = new System.Drawing.Point(744, 143);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(200, 49);
             this.btnSave.TabIndex = 4;
@@ -256,7 +257,7 @@
             this.button1.ForeColor = System.Drawing.Color.LightGray;
             this.button1.Image = global::PlayerUI.Properties.Resources.upload_2_24__1_;
             this.button1.Location = new System.Drawing.Point(744, 58);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(32, 30);
             this.button1.TabIndex = 3;
@@ -268,7 +269,7 @@
             this.pictLoadingGif.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.pictLoadingGif.Image = ((System.Drawing.Image)(resources.GetObject("pictLoadingGif.Image")));
             this.pictLoadingGif.Location = new System.Drawing.Point(72, 143);
-            this.pictLoadingGif.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictLoadingGif.Margin = new System.Windows.Forms.Padding(4);
             this.pictLoadingGif.Name = "pictLoadingGif";
             this.pictLoadingGif.Size = new System.Drawing.Size(529, 274);
             this.pictLoadingGif.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -287,11 +288,134 @@
             "tesseract",
             "tensorflow"});
             this.choseFunction.Location = new System.Drawing.Point(615, 295);
-            this.choseFunction.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.choseFunction.Margin = new System.Windows.Forms.Padding(4);
             this.choseFunction.Name = "choseFunction";
             this.choseFunction.Size = new System.Drawing.Size(195, 36);
             this.choseFunction.TabIndex = 15;
             this.choseFunction.TabStop = false;
+            // 
+            // destLanguageBox
+            // 
+            this.destLanguageBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
+            this.destLanguageBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.destLanguageBox.Font = new System.Drawing.Font("Perpetua", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.destLanguageBox.ForeColor = System.Drawing.Color.White;
+            this.destLanguageBox.FormattingEnabled = true;
+            this.destLanguageBox.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.destLanguageBox.Items.AddRange(new object[] {
+            "afrikaans",
+            "albanian",
+            "amharic",
+            "arabic",
+            "armenian",
+            "azerbaijani",
+            "basque",
+            "belarusian",
+            "bengali",
+            "bosnian",
+            "bulgarian",
+            "catalan",
+            "cebuano",
+            "chichewa",
+            "chinese",
+            "chinese (simplified)",
+            "chinese (traditional)",
+            "corsican",
+            "croatian",
+            "czech",
+            "danish",
+            "dutch",
+            "english",
+            "esperanto",
+            "estonian",
+            "filipino",
+            "finnish",
+            "french",
+            "frisian",
+            "galician",
+            "georgian",
+            "german",
+            "greek",
+            "gujarati",
+            "haitian creole",
+            "hausa",
+            "hawaiian",
+            "hebrew",
+            "hindi",
+            "hmong",
+            "hungarian",
+            "icelandic",
+            "igbo",
+            "indonesian",
+            "irish",
+            "italian",
+            "japanese",
+            "javanese",
+            "kannada",
+            "kazakh",
+            "khmer",
+            "korean",
+            "kurdish (kurmanji)",
+            "kyrgyz",
+            "lao",
+            "latin",
+            "latvian",
+            "lithuanian",
+            "luxembourgish",
+            "macedonian",
+            "malagasy",
+            "malay",
+            "malayalam",
+            "maltese",
+            "maori",
+            "marathi",
+            "mongolian",
+            "myanmar (burmese)",
+            "nepali",
+            "norwegian",
+            "pashto",
+            "persian",
+            "polish",
+            "portuguese",
+            "punjabi",
+            "romanian",
+            "russian",
+            "samoan",
+            "scots gaelic",
+            "serbian",
+            "sesotho",
+            "shona",
+            "sindhi",
+            "sinhala",
+            "slovak",
+            "slovenian",
+            "somali",
+            "spanish",
+            "sundanese",
+            "swahili",
+            "swedish",
+            "tajik",
+            "tamil",
+            "telugu",
+            "thai",
+            "turkish",
+            "ukrainian",
+            "urdu",
+            "uzbek",
+            "vietnamese",
+            "welsh",
+            "xhosa",
+            "yiddish",
+            "yoruba",
+            "zulu",
+            "Filipino",
+            "Hebrew"});
+            this.destLanguageBox.Location = new System.Drawing.Point(615, 357);
+            this.destLanguageBox.Margin = new System.Windows.Forms.Padding(4);
+            this.destLanguageBox.Name = "destLanguageBox";
+            this.destLanguageBox.Size = new System.Drawing.Size(195, 36);
+            this.destLanguageBox.TabIndex = 21;
+            this.destLanguageBox.TabStop = false;
             // 
             // UploadVideosForm
             // 
@@ -299,6 +423,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(960, 697);
+            this.Controls.Add(this.destLanguageBox);
             this.Controls.Add(this.choseFunction);
             this.Controls.Add(this.pictLoadingGif);
             this.Controls.Add(this.label2);
@@ -309,7 +434,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBoxPath);
             this.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "UploadVideosForm";
             this.Text = "uploadVideForm";
             this.Resize += new System.EventHandler(this.Form2_Resize);
@@ -345,5 +470,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictLoadingGif;
         private System.Windows.Forms.ComboBox choseFunction;
+        private System.Windows.Forms.ComboBox destLanguageBox;
     }
 }

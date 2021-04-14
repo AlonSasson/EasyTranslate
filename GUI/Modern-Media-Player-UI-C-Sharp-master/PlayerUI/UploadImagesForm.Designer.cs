@@ -41,6 +41,7 @@
             this.translateImage = new System.Windows.Forms.PictureBox();
             this.uploadImage = new System.Windows.Forms.PictureBox();
             this.choseFunction = new System.Windows.Forms.ComboBox();
+            this.destLanguageBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictLoadingGif)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.translateImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.uploadImage)).BeginInit();
@@ -52,7 +53,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxPath.Location = new System.Drawing.Point(79, 78);
-            this.textBoxPath.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxPath.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPath.Name = "textBoxPath";
             this.textBoxPath.ReadOnly = true;
             this.textBoxPath.Size = new System.Drawing.Size(588, 28);
@@ -65,7 +66,7 @@
             this.textBox1.Font = new System.Drawing.Font("MingLiU-ExtB", 28F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
             this.textBox1.Location = new System.Drawing.Point(79, 146);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(369, 56);
@@ -79,7 +80,7 @@
             this.textBox2.Font = new System.Drawing.Font("MingLiU-ExtB", 25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(235)))), ((int)(((byte)(219)))));
             this.textBox2.Location = new System.Drawing.Point(505, 153);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(433, 50);
@@ -104,7 +105,7 @@
             this.pictLoadingGif.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.pictLoadingGif.Image = global::PlayerUI.Properties.Resources._4SHX;
             this.pictLoadingGif.Location = new System.Drawing.Point(507, 231);
-            this.pictLoadingGif.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictLoadingGif.Margin = new System.Windows.Forms.Padding(4);
             this.pictLoadingGif.Name = "pictLoadingGif";
             this.pictLoadingGif.Size = new System.Drawing.Size(332, 206);
             this.pictLoadingGif.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -122,7 +123,7 @@
             this.btdTranslate.Image = ((System.Drawing.Image)(resources.GetObject("btdTranslate.Image")));
             this.btdTranslate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btdTranslate.Location = new System.Drawing.Point(313, 564);
-            this.btdTranslate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btdTranslate.Margin = new System.Windows.Forms.Padding(4);
             this.btdTranslate.Name = "btdTranslate";
             this.btdTranslate.Size = new System.Drawing.Size(260, 65);
             this.btdTranslate.TabIndex = 12;
@@ -141,7 +142,7 @@
             this.btnOpenTranslateImage.Image = global::PlayerUI.Properties.Resources.open_in_browser_24;
             this.btnOpenTranslateImage.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnOpenTranslateImage.Location = new System.Drawing.Point(600, 564);
-            this.btnOpenTranslateImage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnOpenTranslateImage.Margin = new System.Windows.Forms.Padding(4);
             this.btnOpenTranslateImage.Name = "btnOpenTranslateImage";
             this.btnOpenTranslateImage.Size = new System.Drawing.Size(371, 65);
             this.btnOpenTranslateImage.TabIndex = 11;
@@ -160,7 +161,7 @@
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSave.Location = new System.Drawing.Point(99, 562);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(227, 65);
             this.btnSave.TabIndex = 9;
@@ -178,7 +179,7 @@
             this.btnUpload.ForeColor = System.Drawing.Color.LightGray;
             this.btnUpload.Image = global::PlayerUI.Properties.Resources.upload_2_24__1_;
             this.btnUpload.Location = new System.Drawing.Point(719, 79);
-            this.btnUpload.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnUpload.Margin = new System.Windows.Forms.Padding(4);
             this.btnUpload.Name = "btnUpload";
             this.btnUpload.Size = new System.Drawing.Size(32, 30);
             this.btnUpload.TabIndex = 6;
@@ -188,7 +189,7 @@
             // translateImage
             // 
             this.translateImage.Location = new System.Drawing.Point(507, 231);
-            this.translateImage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.translateImage.Margin = new System.Windows.Forms.Padding(4);
             this.translateImage.Name = "translateImage";
             this.translateImage.Size = new System.Drawing.Size(332, 206);
             this.translateImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -198,7 +199,7 @@
             // uploadImage
             // 
             this.uploadImage.Location = new System.Drawing.Point(79, 231);
-            this.uploadImage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.uploadImage.Margin = new System.Windows.Forms.Padding(4);
             this.uploadImage.Name = "uploadImage";
             this.uploadImage.Size = new System.Drawing.Size(332, 206);
             this.uploadImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -216,12 +217,135 @@
             this.choseFunction.Items.AddRange(new object[] {
             "tesseract",
             "tensorflow"});
-            this.choseFunction.Location = new System.Drawing.Point(16, 518);
-            this.choseFunction.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.choseFunction.Location = new System.Drawing.Point(216, 518);
+            this.choseFunction.Margin = new System.Windows.Forms.Padding(4);
             this.choseFunction.Name = "choseFunction";
             this.choseFunction.Size = new System.Drawing.Size(195, 36);
             this.choseFunction.TabIndex = 16;
             this.choseFunction.TabStop = false;
+            // 
+            // destLanguageBox
+            // 
+            this.destLanguageBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
+            this.destLanguageBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.destLanguageBox.Font = new System.Drawing.Font("Perpetua", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.destLanguageBox.ForeColor = System.Drawing.Color.White;
+            this.destLanguageBox.FormattingEnabled = true;
+            this.destLanguageBox.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.destLanguageBox.Items.AddRange(new object[] {
+            "afrikaans",
+            "albanian",
+            "amharic",
+            "arabic",
+            "armenian",
+            "azerbaijani",
+            "basque",
+            "belarusian",
+            "bengali",
+            "bosnian",
+            "bulgarian",
+            "catalan",
+            "cebuano",
+            "chichewa",
+            "chinese",
+            "chinese (simplified)",
+            "chinese (traditional)",
+            "corsican",
+            "croatian",
+            "czech",
+            "danish",
+            "dutch",
+            "english",
+            "esperanto",
+            "estonian",
+            "filipino",
+            "finnish",
+            "french",
+            "frisian",
+            "galician",
+            "georgian",
+            "german",
+            "greek",
+            "gujarati",
+            "haitian creole",
+            "hausa",
+            "hawaiian",
+            "hebrew",
+            "hindi",
+            "hmong",
+            "hungarian",
+            "icelandic",
+            "igbo",
+            "indonesian",
+            "irish",
+            "italian",
+            "japanese",
+            "javanese",
+            "kannada",
+            "kazakh",
+            "khmer",
+            "korean",
+            "kurdish (kurmanji)",
+            "kyrgyz",
+            "lao",
+            "latin",
+            "latvian",
+            "lithuanian",
+            "luxembourgish",
+            "macedonian",
+            "malagasy",
+            "malay",
+            "malayalam",
+            "maltese",
+            "maori",
+            "marathi",
+            "mongolian",
+            "myanmar (burmese)",
+            "nepali",
+            "norwegian",
+            "pashto",
+            "persian",
+            "polish",
+            "portuguese",
+            "punjabi",
+            "romanian",
+            "russian",
+            "samoan",
+            "scots gaelic",
+            "serbian",
+            "sesotho",
+            "shona",
+            "sindhi",
+            "sinhala",
+            "slovak",
+            "slovenian",
+            "somali",
+            "spanish",
+            "sundanese",
+            "swahili",
+            "swedish",
+            "tajik",
+            "tamil",
+            "telugu",
+            "thai",
+            "turkish",
+            "ukrainian",
+            "urdu",
+            "uzbek",
+            "vietnamese",
+            "welsh",
+            "xhosa",
+            "yiddish",
+            "yoruba",
+            "zulu",
+            "Filipino",
+            "Hebrew"});
+            this.destLanguageBox.Location = new System.Drawing.Point(505, 518);
+            this.destLanguageBox.Margin = new System.Windows.Forms.Padding(4);
+            this.destLanguageBox.Name = "destLanguageBox";
+            this.destLanguageBox.Size = new System.Drawing.Size(195, 36);
+            this.destLanguageBox.TabIndex = 20;
+            this.destLanguageBox.TabStop = false;
             // 
             // UploadImagesForm
             // 
@@ -229,6 +353,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(74)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(923, 687);
+            this.Controls.Add(this.destLanguageBox);
             this.Controls.Add(this.choseFunction);
             this.Controls.Add(this.pictLoadingGif);
             this.Controls.Add(this.btdTranslate);
@@ -241,7 +366,7 @@
             this.Controls.Add(this.translateImage);
             this.Controls.Add(this.textBoxPath);
             this.Controls.Add(this.uploadImage);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "UploadImagesForm";
             this.Text = "UploadImagesForm";
             ((System.ComponentModel.ISupportInitialize)(this.pictLoadingGif)).EndInit();
@@ -266,5 +391,6 @@
         private System.Windows.Forms.Button btdTranslate;
         private System.Windows.Forms.PictureBox pictLoadingGif;
         private System.Windows.Forms.ComboBox choseFunction;
+        private System.Windows.Forms.ComboBox destLanguageBox;
     }
 }

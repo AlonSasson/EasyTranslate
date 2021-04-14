@@ -23,8 +23,9 @@ namespace PlayerUI
         {
             InitializeComponent();
 
-            //set difult list of chosing 
+            //set the default function and language for translation
             choseFunction.SelectedIndex = 0;
+            destLanguageBox.Text = "hebrew";
 
             lock (pictLoadingGif)
             {
@@ -61,7 +62,7 @@ namespace PlayerUI
             }
             else
             {
-                MessageBox.Show("The image in midle translate");
+                MessageBox.Show("The image is in the middle of translation");
             }
 
         }
@@ -102,7 +103,7 @@ namespace PlayerUI
             }
             else
             {
-                MessageBox.Show("The image in midle translate");
+                MessageBox.Show("The image is in the middle of translation");
             }
         }
 
@@ -116,27 +117,28 @@ namespace PlayerUI
                 }
 
                 string codeFunction = choseFunction.Text;
-                Thread thr = new Thread(() => PythonThread(codeFunction));
+                string destLanguage = destLanguageBox.Text;
+                Thread thr = new Thread(() => PythonThread(codeFunction, destLanguage));
                 thr.Start();
             }
             else
             {
-                MessageBox.Show("The image in midle translate");
+                MessageBox.Show("The image is in the middle of translation");
             }
         }
 
-        private void PythonThread(string codeFunction)
+        private void PythonThread(string codeFunction, string destLanguage)
         {
             checkInMiddleTranslate = true;
             
             //make file name withe the name of function
-            string destPath = Path.Combine(@"images\\translate", Path.GetFileNameWithoutExtension(textBoxPath.Text) + codeFunction +
-                Path.GetExtension(textBoxPath.Text));
+            string destPath = Path.Combine(@"images\\translate", Path.GetFileNameWithoutExtension(textBoxPath.Text) + "_" + codeFunction +
+               "_" + destLanguage + Path.GetExtension(textBoxPath.Text));
 
             if (!File.Exists(destPath))
             {
                 string path = @"..\..\..\..\..\AppCode\EasyTranslate.py";
-                string parameters = "image " + codeFunction + " " + textBoxPath.Text + " " + Path.GetFullPath(destPath);
+                string parameters = "image " + codeFunction + " " + destLanguage + " " + textBoxPath.Text + " " + Path.GetFullPath(destPath);
                 PlayerUI.PythonRun.run_cmd(path, parameters);
             }
 
@@ -170,7 +172,7 @@ namespace PlayerUI
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("not found teanslate image you need to save the image:(");
+                        MessageBox.Show("not found translated image you need to save the image:(");
                         throw;
                     }
 
@@ -178,7 +180,7 @@ namespace PlayerUI
             }
             else
             {
-                MessageBox.Show("The image in midle translate");
+                MessageBox.Show("The image is in the middle of translation");
             }
         }
     }
