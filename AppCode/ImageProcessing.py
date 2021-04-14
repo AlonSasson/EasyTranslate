@@ -454,9 +454,10 @@ def get_word_tf(word_img, char_locs):
     return word_output
 
 
-def translate_image_tf(image):
+def translate_image_tf(image, dest_language):
     """ Translates the text in an image using tensorflow model
     :param image: the image to translate
+    :param dest_language: the language to translate the image to
     :return: the translated image, and the text locations in the image
     """
     if image is None:
@@ -476,7 +477,7 @@ def translate_image_tf(image):
 
     text = ''.join(text).lower()
 
-    text, right_left = Translate.googletrans_translate(text, 'iw')
+    text, right_left = Translate.googletrans_translate(text, dest_language)
     image = blur_locations(image, locations)
     image = TextReplacement.place_text_in_locs(image, locations, text, right_left)
 
@@ -484,13 +485,6 @@ def translate_image_tf(image):
 
 # ----------------------------------------------------tessaract
 # using east_get_text_locations function
-
-
-def get_contour_precedence(contour, cols):
-    tolerance_factor = 10
-    origin = cv2.boundingRect(contour)
-    return ((origin[1] // tolerance_factor) * tolerance_factor) * cols + origin[0]
-
 
 def find_sentences_tesseract(img):
     """
@@ -521,10 +515,11 @@ def find_sentences_tesseract(img):
     return word
 
 
-def translate_image_tess(image):
+def translate_image_tess(image, dest_language):
     """
     get image and return image withe the translate of the text in the image
     :param image: image of opencv2
+    :param dest_language: the language to translate the image to
     :return: image of opencv2
     """
     if image is None:
@@ -578,7 +573,7 @@ def translate_image_tess(image):
 
     # Translate the sentence
     for text_line in lines_of_location:
-        translate_sentence, right_left = Translate.googletrans_translate(text_line, 'iw')
+        translate_sentence, right_left = Translate.googletrans_translate(text_line, dest_language)
         # draw the sentence in the image
         image = TextReplacement.place_text_in_locs(image, lines_of_location[text_line], translate_sentence, right_left)
 

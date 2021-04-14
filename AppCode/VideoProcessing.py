@@ -100,10 +100,11 @@ class Overlay:
         self.cond_var = Condition()
         self.images = []
 
-    def translate(self, translate_function):
+    def translate(self, translate_function, dest_language):
         """
         translates the screen infinitely
         :param translate_function: the function used to translate each frame
+        :param dest_language: the language to translate each frame to
         """
         locations = []
         pil_images = []
@@ -116,7 +117,7 @@ class Overlay:
             pil_images = []  # reset the images list
             frame = cv2.cvtColor(numpy.array(pil_image), cv2.COLOR_RGB2BGR)  # convert the frame to a cv2 image
             try:
-                translated_frame, locations = translate_function(frame)  # translate the frame
+                translated_frame, locations = translate_function(frame, dest_language)  # translate the frame
             except Exception as e:  # if the translation failed
                 print('An error occurred:', e)
                 self.master.destroy()
@@ -159,9 +160,10 @@ class Overlay:
             self.cond_var.notify()
 
 
-def translate_screen(selected_area=[], translate_function=ip.translate_image_tf):
+def translate_screen(dest_language, selected_area=[], translate_function=ip.translate_image_tf):
     """
     translates the screen in real time using an overlay
+    :param dest_language: the language to translate the screen to
     :param selected_area: the selected area to translate
     :param translate_function: the function used to translate the screen
     """
@@ -169,7 +171,7 @@ def translate_screen(selected_area=[], translate_function=ip.translate_image_tf)
     root = tk.Tk()
     overlay = Overlay(root, selected_area)  # create the overlay
     # create a worker thread for translating the screen
-    translate_thread = Thread(target=overlay.translate, args=(translate_function,))
+    translate_thread = Thread(target=overlay.translate, args=(translate_function, dest_language))
     translate_thread.setDaemon(True)
     translate_thread.start()  # start the thread
     root.mainloop()  # start the event loop
@@ -191,11 +193,12 @@ def copy_video_sound(video_sound_path, video_clip_path, video_out_path):
     final_clip.write_videofile(video_out_path)
 
 
-def process_video(video_path, out_path, filter_function=ip.translate_image_tf):
-    """ applies a filter for every frame of a video
-    :param video_path: the video we apply a filter to
-    :param out_path: the output path we save the processed video at
-    :param filter_function: the filter we apply on each frame
+def translate_video(video_path, out_path, dest_language, translate_function=ip.translate_image_tf):
+    """ Translates a video
+    :param video_path: the video we need to translate
+    :param out_path: the output path we save the translated video at
+    :param dest_language: the language to translate the video to
+    :param translate_function: the translation function we apply on each frame
     """
 
     # loading video
@@ -219,7 +222,8 @@ def process_video(video_path, out_path, filter_function=ip.translate_image_tf):
             break
         if frame_count % fps == 0:  # process with speed of 1 fps
             # process the frame on a different thread
-            threads.append(Thread(target=process_frame, args=(filter_function, frames_heap, frame, frame_count)))
+            threads.append(Thread(target=process_frame,
+                                  args=(translate_function, dest_language, frames_heap, frame, frame_count)))
             threads[-1].start()  # start the thread
             print(frame_count)
         else:  # if the frame shouldn't be processed
@@ -247,14 +251,15 @@ def process_video(video_path, out_path, filter_function=ip.translate_image_tf):
     cv2.destroyAllWindows()
 
 
-def process_frame(frame_function, frames_heap, frame, index):
+def process_frame(frame_function, dest_language, frames_heap, frame, index):
     """ processes a frame and enters it to a frame heap with its index
     :param frame_function: the function to process the frame with
+    :param dest_language: the language to translate the frame to
     :param frames_heap: a priority queue (heap) we enter the frame into
     :param frame: the frame to process
     :param index: the frame's index
     """
-    frame_to_write, locations = frame_function(frame)
+    frame_to_write, locations = frame_function(frame, dest_language)
     heapq.heappush(frames_heap, (index, frame_to_write, locations))  # add the frame to the frame list
 
 
