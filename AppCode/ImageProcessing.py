@@ -537,7 +537,7 @@ def translate_image_tess(image, dest_language):
         word_img = image[y:y + height, x:x + width]  # get an image of just the word
 
         new_word = find_sentences_tesseract(word_img)
-        if new_word != "":
+        if new_word != "" and type(new_word) == str:
             words.append(new_word)
         else:
             indexs.append(i)
@@ -554,7 +554,7 @@ def translate_image_tess(image, dest_language):
 
     # split the location and text to line
     for i, location in enumerate(locations):
-        if not new_line: # check if it is the first item in list
+        if not new_line:  # check if it is the first item in list
             new_line.append(location)
             line_text += words[i] + " "
         else:

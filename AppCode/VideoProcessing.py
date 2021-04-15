@@ -123,7 +123,7 @@ class Overlay:
                 translated_frame, locations = translate_function(frame, dest_language)  # translate the frame
             except Exception as e:  # if the translation failed
                 print('An error occurred:', e)
-                self.master.destroy()
+                continue
 
             translated_frame = cv2.cvtColor(translated_frame, cv2.COLOR_BGR2RGB)
 
