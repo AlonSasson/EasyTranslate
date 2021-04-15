@@ -21,6 +21,7 @@ namespace PlayerUI
         PlayerUI.UploadVideosForm uploadVideosForm = null;
         PlayerUI.UploadImagesForm uploadImagesFrom = null;
 
+        // CTOR for uploading saved videos
         public LoadingSaveFile(PlayerUI.MainForm form1, bool isImageCheck, PlayerUI.UploadVideosForm videoChildForm)
         {
             InitializeComponent();
@@ -31,6 +32,7 @@ namespace PlayerUI
 
         }
 
+        // CTOR for uploading saved images
         public LoadingSaveFile(PlayerUI.MainForm form1, bool isImageCheck, PlayerUI.UploadImagesForm imageChildForm)
         {
             InitializeComponent();
@@ -42,6 +44,7 @@ namespace PlayerUI
 
         }
 
+        // initializes the form
         private void InitailzeList()
         {
             if (isImage)
@@ -54,6 +57,7 @@ namespace PlayerUI
             }            
         }
 
+        // loads the saved images
         public void LoadingImages()
         {
             String[] files = null;
@@ -79,6 +83,8 @@ namespace PlayerUI
                 listOfFile.Controls.Add(b);
             }
         }
+
+        // loads the saved videos
         private void LoadingVideos()
         {
             String[] files = null;
@@ -107,16 +113,12 @@ namespace PlayerUI
             }
         }
 
-        public bool ThumbnailCallback()
-        {
-            return false;
-        }
-
+        // handles when a saved file is clicked
         protected void button_Click(object sender, EventArgs e)
         {
             Button button = sender as Button;
 
-            if (isImage)
+            if (isImage) // if its an image that was clicked
             {
                 uploadImagesFrom.SetImage(button.Name);
 
@@ -132,6 +134,7 @@ namespace PlayerUI
             }
         }
 
+        // handles when the reload button is clicked
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             InitailzeList();

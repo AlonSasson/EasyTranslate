@@ -15,11 +15,11 @@ namespace PlayerUI
 {
     public static class PythonRun
     {
+        // runs a python process in the cmd with the given file and args
         public static Process run_cmd(string cmd, string args)
         {
             ProcessStartInfo start = new ProcessStartInfo();
             start.FileName = "python.exe";
-            string a = (string.Format("{0} {1}", cmd, args));
             start.Arguments = string.Format("{0} {1}", cmd, args);
 
             start.UseShellExecute = false;
@@ -27,21 +27,7 @@ namespace PlayerUI
             start.CreateNoWindow = true;
             start.RedirectStandardError = true;
 
-            //check when the proces end 
-            using (Process process = Process.Start(start))
-            {
-                using (StreamReader reader = process.StandardError)
-                {
-                    string result = reader.ReadToEnd();
-                    MessageBox.Show(result);
-                }
-                using (StreamReader reader = process.StandardOutput)
-                {
-                    string result = reader.ReadToEnd();
-                    MessageBox.Show(result);
-                }                  
-            }
-                try
+            try
             {
                 return Process.Start(start);
             }

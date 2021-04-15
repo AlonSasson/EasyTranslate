@@ -39,6 +39,7 @@ namespace PlayerUI
                 Directory.CreateDirectory(@"images\translate");
         }
 
+        // handles when the upload button is clicked
         private void btnUpload_Click(object sender, EventArgs e)
         {
             if (!checkInMiddleTranslate)
@@ -67,6 +68,7 @@ namespace PlayerUI
 
         }
 
+        // sets the current image on the screen
         public void SetImage(string imagePath)
         {
 
@@ -77,6 +79,7 @@ namespace PlayerUI
             translateImage.Image = null;
         }
 
+        // handles when the save button is clicked
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (!checkInMiddleTranslate)
@@ -107,6 +110,7 @@ namespace PlayerUI
             }
         }
 
+        // handles when the translate button is clicked
         private void btdTranslate_Click(object sender, EventArgs e)
         {
             if (!checkInMiddleTranslate)
@@ -127,6 +131,7 @@ namespace PlayerUI
             }
         }
 
+        // calls the backend python code to translate the image with the desired arguments
         private void PythonThread(string codeFunction, string destLanguage)
         {
             checkInMiddleTranslate = true;
@@ -160,6 +165,7 @@ namespace PlayerUI
             checkInMiddleTranslate = false;
         }
 
+        // handles when the open translated image button is clicked
         private void btnOpenTranslateImage_Click(object sender, EventArgs e)
         {
             if (!checkInMiddleTranslate)

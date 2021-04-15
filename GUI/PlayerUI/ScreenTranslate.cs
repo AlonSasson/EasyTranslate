@@ -26,6 +26,7 @@ namespace PlayerUI
             destLanguageBox.Text = "hebrew";
         }
 
+        // handles when the part of screen translation button is clicked
         private void btnPartScreen_Click(object sender, EventArgs e)
         {
             if (process == null) // ceck if have active process of translate screen
@@ -37,6 +38,7 @@ namespace PlayerUI
             }
         }
 
+        // handles when the full screen translation button is clicked
         private void fullScreenBtn_Click(object sender, EventArgs e)
         {
             if (process == null) // ceck if have active process of translate screen
@@ -48,6 +50,7 @@ namespace PlayerUI
             }
         }
 
+        // calls the backend python code to translate the screen with the desired arguments
         private void PythonThread(string platform, string code, string destLanguage)
         {
    
@@ -56,6 +59,7 @@ namespace PlayerUI
             process = PlayerUI.PythonRun.run_cmd(path, parameters);
         }
 
+        // handles when the stop button is clicked
         private void btnStopTranslate_Click(object sender, EventArgs e)
         {
             if (process != null) // check if have process active

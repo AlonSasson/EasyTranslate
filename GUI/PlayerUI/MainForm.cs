@@ -20,8 +20,8 @@ namespace PlayerUI
         private LoadingSaveFile loadingSaveVideo;
         private LoadingSaveFile loadingSaveImage;
         private ScreenTranslate screenTranslate;
+        private Form activeForm;
 
-        //private Form homePage = new HomePage();
         public MainForm()
         {
             InitializeComponent();
@@ -32,7 +32,8 @@ namespace PlayerUI
             OpenChildForm(homePage);
         }
 
-        private void CreateForm() // make all the option form (like show images or tanslate them)
+        // make all the option forms (like show images or tanslate them)
+        private void CreateForm() 
         {
             MainForm thisForm = this; // only for pass the class
 
@@ -56,6 +57,7 @@ namespace PlayerUI
 
         }
 
+        // hides all the sub menus
         private void HideSubMenu()
         {
             panelScreen.Visible = false;
@@ -64,6 +66,7 @@ namespace PlayerUI
         }
 
 
+        // shows a sub menu, and hides all the others, or hides the sub menu if already visible
         private void ShowSubMenu(Panel subMenu)
         {
             if (subMenu.Visible == false)
@@ -75,6 +78,7 @@ namespace PlayerUI
                 subMenu.Visible = false;
         }
 
+        // handles when the home button is clicked
         private void btnHome_Click(object sender, EventArgs e)
         {
             OpenChildForm(homePage);
@@ -86,17 +90,15 @@ namespace PlayerUI
             ShowSubMenu(panelScreen);
         }
 
-
-        private void btnTools_Click(object sender, EventArgs e)
-        {
-            ShowSubMenu(panelVideos);
-        }
         #region ToolsSubMenu
+
+        // handles when the upload video button is clicked
         private void btnUploadVideo_Click(object sender, EventArgs e)
         {
             OpenChildForm(uploadVideosForm);
         }
 
+        // handles when the saved videos button is clicked
         private void btnSavedVideos_Click(object sender, EventArgs e)
         {
             MainForm thisForm = this; // only for pass the class
@@ -105,19 +107,20 @@ namespace PlayerUI
 
         #endregion
 
+        // handles when the videos button is clicked
         private void btnEqualizer_Click(object sender, EventArgs e)
         {
             ShowSubMenu(panelVideos);
         }
 
+        // handles when the exit button is clicked
         private void btnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-
+        // the function get the settings of the form ready for be in form1 child
         private void BuildUpForChildForm(Form childForm)
-            // the function get the settings of the form ready for be in form1 child
         {
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
@@ -126,7 +129,7 @@ namespace PlayerUI
             panelChildForm.Tag = childForm;
         }
 
-        private Form activeForm = null;
+        // the function opens the child form and shows it
         public void OpenChildForm(Form childForm)
         {
             activeForm = childForm;
@@ -135,21 +138,25 @@ namespace PlayerUI
             childForm.Show();
         }
 
+        // handles when the images button is clicked
         private void btnImagesList_Click(object sender, EventArgs e)
         {
             ShowSubMenu(panelImage);
         }
 
+        // handles when the upload images button is clicked
         private void btnUploadimage_Click(object sender, EventArgs e)
         {
             OpenChildForm(uploadImagesFrom);
         }
 
+        // handles when the saved images button is clicked
         private void btnSavedImages_Click(object sender, EventArgs e)
         {
             OpenChildForm(loadingSaveImage);
         }
 
+        // handles when the full screen button is clicked
         private void btnFullScreen_Click_1(object sender, EventArgs e)
         {
             OpenChildForm(screenTranslate);

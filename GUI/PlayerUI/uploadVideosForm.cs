@@ -40,7 +40,7 @@ namespace PlayerUI
         }
 
 
-
+        // handles when the upload button is clicked
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog open = new OpenFileDialog();
@@ -66,6 +66,7 @@ namespace PlayerUI
             }
         }
 
+        // sets the video on screen
         public void SetVideo(string videoPath)
         {
             if (!checkInMiddleTranslate)
@@ -84,6 +85,7 @@ namespace PlayerUI
             }
         }
 
+        // handles when the play button is clicked
         private void btnPlay_Click(object sender, EventArgs e)
         {
             if (!checkInMiddleTranslate)
@@ -102,12 +104,14 @@ namespace PlayerUI
                 MessageBox.Show("The video is in the middle of translation");
             }
         }
-
+        
+        // handles when the volume gets changed
         private void controlSound_Scroll_1(object sender, EventArgs e)
         {
             ChangeVideoVolume(controlSound.Value);
         }
 
+        // changes the video volume
         private void ChangeVideoVolume(int soundValue)
         {
             if (!checkInMiddleTranslate)
@@ -122,6 +126,7 @@ namespace PlayerUI
             }
         }
 
+        // moves the buttons in the form when the form is resized
         private void Form2_Resize(object sender, EventArgs e)
         {
             controlSound.Location = new Point(soundPict.Location.X + 40, soundPict.Location.Y);
@@ -129,6 +134,7 @@ namespace PlayerUI
                
         }
 
+        // handles when the restart button is pressed
         private void restartVideBtn_Click(object sender, EventArgs e)
         {
 
@@ -142,6 +148,7 @@ namespace PlayerUI
      
         }
 
+        // handles when the save button is pressed
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (!checkInMiddleTranslate)
@@ -172,6 +179,7 @@ namespace PlayerUI
             }
         }
 
+        // handles when the translate button is pressed
         private void btdTranslate_Click(object sender, EventArgs e)
         {
             if (!checkInMiddleTranslate)
@@ -196,6 +204,7 @@ namespace PlayerUI
             }
         }
 
+        // calls the backend python code to translate a video with the desired arguments
         private void PythonThread(string codeFunction, string destLanguage)
         {
             checkInMiddleTranslate = true;
