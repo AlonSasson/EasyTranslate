@@ -56,7 +56,7 @@ namespace PlayerUI
    
             string path = @"..\..\..\..\AppCode\EasyTranslate.py";
             string parameters = platform + " " + code + " " + destLanguage + " ";
-            process = PlayerUI.PythonRun.run_cmd(path, parameters);
+            process = PlayerUI.PythonRun.run_cmd(path, parameters, true);
         }
 
         // handles when the stop button is clicked

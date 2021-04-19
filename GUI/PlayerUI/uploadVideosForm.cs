@@ -186,6 +186,7 @@ namespace PlayerUI
             {
                 if (textBoxPath.Text != "")
                 {
+                    btnPlay_Click(sender, e);
                     lock (pictLoadingGif)
                     {
                         pictLoadingGif.Visible = true;
@@ -216,7 +217,7 @@ namespace PlayerUI
             {
                 string path = @"..\..\..\..\AppCode\EasyTranslate.py";
                 string parameters = "video " + codeFunction + " " + destLanguage + " " + textBoxPath.Text + " " + Path.GetFullPath(destPath);
-                PlayerUI.PythonRun.run_cmd(path, parameters);
+                PlayerUI.PythonRun.run_cmd(path, parameters, false);
             }
 
             textBoxPath.Invoke(new Action(() => { textBoxPath.Text = destPath; }));

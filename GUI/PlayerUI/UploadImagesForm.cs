@@ -144,7 +144,7 @@ namespace PlayerUI
             {
                 string path = @"..\..\..\..\AppCode\EasyTranslate.py";
                 string parameters = "image " + codeFunction + " " + destLanguage + " " + textBoxPath.Text + " " + Path.GetFullPath(destPath);
-                PlayerUI.PythonRun.run_cmd(path, parameters);
+                PlayerUI.PythonRun.run_cmd(path, parameters, false);
             }
 
             //check if could create the image
