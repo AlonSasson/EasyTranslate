@@ -1,4 +1,3 @@
-import cv2
 import numpy
 import ImageProcessing as ip
 import functools
@@ -8,7 +7,7 @@ from PIL import ImageFont, ImageDraw, Image
 
 def get_max_font_size(font_name, text, image):
     """
-    gets the max font size using font_name and text without exceeding the image's boundries
+    gets the max font size using font_name and text without exceeding the image's boundaries
     :param font_name: a font name
     :param text: the text which we try to fit in image
     :param image: a pillow image
@@ -18,7 +17,8 @@ def get_max_font_size(font_name, text, image):
     font = ImageFont.truetype(font_name, font_size)
     jump_size = 75
     while True:  # finding the right font size using binary search
-        if font.getsize(text)[0] < image.size[0]:  # if the text font is still small
+        # if the text font is still small
+        if font.getsize(text)[0] < image.size[0] and font.getsize(text)[1] < image.size[1]:
             font_size += jump_size
         else:  # if the text size is too big
             jump_size = jump_size // 2
@@ -28,18 +28,18 @@ def get_max_font_size(font_name, text, image):
             return font_size - 1  # remove one so the text still fits
 
 
-def devide_text_between_locations(words, locations):
-    """ devide the words into the locations correctly (a certain amount of words per location)
+def divide_text_between_locations(words, locations):
+    """ divide the words into the locations correctly (a certain amount of words per location)
     :param words: a list of words
-    :param locations: the locations we need to devide the words between
-    :return: the words list after deviding them correctly per location
+    :param locations: the locations we need to divide the words between
+    :return: the words list after dividing them correctly per location
     """
     words_count = len(words)
     for i in range(len(locations)):
-        for j in range(1, math.ceil(words_count / (len(locations) - i))):  # calcualte how many words we need to join
+        for j in range(1, math.ceil(words_count / (len(locations) - i))):  # calculate how many words we need to join
             words[i] += ' ' + words[i + 1]  # join the next word
             words.remove(words[i + 1])  # delete the next word
-        words_count -= math.ceil(words_count / (len(locations) - i)) # remove the amount of words we joined from the total count
+        words_count -= math.ceil(words_count / (len(locations) - i))  # remove the amount of words we joined from the total count
     return words
 
 
@@ -57,7 +57,7 @@ def place_text_in_locs(image, locations, text, right_left=False):
         locations = sorted(locations, key=functools.cmp_to_key(ip.cmp_locs_right_left))  # sort from right to left
         words = text.split()[::-1]
 
-    words = devide_text_between_locations(words, locations)
+    words = divide_text_between_locations(words, locations)
     for i, loc in enumerate(locations):
         if i >= len(words):
             break
@@ -68,7 +68,9 @@ def place_text_in_locs(image, locations, text, right_left=False):
         draw = ImageDraw.Draw(image_pil)
         font_size = get_max_font_size("arial.ttf", words[i], roi_pil)  # get the max font size for that roi
         font = ImageFont.truetype("arial.ttf", font_size)
-        draw.text((x, y + height - font.getsize(words[i])[1]), words[i], font=font, fill=(255, 0, 0))  # draw the text in the correct location
+        font_w, font_h = font.getsize(words[i])
+        # draw the text in the correct location
+        draw.text((x + (width - font_w) / 2, y + (height - font_h) / 2), words[i], font=font, fill=(255, 0, 0))
         image = numpy.array(image_pil)
 
     return image

@@ -18,6 +18,7 @@ HEIGHT = 3
 
 net_lock = Lock()
 
+
 def loc_area(location):
     """" Calculates the area of a location
     :param location - the location of which we calculate the area
@@ -141,8 +142,8 @@ def cmp_locs_left_right(loc1, loc2):
     :param loc2 - a location
     :return -1 - if loc1 should be before loc2, return 1 otherwise
     """
-    if (cmp_rect_same_lines(loc1, loc2)):
-        if  loc1[X] < loc2[X]:
+    if cmp_rect_same_lines(loc1, loc2):
+        if loc1[X] < loc2[X]:
             return -1
         else:
             return 1
@@ -153,14 +154,13 @@ def cmp_locs_left_right(loc1, loc2):
         return 1
 
 
-
 def cmp_locs_right_left(loc1, loc2):
     """ compares two locations to determine which should be before the other going from right to left
     :param loc1 - a location
     :param loc2 - a location
     :return -1 - if loc1 should be before loc2, return 1 otherwise
     """
-    if (cmp_rect_same_lines(loc1, loc2)):
+    if cmp_rect_same_lines(loc1, loc2):
         if loc1[X] > loc2[X]:
             return -1
         else:
@@ -247,15 +247,12 @@ def get_image_contours(image):
     if not locations:  # if no locations were found
         return thresh, locations
 
-
     locations = sorted(locations, key=functools.cmp_to_key(cmp_locs_left_right))  # sort after merging
     locations = merge_small_locs(locations)  # merge small locations
     locations = remove_small_locs(locations)  # remove the small locations we werent able to merge
     locations = sorted(locations, key=functools.cmp_to_key(cmp_locs_left_right))  # sort again after merging
 
     return thresh, locations
-
-
 
 
 def get_locations_from_net_results(scores, geometry, min_confidence):
@@ -277,17 +274,17 @@ def get_locations_from_net_results(scores, geometry, min_confidence):
         # extract the scores (probabilities), followed by the geometrical
         # data used to derive potential bounding box coordinates that
         # surround text
-        scoresData = scores[0, 0, y]
-        xData0 = geometry[0, 0, y]
-        xData1 = geometry[0, 1, y]
-        xData2 = geometry[0, 2, y]
-        xData3 = geometry[0, 3, y]
-        anglesData = geometry[0, 4, y]
+        scores_data = scores[0, 0, y]
+        x_data0 = geometry[0, 0, y]
+        x_data1 = geometry[0, 1, y]
+        x_data2 = geometry[0, 2, y]
+        x_data3 = geometry[0, 3, y]
+        angles_data = geometry[0, 4, y]
 
         # loop over the number of columns
         for x in range(0, numCols):
             # if our score does not have sufficient probability, ignore it
-            if scoresData[x] < min_confidence:
+            if scores_data[x] < min_confidence:
                 continue
 
             # compute the offset factor as our resulting feature maps will
@@ -296,32 +293,33 @@ def get_locations_from_net_results(scores, geometry, min_confidence):
 
             # extract the rotation angle for the prediction and then
             # compute the sin and cosine
-            angle = anglesData[x]
+            angle = angles_data[x]
             cos = numpy.cos(angle)
             sin = numpy.sin(angle)
 
             # use the geometry volume to derive the width and height of
             # the bounding box
-            h = xData0[x] + xData2[x]
-            w = xData1[x] + xData3[x]
+            h = x_data0[x] + x_data2[x]
+            w = x_data1[x] + x_data3[x]
 
             # compute both the starting and ending (x, y)-coordinates for
             # the text prediction bounding box
-            endX = int(offsetX + (cos * xData1[x]) + (sin * xData2[x]))
-            endY = int(offsetY - (sin * xData1[x]) + (cos * xData2[x]))
+            endX = int(offsetX + (cos * x_data1[x]) + (sin * x_data2[x]))
+            endY = int(offsetY - (sin * x_data1[x]) + (cos * x_data2[x]))
             startX = int(endX - w)
             startY = int(endY - h)
 
             # add the bounding box coordinates and probability score to
             # our respective lists
             rects.append((startX, startY, endX, endY))
-            confidences.append(scoresData[x])
+            confidences.append(scores_data[x])
     return rects, confidences
 
 
 def east_get_text_locations(image, min_confidence):
     """
     gets the locations of possible text areas in an image with the east neural network
+    :param image: a cv2 image that we get the text areas from
     :param min_confidence: the minimum confidence score that will be accepted as a text area
     :return: the original image, the image after resizing, a list of sorted locations of the possible text areas
     """
@@ -381,7 +379,7 @@ def blur_locations(image, locations):
     for loc in locations:
         (x, y, w, h) = loc
         roi = image[y:y + h, x:x + w]  # separate the roi
-        blur = cv2.GaussianBlur(roi, (21, 21), 0)  # apply a gaussian blur filter
+        blur = cv2.GaussianBlur(roi, (51, 51), 0)  # apply a gaussian blur filter
         image[y:y + h, x:x + w] = blur  # insert the blurred roi back into the image
     return image
 
@@ -406,14 +404,14 @@ def get_label_classification(label):
     return label_str.find(label)
 
 
-def get_word_ml(word_img, char_locs):
-    """ gets the word from an image using the character locations in it and a template for all character
+def get_word_tf(word_img, char_locs):
+    """ gets the word from an image using the character locations in it with our tensorflow model
     :param word_img - an image that contains a word
     :param char_locs - the locations of all characters in the image
     :return the word that was found in the image
     """
-    if "model" not in get_word_ml.__dict__:  # initialize the model
-        get_word_ml.model = tf.keras.models.load_model(str(pathlib.Path(__file__).parent.absolute()) + r'/my_model')
+    if "model" not in get_word_tf.__dict__:  # initialize the model
+        get_word_tf.model = tf.keras.models.load_model(str(pathlib.Path(__file__).parent.absolute()) + r'/my_model')
 
     char_images = []
     word_output = ''
@@ -438,7 +436,7 @@ def get_word_ml(word_img, char_locs):
     # reshaping
     char_images = char_images.reshape(-1, 28, 28, 1)
 
-    classifications = get_word_ml.model.predict(char_images)
+    classifications = get_word_tf.model.predict(char_images)
 
     for i, classification in enumerate(classifications):
         if i != 0:  # if its less likely its a capital letter
@@ -456,9 +454,10 @@ def get_word_ml(word_img, char_locs):
     return word_output
 
 
-def translate_image(image):
-    """ Translates the text in an image
+def translate_image_tf(image, dest_language):
+    """ Translates the text in an image using tensorflow model
     :param image: the image to translate
+    :param dest_language: the language to translate the image to
     :return: the translated image, and the text locations in the image
     """
     if image is None:
@@ -471,38 +470,21 @@ def translate_image(image):
         (x, y, width, height) = word_loc
         word_img = image[y:y + height, x:x + width]  # get an image of just the word
         _, char_locs = get_image_contours(word_img)  # get the character locations from that image
-        word_output = get_word_ml(word_img, char_locs)
-        for loc in char_locs:
-            (x1, y1, width1, height1) = loc
-            """cv2.rectangle(image, (x+x1, y+y1),
-                          (x+x1 + width1, y+y1 + height1), (0, 255, 0), 2)"""
+        word_output = get_word_tf(word_img, char_locs)
 
         if word_output != '':
             text.append(word_output + ' ')
 
-    for i, word_loc in enumerate(locations):  # create a bounding box with text
-        (x, y, width, height) = word_loc
-        """cv2.rectangle(image, (x, y),
-                      (x + width, y + height), (0, 0, 255), 2)
-        cv2.putText(image, text[i], (x, y + height + 10),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.65, (0, 0, 255), 2)"""
-
     text = ''.join(text).lower()
 
-    text, right_left = Translate.googletrans_translate(text, 'he')
+    text, right_left = Translate.googletrans_translate(text, dest_language)
     image = blur_locations(image, locations)
     image = TextReplacement.place_text_in_locs(image, locations, text, right_left)
 
     return image, locations
 
-
-#----------------------------------------------------tessaract
-#using east_get_text_locations function
-
-def get_contour_precedence(contour, cols):
-    tolerance_factor = 10
-    origin = cv2.boundingRect(contour)
-    return ((origin[1] // tolerance_factor) * tolerance_factor) * cols + origin[0]
+# ----------------------------------------------------tessaract
+# using east_get_text_locations function
 
 def find_sentences_tesseract(img):
     """
@@ -527,37 +509,38 @@ def find_sentences_tesseract(img):
     n_boxes = len(d['text'])
     for i in range(n_boxes):
         d['text'][i] = ''.join(filter(str.isalpha, d['text'][i]))
-        if (d['text'][i] != ''):  # check if the text is not empty
+        if d['text'][i] != '':  # check if the text is not empty
             word = d['text'][i]
 
     return word
 
-def translate_image_tess(image):
+
+def translate_image_tess(image, dest_language):
     """
     get image and return image withe the translate of the text in the image
     :param image: image of opencv2
+    :param dest_language: the language to translate the image to
     :return: image of opencv2
     """
     if image is None:
         return image, []
 
-    #get the location of text using east
+    # get the location of text using east
     image, thresh, locations = east_get_text_locations(image, 0.2)  # get the word locations in the image
 
     words = []
     indexs = []
 
-    #undestend the word text using tess
+    # understand the word text using tess
     for i, word_loc in enumerate(locations):
         (x, y, width, height) = word_loc
         word_img = image[y:y + height, x:x + width]  # get an image of just the word
 
         new_word = find_sentences_tesseract(word_img)
-        if (new_word != ""):
+        if new_word != "" and type(new_word) == str:
             words.append(new_word)
         else:
             indexs.append(i)
-
 
     for count, i  in enumerate(indexs):
         locations.pop(i - count)
@@ -569,13 +552,13 @@ def translate_image_tess(image):
     line_text = ''
     new_line = []
 
-    #splite the location and text to line
+    # split the location and text to line
     for i, location in enumerate(locations):
-        if not new_line: # check if it is the first item in list
+        if not new_line:  # check if it is the first item in list
             new_line.append(location)
             line_text += words[i] + " "
         else:
-            if (cmp_rect_same_lines(new_line[-1], location)): #check if in the smae line
+            if cmp_rect_same_lines(new_line[-1], location):  # check if they are in the same line
                 new_line.append(location)
                 line_text += words[i] + " "
             else:
@@ -583,18 +566,15 @@ def translate_image_tess(image):
                 new_line = []
                 new_line.append(location)
                 line_text = words[i] + " "
-        #Adding check on x scale
+        # Adding check on x scale
 
-        if (numpy.array_equal(locations[-1], location)): # it means the last word
+        if numpy.array_equal(locations[-1], location): # it means the last word
             lines_of_location[line_text] = new_line
 
-
-    #Translate the sentence
-    for  text_line in lines_of_location:
-        translate_sentence, right_left = Translate.googletrans_translate(text_line, 'he')
-        image = TextReplacement.place_text_in_locs(image, lines_of_location[text_line], translate_sentence, right_left)  # right_left)
-
-
-    # draw the sentence in the image
+    # Translate the sentence
+    for text_line in lines_of_location:
+        translate_sentence, right_left = Translate.googletrans_translate(text_line, dest_language)
+        # draw the sentence in the image
+        image = TextReplacement.place_text_in_locs(image, lines_of_location[text_line], translate_sentence, right_left)
 
     return image, locations
